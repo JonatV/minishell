@@ -1,0 +1,9 @@
+token.private
+.DS_Store
+.vscode
+*.o
+*.a
+minishell
+outfile
+out
+
