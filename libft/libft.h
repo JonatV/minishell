@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 13:24:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:09:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:28:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ int		ft_arraysize(char **array);
 int		ft_arrayfind(char **array, char *to_find);
 char	**ft_arrayndup(char **src, int n_max);
 void	ft_arrayprint(char **array, char *delimiter);
+void	ft_arraypop(char ***array);
 #endif
