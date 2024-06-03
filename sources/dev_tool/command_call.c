@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:42:01 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:21:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	dev_cmd_call(t_shell shell)
 	{
 		if (shell.buf[0] == 'e' && shell.buf[1] == 'n' && shell.buf[2] == 'v')
 		{
-			ft_lstdisplay(shell.env);
+			ft_arrayprint(shell.env, NULL);
 		}
 	}
 }

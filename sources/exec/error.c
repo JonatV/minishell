@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:49 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:06:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:20:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,11 @@
 #####################################################################
 */
 
-static void	ft_lstfree(t_list *head)
-{
-	t_list	*tmp;
-
-	while (head != NULL)
-	{
-		tmp = head;
-		head = head->next;
-		if (tmp->content)
-			free(tmp->content);
-		free(tmp);
-	}
-}
-
 /*
 	- ✅ pipefds in pipes.c 
 	- ✅ prompt msg
-	- ✅ env list
-		- ✅ content in the t_list -> content
-		- ✅ malloc from each node of env list
+	- ✅ env array
+		- ✅ content in the array
 	- ✅ array of the cmd parsed
 */
 static void	free_machine(t_shell *shell)
@@ -48,8 +33,8 @@ static void	free_machine(t_shell *shell)
 		free(shell->pipefds);
 	if (shell->prompt_msg != NULL)
 		free(shell->prompt_msg);
-	if (shell->env != NULL)
-		ft_lstfree(shell->env);
+	// if (shell->env != NULL)
+	ft_arrayfree(shell->env);
 	if (shell->cmd_array)
 		free(shell->cmd_array);
 }

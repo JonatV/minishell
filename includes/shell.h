@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:01:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:15:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_shell
 	int		cmd_number;
 	t_cmd	*cmd_array;		// malloc
 	int		*pipefds;		// malloc
-	t_list	*env;			// malloc + inside malloc
+	char	**env;			// malloc + inside malloc
 	char	*prompt_msg;	// malloc
 	char	*buf;			// malloc form readline, don't handle
 	int		exit_status;
@@ -67,7 +67,7 @@ typedef struct s_shell
 #####################################################################
 */
 /*----------------					PROMPT			---------------*/
-void	prompt_msg(t_shell *shell, t_shell copy);
+void	prompt_msg(t_shell *shell);
 
 /*----------------					MAIN			---------------*/
 void	shell_init(t_shell *shell, char **envp);
