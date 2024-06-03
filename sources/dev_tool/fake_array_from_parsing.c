@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:15:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,27 @@
 #																	#
 #####################################################################
 */
+
+// void	dup_env(t_list **list_env, char **envp, t_shell *shell)
+// {
+// 	int		i;
+// 	char	*temp;
+// 	t_list	*new_node;
+
+// 	temp = NULL;
+// 	i = 0;
+// 	while (envp[i] != NULL)
+// 	{
+// 		temp = ft_strdup(envp[i]);
+// 		if (!temp)
+// 			panic("Malloc dup_envp on ft_strdup", shell);
+// 		new_node = ft_lstnew(temp);
+// 		if (!new_node)
+// 			panic("Malloc dup_envp on new_node", shell);
+// 		ft_lstadd_back(list_env, new_node);
+// 		i++;
+// 	}
+// }
 
 void init_all_cmd(t_shell *shell)
 {
