@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 13:24:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:33:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:49:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstdisplay(t_list *list);
+void	ft_arrayfree(char **array);
+int		ft_arraysize(char **array);
+char	**ft_arrayndup(char **src, int n_max);
+void	ft_arrayprint(char **array, char *delimiter);
 #endif

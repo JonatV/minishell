@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:41:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:05:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #####################################################################
 */
 
-
 void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
@@ -33,10 +32,8 @@ void	shell_init(t_shell *shell, char **envp)
 	signals();
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	(void)	ac;
-	(void)	av;
 	t_shell	shell;
 
 	if (ac != 1 || av[1])

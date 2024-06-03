@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_arrayprint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 17:27:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:02:00 by jveirman         ###   ########.fr       */
+/*   Created: 2024/06/03 11:29:17 by jveirman          #+#    #+#             */
+/*   Updated: 2024/06/03 11:49:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/env.h"
+#include "libft.h"
 
-void	dup_env(t_list **list_env, char **envp, t_shell *shell)
+void	ft_arrayprint(char **array, char *delimiter)
 {
-	int		i;
-	char	*temp;
-	t_list	*new_node;
+	int	i;
 
-	temp = NULL;
 	i = 0;
-	while (envp[i] != NULL)
+	while (array[i])
 	{
-		temp = ft_strdup(envp[i]);
-		if (!temp)
-			panic("Malloc dup_envp on ft_strdup", shell);
-		new_node = ft_lstnew(temp);
-		if (!new_node)
-			panic("Malloc dup_envp on new_node", shell);
-		ft_lstadd_back(list_env, new_node);
+		ft_putstr(array[i]);
+		if (delimiter != NULL)
+			ft_putstr(delimiter);
+		else
+			ft_putchar_fd('\n', 1);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:49 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:25:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:06:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ static void	ft_lstfree(t_list *head)
 	}
 }
 
+/*
+	- ✅ pipefds in pipes.c 
+	- ✅ prompt msg
+	- ✅ env list
+		- ✅ content in the t_list -> content
+		- ✅ malloc from each node of env list
+	- ✅ array of the cmd parsed
+*/
 static void	free_machine(t_shell *shell)
 {
-	/*
-		- ✅ pipefds in pipes.c 
-		- ✅ prompt msg
-		- ✅ env list
-			- ✅ content in the t_list -> content
-			- ✅ malloc from each node of env list
-		- ✅ array of the cmd parsed
-	*/
 	if (shell->pipefds != NULL)
 		free(shell->pipefds);
 	if (shell->prompt_msg != NULL)
@@ -62,7 +62,7 @@ void	clean(char *str, t_shell *shell)
 	exit(EXIT_SUCCESS);
 }
 
-void panic(char *str, t_shell *shell)
+void	panic(char *str, t_shell *shell)
 {
 	ft_putstr(MSG_ERROR);
 	if (str)

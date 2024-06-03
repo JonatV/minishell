@@ -16,7 +16,8 @@ SRCS	= 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 			ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
 			ft_lstclear_bonus.c ft_lstiter_bonus.c \
 			ft_lstmap_bonus.c \
-			ft_putstr.c ft_lstdisplay.c
+			ft_putstr.c ft_lstdisplay.c \
+			ft_arrayprint.c ft_arrayndup.c ft_arraysize.c ft_arrayfree.c
 
 OBJS 	= 	${SRCS:.c=.o}
 RM 		= 	rm -f

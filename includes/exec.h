@@ -6,15 +6,14 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:32:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:11:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:00:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "shell.h"
+# include "shell.h"
 /*
 #####################################################################
 #							DEFINE									#
@@ -27,8 +26,8 @@
 #							STRUCTURE								#
 #####################################################################
 */
-typedef struct s_shell t_shell;
-typedef struct s_cmd t_cmd;
+typedef struct s_shell	t_shell;
+typedef struct s_cmd	t_cmd;
 
 /*
 #####################################################################

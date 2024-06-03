@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/05/28 17:22:30 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:04:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	forks_process(t_shell *shell, char **envp)
 {
-	int	i;
-	int	j;
-	pid_t pid;
+	int		i;
+	int		j;
+	pid_t	pid;
 
 	i = 0;
 	j = 0;

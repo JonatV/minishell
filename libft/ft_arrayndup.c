@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_arrayndup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 17:27:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:02:00 by jveirman         ###   ########.fr       */
+/*   Created: 2024/06/03 11:19:44 by jveirman          #+#    #+#             */
+/*   Updated: 2024/06/03 11:57:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/env.h"
+#include "libft.h"
 
-void	dup_env(t_list **list_env, char **envp, t_shell *shell)
+char	**ft_arrayndup(char **src, int n_max)
 {
 	int		i;
-	char	*temp;
-	t_list	*new_node;
+	char	**array_dup;
 
-	temp = NULL;
+	array_dup = NULL;
 	i = 0;
-	while (envp[i] != NULL)
+	array_dup = malloc(sizeof(char *) * (n_max + 1));
+	if (!array_dup)
+		return (NULL);
+	while (src[i] && i < n_max)
 	{
-		temp = ft_strdup(envp[i]);
-		if (!temp)
-			panic("Malloc dup_envp on ft_strdup", shell);
-		new_node = ft_lstnew(temp);
-		if (!new_node)
-			panic("Malloc dup_envp on new_node", shell);
-		ft_lstadd_back(list_env, new_node);
+		array_dup[i] = ft_strdup(src[i]);
+		if (!array_dup)
+		{
+			ft_arrayfree(array_dup);
+			return (NULL);
+		}
 		i++;
 	}
+	array_dup[i] = NULL;
+	return (array_dup);
 }
