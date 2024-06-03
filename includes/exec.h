@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:32:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:00:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:42:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	waiting_for_children(t_shell shell);
 
 /*----------------				ERROR				---------------*/
 void	fd_error(t_shell *shell, int i);
-void	panic(char *str, t_shell *shell);
-void	clean(char *str, t_shell *shell);
 
 /*----------------				DEV_TOOLS			---------------*/
 void	init_all_cmd(t_shell *shell);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:00:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:13:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:01:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	prompt_msg(t_shell *shell)
 	if (!user)
 		panic("Malloc prompt_msg", shell);
 	bracket_open = ft_strjoin("[\033[1;31m", user);
+	free(user);
 	if (!bracket_open)
 		panic("Malloc prompt_msg", shell);
 	bracket_close = ft_strjoin(bracket_open, "\033[0m] ");
+	free(bracket_open);
 	if (!bracket_close)
 		panic("Malloc prompt_msg", shell);
 	shell->prompt_msg = ft_strjoin(bracket_close, PROMPT_MSG);
-	free(user);
-	free(bracket_open);
 	free(bracket_close);
 	if (!shell->prompt_msg)
 		panic("Malloc prompt_msg", shell);
