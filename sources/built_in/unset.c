@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_call.c                                     :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:28:08 by jveirman         ###   ########.fr       */
+/*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
+/*   Updated: 2024/06/03 14:36:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/dev.h"
+#include "../../includes/built_in.h"
 
 static int	str_is_in_debut(char *str, char *to_find)
 {
@@ -26,21 +26,31 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
-void	dev_cmd_call(t_shell *shell)
+void	unset_array(t_shell *shell, char *to_remove)
 {
-	if (ft_strlen(shell->buf) >= 3)
+	char	**new_env;
+	int		i;
+	int		j;
+
+	if (!ft_arrayfind(shell->env, to_remove))
+		return ;
+	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
+	if (!new_env)
+		panic("Malloc in unset", shell);
+	i = 0;
+	j = 0;
+	while (shell->env[i])
 	{
-		if (shell->buf[0] == 'e' && shell->buf[1] == 'n' && shell->buf[2] == 'v')
+		if (str_is_in_debut(shell->env[i], to_remove))
 		{
-			ft_putendl_fd(DEV_COMMAND_START, 1);
-			ft_arrayprint(shell->env, NULL);
-			ft_putendl_fd(DEV_COMMAND_END, 0);
+			i++;
+			continue ;
 		}
-		else if (str_is_in_debut(shell->buf, "unset "))
-		{
-			ft_putendl_fd(DEV_COMMAND_START, 1);
-			unset_array(shell, shell->buf + 6);
-			ft_putendl_fd(DEV_COMMAND_END, 0);
-		}
+		new_env[j] = ft_strdup(shell->env[i]);
+		j++;
+		i++;
 	}
+	new_env[j] = NULL;
+	ft_arrayfree(shell->env);
+	shell->env = new_env;
 }

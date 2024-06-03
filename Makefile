@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/05/28 17:43:09 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/03 14:00:42 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_DEV_DIR			:=	$(SRC_DIR)/dev_tool
 SRC_EXEC_DIR	:=	$(SRC_DIR)/exec
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
-SRC_BUILT_DIR	:=	$(SRC_DIR)/built-in
+SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
 
 #-----------------				SOURCES				----------------#
 SRCS_DEV		=	$(SRC_DEV_DIR)/fake_array_from_parsing.c \
@@ -48,7 +48,9 @@ SRCS_EXEC		=	$(SRC_EXEC_DIR)/exec.c \
 					$(SRC_EXEC_DIR)/redirection.c \
 					$(SRC_EXEC_DIR)/error.c
 SRCS_SIGNAL		=	$(SRC_SIGNAL_DIR)/listener.c
-SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c
+SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
+					$(SRC_BUILT_DIR)/unset.c \
+					$(SRC_BUILT_DIR)/utils.c
 
 #-----------------				OBJECTS				----------------#
 # OBJS_FRONTEND	=	$(SRCS_FRONTEND:%.c=$(BUILD_DIR)/%.o)

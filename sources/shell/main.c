@@ -6,13 +6,14 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:15:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:41:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 #include "../../includes/exec.h"
 #include "../../includes/signal.h"
+#include "../../includes/built_in.h"
 
 /*
 #####################################################################
@@ -51,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 			signal_eof(&shell);
 		}
 		add_history(shell.buf);
-		dev_cmd_call(shell);
+		dev_cmd_call(&shell); // dev
 		free(shell.buf);
 	}
 	shell_executor(&shell, envp);

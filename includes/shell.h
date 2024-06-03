@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:15:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:18:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # include "exec.h"
 # include "signal.h"
-# include "env.h"
+# include "built_in.h"
 
 /*
 #####################################################################
@@ -73,6 +73,6 @@ void	prompt_msg(t_shell *shell);
 void	shell_init(t_shell *shell, char **envp);
 
 /*----------------				DEV_TOOLS			---------------*/
-void	dev_cmd_call(t_shell shell);
+void	dev_cmd_call(t_shell *shell);
 
 #endif
