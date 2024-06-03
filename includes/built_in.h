@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:54:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:55:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ typedef struct s_cmd	t_cmd;
 /*----------------				ENV					---------------*/
 
 /*----------------				UNSET				---------------*/
-void	unset_array(t_shell *shell, char *to_remove);
+void	builtin_unset(t_shell *shell, char *to_remove);
 
 /*----------------				EXPORT				---------------*/
+void	builtin_export(t_shell *shell);
 
 /*----------------				UTILS				---------------*/
 int	is_builtin(char *to_find);

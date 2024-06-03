@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:36:12 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:55:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
-void	unset_array(t_shell *shell, char *to_remove)
+void	builtin_unset(t_shell *shell, char *to_remove)
 {
 	char	**new_env;
 	int		i;
