@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 11:30:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:30:10 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 
 void	dev_cmd_call(t_shell *shell)
 {
-	if (ft_strlen(shell->buf) >= 3)
+	if (ft_strlen(shell->buf) >= 2)
 	{
 		if (shell->buf[0] == 'e' && shell->buf[1] == 'n' && shell->buf[2] == 'v')
 		{
@@ -52,6 +52,12 @@ void	dev_cmd_call(t_shell *shell)
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
 			builtin_pwd(shell);
+			ft_putendl_fd(DEV_COMMAND_END, 0);
+		}
+		else if (str_is_in_debut(shell->buf, "cd"))
+		{
+			ft_putendl_fd(DEV_COMMAND_START, 1);
+			builtin_chdir(shell, shell->buf + ft_strlen("cd ")); // wip: shell buf is temporary
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
 	}
