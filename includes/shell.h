@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 16:43:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:21:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_shell
 	int		*pipefds;		// malloc
 	char	**env;			// malloc + inside malloc
 	char	*prompt_msg;	// malloc
-	char	*buf;			// malloc form readline, don't handle
+	char	*buf;			// malloc from readline, don't handle
 	int		exit_status;
 }	t_shell;
 

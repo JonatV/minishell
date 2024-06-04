@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 13:30:10 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:26:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	dev_cmd_call(t_shell *shell)
 		else if (str_is_in_debut(shell->buf, "cd"))
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
-			builtin_chdir(shell, shell->buf + ft_strlen("cd ")); // wip: shell buf is temporary
+			builtin_chdir(shell, shell->buf + ft_strlen("cd")); // wip: shell buf is temporary
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
 	}

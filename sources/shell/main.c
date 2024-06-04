@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 16:48:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:22:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,37 @@ void	shell_init(t_shell *shell, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
-
-	if (ac != 1 || av[1])
-	{
-		panic("This program does not accept arguments", NULL);
-	}
+	(void)ac;
 	shell_init(&shell, envp);
-	while (1)
-	{
-		shell.buf = readline(shell.prompt_msg);
-		if (!shell.buf)
-		{
-			free(shell.buf);
-			break ;
-			signal_eof(&shell);
-		}
-		add_history(shell.buf);
-		dev_cmd_call(&shell); // dev
-		free(shell.buf);
-	}
+	shell.buf = ft_strdup(av[1]);
+	dev_cmd_call(&shell); // dev
+	free(shell.buf);
 	shell_executor(&shell, envp);
 	clean("Bye", &shell);
 }
+
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_shell	shell;
+
+// 	if (ac != 1 || av[1])
+// 	{
+// 		panic("This program does not accept arguments", NULL);
+// 	}
+// 	shell_init(&shell, envp);
+// 	while (1)
+// 	{
+// 		shell.buf = readline(shell.prompt_msg);
+// 		if (!shell.buf)
+// 		{
+// 			free(shell.buf);
+// 			break ;
+// 			signal_eof(&shell);
+// 		}
+// 		add_history(shell.buf);
+// 		dev_cmd_call(&shell); // dev
+// 		free(shell.buf);
+// 	}
+// 	shell_executor(&shell, envp);
+// 	clean("Bye", &shell);
+// }

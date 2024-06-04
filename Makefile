@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/04 12:29:05 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/04 15:19:14 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME			=	minishell
 #-----------------				COMPILING			----------------#
 CC				=	cc
 OUT				=	-o $(NAME)
-CFLAGS			=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include
+CFLAGS			=	-Wall -Wextra -Werror -I./includes
 CFLAGS_DEV		=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include -fsanitize=address -g
 LDFLAGS			=	-L ~/.brew/opt/readline/lib -lreadline
 
