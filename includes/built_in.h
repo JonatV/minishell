@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:55:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:28:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct s_cmd	t_cmd;
 */
 
 /*----------------				ENV					---------------*/
+
+/*----------------				PWD					---------------*/
+void	builtin_pwd(t_shell *shell);
 
 /*----------------				UNSET				---------------*/
 void	builtin_unset(t_shell *shell, char *to_remove);

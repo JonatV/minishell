@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:56:40 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:30:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	dev_cmd_call(t_shell *shell)
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
 			builtin_export(shell);
+			ft_putendl_fd(DEV_COMMAND_END, 0);
+		}
+		else if (str_is_in_debut(shell->buf, "pwd"))
+		{
+			ft_putendl_fd(DEV_COMMAND_START, 1);
+			builtin_pwd(shell);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
 	}

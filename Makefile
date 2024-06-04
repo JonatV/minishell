@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/03 16:43:52 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/04 11:29:06 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ SRCS_SIGNAL		=	$(SRC_SIGNAL_DIR)/listener.c
 SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/unset.c \
 					$(SRC_BUILT_DIR)/utils.c \
-					$(SRC_BUILT_DIR)/export.c 
+					$(SRC_BUILT_DIR)/export.c \
+					$(SRC_BUILT_DIR)/pwd.c 
 
 #-----------------				OBJECTS				----------------#
 # OBJS_FRONTEND	=	$(SRCS_FRONTEND:%.c=$(BUILD_DIR)/%.o)
