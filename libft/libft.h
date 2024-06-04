@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 13:24:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 18:28:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:14:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,7 @@ int		ft_arrayfind(char **array, char *to_find);
 char	**ft_arrayndup(char **src, int n_max);
 void	ft_arrayprint(char **array, char *delimiter);
 void	ft_arraypop(char ***array);
+void	ft_arrayunshift(char ***array, char *to_add);
+void	ft_arrayshift(char ***array);
+void	ft_arraypush(char ***array, char *to_add);
 #endif
