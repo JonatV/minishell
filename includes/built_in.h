@@ -48,10 +48,11 @@ void	builtin_pwd(t_shell *shell);
 void	builtin_unset(t_shell *shell, char *to_remove);
 
 /*----------------				EXPORT				---------------*/
-void	builtin_export(t_shell *shell);
+void	builtin_export(t_shell *shell, int i);
 int		check_var_name(char *str);
 char	*ft_extract(char *str, char target);
 void	print_export(char **array);
+void	update_export(t_shell *shell, char *str); // dev
 
 /*----------------				UTILS				---------------*/
 int		is_builtin(char *to_find);

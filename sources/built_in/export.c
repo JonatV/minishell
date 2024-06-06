@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 11:57:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:17:50 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,16 @@ static void	add_var_full(t_shell *shell, char *var_name, char *str)
 		ft_arraypush(&(shell->env), ft_strjoin(var_name, "="));
 }
 
-void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
+static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 {
 	if (var_exist == -1)
 		ft_arraypush(&(shell->env), var_name);
 }
 
 /*
-* TODO: create the check_var_name function
+* TODO:
+*	- create the check_var_name function
+*	- make a loop if there's more than 1 arg
 */
 void	update_export(t_shell *shell, char *str)
 {
@@ -63,13 +65,21 @@ void	update_export(t_shell *shell, char *str)
 	free(var_name);
 }
 
-void	builtin_export(t_shell *shell)
+void	builtin_export(t_shell *shell, int i)
 {
-	char	*dev_buf;
+	int	data_size;
+	int	j;
 
-	dev_buf = shell->buf + ft_strlen("export");
-	if (!(dev_buf[0]))
-		print_export(shell->env);
+	data_size = ft_arraysize(shell->cmd_array[i].data);
+	if (data_size > 1)
+	{
+		j = 0;
+		while (shell->cmd_array[i].data[j + 1])
+		{
+			update_export(shell, shell->cmd_array[i].data[j + 1]);
+			j++;
+		}
+	}
 	else
-		update_export(shell, dev_buf + 1);
+		print_export(shell->env);
 }
