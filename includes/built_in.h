@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 12:00:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:44:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 #							DEFINE									#
 #####################################################################
 */
-
+# define BUILT_IN_COMMANDS { "pwd", "env", "exit", "echo", \
+"unset", "cd", "export", NULL }
+# define B_SIZE 8
 /*
 #####################################################################
 #							STRUCTURE								#
@@ -53,5 +55,6 @@ void	print_export(char **array);
 
 /*----------------				UTILS				---------------*/
 int		is_builtin(char *to_find);
+void	select_builtin(t_shell *shell, int i, int built_in_index);
 
 #endif

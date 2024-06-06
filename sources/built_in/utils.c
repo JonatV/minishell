@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:08:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:36:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,39 @@
 int	is_builtin(char *to_find)
 {
 	int					i;
-	const char *const	built_in[8] = {"echo", "env", "export", "unset", \
-	"exit", "cd", "pwd", NULL};
+	const char *const	built_in[B_SIZE] = BUILT_IN_COMMANDS;
 
-	i = -1;
-	ft_arrayfind((char **)built_in, to_find);
+	i = ft_arrayfind((char **)built_in, to_find);
 	return (i);
+}
+
+/*
+* TODO:
+*	- ✅pwd
+*	- ✅chdir
+*	- ✅unset
+*	- ✅export
+*	- env
+*	- echo
+*	- exit
+*/
+void	select_builtin(t_shell *shell, int i, int built_in_index)
+{
+	if (built_in_index == 0)
+		builtin_pwd(shell);
+	else if (built_in_index == 1)
+		return ;
+		// builtin_env();
+	else if (built_in_index == 2)
+		return ;
+		// builtin_exit();
+	else if (built_in_index == 3)
+		return ;
+		// builtin_echo();
+	else if (built_in_index == 4)
+		builtin_unset(shell, shell->cmd_array[i].data[1]);
+	else if (built_in_index == 5)
+		builtin_chdir(shell, shell->cmd_array[i].data[1]);
+	else if (built_in_index == 6)
+		builtin_export(shell, i);
 }
