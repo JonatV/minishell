@@ -6,12 +6,18 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:07:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 13:08:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:44:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/*
+* TODO:
+*	- Check if it will still work if we make it exactly matching the word.
+*		I have an issue because if I have {enter, env}, 
+*		it will return pos of enter if i ask for "en"
+*		This shows an inaccuracy issue.
+*/
 static int	str_is_in_debut(char *str, char *to_find)
 {
 	int	i;
