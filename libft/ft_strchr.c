@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jveirman <jveirman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:58:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/03/05 10:47:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:00:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_strchr(const char *str, int only)
 	while (*str != '\0' && (char)only != *str)
 		str++;
 	if (*str == (char)only)
-	{
 		return ((char *)str);
-	}
 	return (0);
 }

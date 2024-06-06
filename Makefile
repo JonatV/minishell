@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/04 12:29:05 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/06 11:55:29 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/unset.c \
 					$(SRC_BUILT_DIR)/utils.c \
 					$(SRC_BUILT_DIR)/export.c \
+					$(SRC_BUILT_DIR)/export_utils.c \
 					$(SRC_BUILT_DIR)/pwd.c \
 					$(SRC_BUILT_DIR)/chdir.c 
 
@@ -94,7 +95,7 @@ $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 #-----------------			BUILD THE MINISHELL		----------------#
 $(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_SIGNAL) $(OBJS_BUILT)
 	make all -C libft
-	$(CC) $(CFLAGS) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
