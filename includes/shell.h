@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 16:43:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:29:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_cmd
 {
 	int		fd_in;
 	int		fd_out;
-	char	*data[3];
+	char	*data[6];
 	char	*path;
 }	t_cmd;
 

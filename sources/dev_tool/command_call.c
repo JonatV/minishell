@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 13:30:10 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:29:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/dev.h"
 
-static int	str_is_in_debut(char *str, char *to_find)
+static int	dev_str_is_in_debut(char *str, char *to_find)
 {
 	int	i;
 
@@ -26,6 +26,17 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
+static void	dev_builtin_export(t_shell *shell)
+{
+	char	*dev_buf;
+
+	dev_buf = shell->buf + ft_strlen("export");
+	if (!(dev_buf[0]))
+		print_export(shell->env);
+	else
+		update_export(shell, dev_buf + 1);
+}
+
 void	dev_cmd_call(t_shell *shell)
 {
 	if (ft_strlen(shell->buf) >= 2)
@@ -36,25 +47,25 @@ void	dev_cmd_call(t_shell *shell)
 			ft_arrayprint(shell->env, NULL);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
-		else if (str_is_in_debut(shell->buf, "unset "))
+		else if (dev_str_is_in_debut(shell->buf, "unset "))
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
 			builtin_unset(shell, shell->buf + 6);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
-		else if (str_is_in_debut(shell->buf, "export"))
+		else if (dev_str_is_in_debut(shell->buf, "export"))
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
-			builtin_export(shell);
+			dev_builtin_export(shell);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
-		else if (str_is_in_debut(shell->buf, "pwd"))
+		else if (dev_str_is_in_debut(shell->buf, "pwd"))
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
 			builtin_pwd(shell);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
-		else if (str_is_in_debut(shell->buf, "cd"))
+		else if (dev_str_is_in_debut(shell->buf, "cd"))
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
 			builtin_chdir(shell, shell->buf + ft_strlen("cd ")); // wip: shell buf is temporary
