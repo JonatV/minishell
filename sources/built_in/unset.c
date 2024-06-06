@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 14:55:55 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:45:38 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 	{
 		i++;
 	}
-	if (to_find[i] == '\0')
+	if (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='))
 		return (1);
 	return (0);
 }
