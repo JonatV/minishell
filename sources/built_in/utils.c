@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 14:36:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:04:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 	if (built_in_index == 0)
 		builtin_pwd(shell);
 	else if (built_in_index == 1)
-		return ;
-		// builtin_env();
+		builtin_env(shell);
 	else if (built_in_index == 2)
 		return ;
 		// builtin_exit();

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 13:29:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:06:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	dev_cmd_call(t_shell *shell)
 		if (shell->buf[0] == 'e' && shell->buf[1] == 'n' && shell->buf[2] == 'v')
 		{
 			ft_putendl_fd(DEV_COMMAND_START, 1);
-			ft_arrayprint(shell->env, NULL);
+			builtin_env(shell);
 			ft_putendl_fd(DEV_COMMAND_END, 0);
 		}
 		else if (dev_str_is_in_debut(shell->buf, "unset "))

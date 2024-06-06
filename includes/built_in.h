@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 14:44:02 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:03:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_cmd	t_cmd;
 */
 
 /*----------------				ENV					---------------*/
+void	builtin_env(t_shell *shell);
 
 /*----------------				CHDIR					---------------*/
 int		builtin_chdir(t_shell *shell, char *destination);
