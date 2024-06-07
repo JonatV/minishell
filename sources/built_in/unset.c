@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 11:45:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 10:25:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	builtin_unset(t_shell *shell, char *to_remove)
 	char	**new_env;
 	int		i;
 	int		j;
-
+	if (ft_strchr(to_remove, '='))
+		return ;
 	if (!ft_arrayfind(shell->env, to_remove))
 		return ;
 	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
@@ -46,9 +47,7 @@ void	builtin_unset(t_shell *shell, char *to_remove)
 			i++;
 			continue ;
 		}
-		new_env[j] = ft_strdup(shell->env[i]);
-		j++;
-		i++;
+		new_env[j++] = ft_strdup(shell->env[i++]);
 	}
 	new_env[j] = NULL;
 	ft_arrayfree(shell->env);
