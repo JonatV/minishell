@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 15:09:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:03:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,7 @@ void	builtin_env(t_shell *shell)
 			ft_putendl_fd(array[i], 1);
 		i++;
 	}
+	ft_putstr_fd("_=", 1);
+	ft_putstr_fd(shell->last_arg, 1);
+	ft_putendl_fd("", 1);
 }
