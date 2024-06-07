@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 15:49:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:43:34 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
 	init_all_cmd(shell);
-	shell->env = ft_arrayndup(envp, ft_arraysize(envp));
-	if (!shell->env)
-		panic("Malloc dup env", shell);
+	init_env(shell, envp);
 	prompt_msg(shell);
 	signals();
 }

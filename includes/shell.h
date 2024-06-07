@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 13:29:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:56:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_cmd
 {
 	int		fd_in;
 	int		fd_out;
-	char	*data[6];
+	char	*data[3];
 	char	*path;
 }	t_cmd;
 
@@ -59,6 +59,7 @@ typedef struct s_shell
 	char	*prompt_msg;	// malloc
 	char	*buf;			// malloc form readline, don't handle
 	int		exit_status;
+	char	*last_arg;
 }	t_shell;
 
 /*
@@ -66,10 +67,10 @@ typedef struct s_shell
 #						FUNCTIONS PROTOTYPE							#
 #####################################################################
 */
-/*----------------					PROMPT			---------------*/
+/*----------------				PROMPT				---------------*/
 void	prompt_msg(t_shell *shell);
 
-/*----------------					MAIN			---------------*/
+/*----------------				MAIN				---------------*/
 void	shell_init(t_shell *shell, char **envp);
 
 /*----------------				EXIT				---------------*/
@@ -78,5 +79,9 @@ void	clean(char *str, t_shell *shell);
 
 /*----------------				DEV_TOOLS			---------------*/
 void	dev_cmd_call(t_shell *shell);
+
+/*----------------				ENV					---------------*/
+void	update_var_lastarg(t_shell *shell);
+void	init_env(t_shell *shell, char **envp);
 
 #endif

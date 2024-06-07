@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/06 11:55:29 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/07 15:58:53 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRCS_DEV		=	$(SRC_DEV_DIR)/fake_array_from_parsing.c \
 					$(SRC_DEV_DIR)/command_call.c 
 SRCS_SHELL		=	$(SRC_SHELL_DIR)/main.c \
 					$(SRC_SHELL_DIR)/prompt.c \
-					$(SRC_SHELL_DIR)/exit.c
+					$(SRC_SHELL_DIR)/exit.c \
+					$(SRC_SHELL_DIR)/env_utils.c
 SRCS_EXEC		=	$(SRC_EXEC_DIR)/exec.c \
 					$(SRC_EXEC_DIR)/fork.c \
 					$(SRC_EXEC_DIR)/pipes.c \
