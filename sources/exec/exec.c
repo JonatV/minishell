@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 14:46:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:35:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #####################################################################
 */
 
-void	shell_executor(t_shell *shell, char **envp)
+void	shell_executor(t_shell *shell)
 {
 	int	num_pipes;
 
@@ -26,7 +26,7 @@ void	shell_executor(t_shell *shell, char **envp)
 	num_pipes = shell->cmd_number;
 	pipes_init(shell);
 	pipes_opening(shell);
-	forks_process(shell, envp);
+	forks_process(shell);
 	pipes_closing(shell);
 	waiting_for_children(*shell);
 }
@@ -35,7 +35,7 @@ void	shell_executor(t_shell *shell, char **envp)
 * TODO:
 *	- clean the exit(0) from builtin process
 */
-void	execution(int i, t_shell *shell, char **envp)
+void	execution(int i, t_shell *shell)
 {
 	int	built_in_index;
 
@@ -47,7 +47,7 @@ void	execution(int i, t_shell *shell, char **envp)
 	}
 	else
 	{
-		execve(shell->cmd_array[i].path, shell->cmd_array[i].data, envp);
+		execve(shell->cmd_array[i].path, shell->cmd_array[i].data, shell->env);
 		panic("Execve failed", shell);
 	}
 }

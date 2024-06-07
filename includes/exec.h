@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:32:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 16:42:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:35:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_cmd	t_cmd;
 */
 
 /*----------------				EXECUTE				---------------*/
-void	shell_executor(t_shell *shell, char **envp);
-void	execution(int i, t_shell *shell, char **envp);
+void	shell_executor(t_shell *shell);
+void	execution(int i, t_shell *shell);
 
 /*----------------				PIPES				---------------*/
 void	pipes_init(t_shell *shell);
@@ -49,7 +49,7 @@ void	fd_in_management(int i, int j, t_shell shell);
 void	fd_out_management(int i, int j, t_shell shell);
 
 /*----------------				FORK				---------------*/
-void	forks_process(t_shell *shell, char **envp);
+void	forks_process(t_shell *shell);
 void	waiting_for_children(t_shell shell);
 
 /*----------------				ERROR				---------------*/

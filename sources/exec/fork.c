@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 12:04:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:34:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	forks_process(t_shell *shell, char **envp)
+void	forks_process(t_shell *shell)
 {
 	int		i;
 	int		j;
@@ -29,7 +29,7 @@ void	forks_process(t_shell *shell, char **envp)
 			fd_in_management(i, j, *shell);
 			fd_out_management(i, j, *shell);
 			pipes_closing(shell);
-			execution(i, shell, envp);
+			execution(i, shell);
 		}
 		else if (pid < 0)
 			panic("Fork", shell);
