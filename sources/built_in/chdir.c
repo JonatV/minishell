@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 14:08:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:31:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	pwd_management(t_shell *shell, char *pwd)
 	char	*temp;
 	int		pwd_pos;
 
-	pwd_pos = ft_arrayfind(shell->env, "PWD=");
+	pwd_pos = ft_arrayfind(shell->env, "PWD");
 	temp = ft_strjoin("PWD=", pwd);
 	if (!temp)
 		panic("Malloc for pwd", shell);
@@ -35,7 +35,7 @@ static void	oldpwd_management(t_shell *shell, char *oldpwd)
 	char	*temp;
 	int		oldpwd_pos;
 
-	oldpwd_pos = ft_arrayfind(shell->env, "OLDPWD=");
+	oldpwd_pos = ft_arrayfind(shell->env, "OLDPWD");
 	temp = ft_strjoin("OLDPWD=", oldpwd);
 	if (!temp)
 		panic("Malloc for oldpwd", shell);

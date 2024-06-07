@@ -6,17 +6,16 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:07:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 14:44:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:55:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 /*
-* TODO:
-*	- Check if it will still work if we make it exactly matching the word.
-*		I have an issue because if I have {enter, env}, 
-*		it will return pos of enter if i ask for "en"
-*		This shows an inaccuracy issue.
+* INFO:
+*	This version is analysing for str[i] == '=', this is
+*	for the minishell env variable.
 */
 static int	str_is_in_debut(char *str, char *to_find)
 {
@@ -24,10 +23,8 @@ static int	str_is_in_debut(char *str, char *to_find)
 
 	i = 0;
 	while (str[i] == to_find[i] && str[i] != '\0' && to_find[i] != '\0')
-	{
 		i++;
-	}
-	if (to_find[i] == '\0')
+	if (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='))
 		return (1);
 	return (0);
 }

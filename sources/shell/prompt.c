@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:00:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 18:01:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:31:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	prompt_msg(t_shell *shell)
 	char	*user;
 	char	*bracket_close;
 
-	user = shell->env[ft_arrayfind(shell->env, "USER=")];
+	user = shell->env[ft_arrayfind(shell->env, "USER")];
 	user = ft_substr(user, 5, 15);
 	if (!user)
 		panic("Malloc prompt_msg", shell);
