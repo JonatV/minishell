@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:04:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:04:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_builtin(char *to_find)
 *	- ✅chdir
 *	- ✅unset
 *	- ✅export
-*	- ✅env
+*	- env
 *	- echo
 *	- exit
 */
