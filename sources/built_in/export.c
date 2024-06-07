@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 14:17:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:04:22 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 /*
 * TODO:
 *	- create the check_var_name function
-*	- make a loop if there's more than 1 arg
 */
 void	update_export(t_shell *shell, char *str)
 {
