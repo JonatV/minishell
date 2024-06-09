@@ -19,7 +19,7 @@ SRCS	= 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 			ft_putstr.c ft_lstdisplay.c ft_lstfree.c \
 			ft_arrayprint.c ft_arrayndup.c ft_arraysize.c ft_arrayfree.c \
 			ft_arrayfind.c ft_arraypop.c ft_arraypush.c ft_arrayshift.c \
-			ft_arrayunshift.c
+			ft_arrayunshift.c ft_isspace.c
 
 OBJS 	= 	${SRCS:.c=.o}
 RM 		= 	rm -f
