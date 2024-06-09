@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/07 15:58:53 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/09 21:16:02 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ BUILD_DIR		:=	./build
 SRC_DIR			:=	./sources
 SRC_DEV_DIR			:=	$(SRC_DIR)/dev_tool
 SRC_EXEC_DIR	:=	$(SRC_DIR)/exec
+SRC_EXPAND_DIR	:=	$(SRC_DIR)/expander
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
 SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
@@ -44,6 +45,7 @@ SRCS_SHELL		=	$(SRC_SHELL_DIR)/main.c \
 					$(SRC_SHELL_DIR)/prompt.c \
 					$(SRC_SHELL_DIR)/exit.c \
 					$(SRC_SHELL_DIR)/env_utils.c
+SRCS_EXPAND		=	$(SRC_EXPAND_DIR)/expander.c
 SRCS_EXEC		=	$(SRC_EXEC_DIR)/exec.c \
 					$(SRC_EXEC_DIR)/fork.c \
 					$(SRC_EXEC_DIR)/pipes.c \
@@ -63,6 +65,7 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 # OBJS_EXEC	=	$(SRCS_EXEC:%.c=$(BUILD_DIR)/%.o)
 OBJS_DEV		=	$(patsubst $(SRC_DEV_DIR)/%.c, $(BUILD_DIR)/dev_%.o, $(SRCS_DEV))
 OBJS_EXEC	=	$(patsubst $(SRC_EXEC_DIR)/%.c, $(BUILD_DIR)/exec_%.o, $(SRCS_EXEC))
+OBJS_EXPAND	=	$(patsubst $(SRC_EXPAND_DIR)/%.c, $(BUILD_DIR)/expand_%.o, $(SRCS_EXPAND))
 OBJS_SHELL	=	$(patsubst $(SRC_SHELL_DIR)/%.c, $(BUILD_DIR)/shell_%.o, $(SRCS_SHELL))
 OBJS_SIGNAL	=	$(patsubst $(SRC_SIGNAL_DIR)/%.c, $(BUILD_DIR)/signal_%.o, $(SRCS_SIGNAL))
 OBJS_BUILT	=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/built_in_%.o, $(SRCS_BUILT))
@@ -87,6 +90,9 @@ $(BUILD_DIR)/shell_%.o: $(SRC_SHELL_DIR)/%.c
 $(BUILD_DIR)/exec_%.o: $(SRC_EXEC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(BUILD_DIR)/expand_%.o: $(SRC_EXPAND_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 $(BUILD_DIR)/signal_%.o: $(SRC_SIGNAL_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -94,9 +100,9 @@ $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 #-----------------			BUILD THE MINISHELL		----------------#
-$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_SIGNAL) $(OBJS_BUILT)
+$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
