@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 14:56:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:56:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@
 
 # define DEFAULT_FD -2
 # define PROMPT_MSG "\033[1;36mMinishell \033[32m$ \033[0m"
+
+/*----------------				STATUSES CODE				---------------*/
+# define SUCCESS		0
+# define GEN_ERROR		1
+# define MISUSE			2
+# define NOT_EXEC		126
+# define NOT_FOUND		127
+# define INV_ARGUMENT	128
+# define END_CTRL_C		130
 
 /*
 #####################################################################
