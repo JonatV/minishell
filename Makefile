@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/09 21:16:02 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/09 22:15:33 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,10 @@ RM				=	rm -rf
 
 #-----------------				ASSETS				----------------#
 LIBFT			=	./libft/libft.a
+
+#-----------------				DEPENDENCIES		----------------#
+MKFILES			=	art.mk
+include				$(MKFILES)
 
 #-----------------				DIRECTORIES			----------------#
 BUILD_DIR		:=	./build
@@ -115,7 +119,7 @@ create_dir:	## Build the directory that will gather .o files
 
 #-----------------				ART/LOADING			----------------#
 art:	## ASCII art for minishell
-	echo "--MINISHELL--"
+	echo $(ART_AFTER_COMPILE)
 
 #-----------------				COMMANDS			----------------#
 clean:	## Remove all the .o files from build directory (build include)
