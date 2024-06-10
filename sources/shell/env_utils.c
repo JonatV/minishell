@@ -6,12 +6,17 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:00:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:09:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
+/*
+* INFO:
+*	find the last arg of the last command
+*	and replace the previous shell->last_arg ($_)
+*	with this last arg.
+*/
 void	update_var_lastarg(t_shell *shell)
 {
 	int	data_end;
@@ -25,6 +30,13 @@ void	update_var_lastarg(t_shell *shell)
 	shell->last_arg = ft_strdup(shell->cmd_array[cmd_end].data[data_end - 1]);
 }
 
+/*
+* INFO:
+*	function to init the minishell env by copying the envp.
+*	The var &_ is appart from the shell->env array
+*	so it unset this var from the env and place it
+*	in the shell->last_arg variable.
+*/
 void	init_env(t_shell *shell, char **envp)
 {
 	int	pos;
@@ -38,6 +50,5 @@ void	init_env(t_shell *shell, char **envp)
 	len = ft_strlen(shell->env[pos]);
 	skip = 2;
 	shell->last_arg = ft_substr(shell->env[pos], skip, len - skip);
-	printf("first init last arg [%s]\n", shell->last_arg);
 	builtin_unset(shell, "_");
 }
