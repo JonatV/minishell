@@ -29,9 +29,19 @@ RED		=	\033[0;31m
 SUCCESS	=	\033[30;42;1m
 END		=	\033[0m
 
+TOT 	:= $(words $(SRCS))
+C_FILE	:= 0
+
+define progress_bar_libft
+	@$(eval C_FILE=$(shell echo $$(($(C_FILE) + 1))))
+	@printf "\rLibft[%-$(TOT)s]" $$(for i in $$(seq 1 $(C_FILE)); do printf "#"; done)
+	@if [ $(C_FILE) -eq $(TOT) ]; then echo "Finish\n"; fi
+endef
+
 .PHONY 	:	all clean fclean re loading
 .c.o	:
 			@${CC} ${CFLAGS} -c $< -o $@
+# $(call progress_bar_libft)
 
 all 	:	${NAME}
 
@@ -45,82 +55,3 @@ clean 	:
 fclean 	: 	clean
 			@${RM} ${NAME} ${bonus}
 re		: 	fclean all
-
-loading	:
-			@echo "Start compiling libft"
-			@sleep 0.1
-			@echo "Compiling libft"
-			@echo "[${RED}░░░░░░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}▒░░░░░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}█▒░░░░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}██▒░░░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}███▒░░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}████▒░░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}█████▒░░░░░░░░░░░${END}]"
-			@sleep 0.1
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}██████▒░░░░░░░░░░${END}]"
-			@sleep 0.5
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}███████▒░░░░░░░░░${END}]"
-			@sleep 0.23
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}████████▒░░░░░░░░${END}]"
-			@sleep 0.03
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}█████████▒░░░░░░░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}██████████▒░░░░░░${END}]"
-			@sleep 0.09
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}███████████▒░░░░░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}████████████▒░░░░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}█████████████▒░░░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}██████████████▒░░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}███████████████▒░${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Compiling libft"
-			@echo "[${RED}████████████████▒${END}]"
-			@sleep 0.05
-			@clear
-			@echo "Finish compiling libft"
-			@echo "[${SUCCESS}    LIBFT ok     ${END}]"
-			@sleep 0.5
