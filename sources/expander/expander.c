@@ -50,23 +50,23 @@ static int	replace_dollar(char **array, int start, int end, char **str)
 
 	var_name = ft_substr(*str + start + 1, 0, end - 1);
 	if (!var_name)
-		return (0); // wip
+		return (0);
 	pos = ft_arrayfind(array, var_name);
 	if (pos == -1)
 	{
 		free(var_name);
-		return (0); // wip
+		return (0);
 	}
 	segments[0] = ft_substr(*str, 0, start);
 	segments[1] = ft_substr(array[pos], ft_strlen(var_name) + 1, ft_strlen(array[pos]));
 	segments[2] = ft_substr(*str, start + end, ft_strlen(*str));
 	free(var_name);
 	if (!segments[0] || !segments[1] || !segments[2])
-		return (free_all_segments(segments)); // wip
+		return (free_all_segments(segments));
 	return (assemble_all_segments(segments, str));
 }
 
-static void	replace_var_manager(int *i, char **str, char **array)
+static int	replace_var_manager(int *i, char **str, char **array)
 {
 	int	start;
 	int	end;
@@ -82,12 +82,13 @@ static void	replace_var_manager(int *i, char **str, char **array)
 				j++;
 			end = j;
 			if (replace_dollar(array, start, end, str) == 0)
-				exit(1); // wip: error management
+				return (0);
 			*i = -1;
 			break ;
 		}
 		j++;
 	}
+	return (1);
 }
 
 /*
@@ -97,7 +98,7 @@ static void	replace_var_manager(int *i, char **str, char **array)
 *	It replaces each variable name in the string 
 *	with its corresponding value from the array."
 */
-void	expander(char **array, char **str)
+int	expander(char **array, char **str)
 {
 	int	i;
 
@@ -105,9 +106,11 @@ void	expander(char **array, char **str)
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '$')
-			replace_var_manager(&i, str, array);
+			if (!replace_var_manager(&i, str, array))
+				return (0);
 		i++;
 	}
+	return (1);
 }
 /*
 
@@ -128,7 +131,9 @@ int	main(void)
 	array[4] = NULL;
 	content = "THX $USER bye $END mais la dinguerie_$TUTUTUTU$ST";
 	str = ft_strdup(content);
-	expander(array, &str);
+	if (expander(array, &str) == 0)
+		printf("The expander failed.\n");
+	else
 	printf("END RESULT [%s]\n", str);
 	i = 0;
 	while (array[i])
