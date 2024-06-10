@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/09 21:31:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:51:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,14 @@ static void	replace_var_manager(int *i, char **str, char **array)
 	}
 }
 
-void	expander(t_shell *shell, char **str)
+/*
+* INFO:
+*	This function processes an array, similar to the environment array,
+*	and a string containing one or more variable names ($var_name). 
+*	It replaces each variable name in the string 
+*	with its corresponding value from the array."
+*/
+void	expander(char **array, char **str)
 {
 	int	i;
 
@@ -98,7 +105,7 @@ void	expander(t_shell *shell, char **str)
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '$')
-			replace_var_manager(&i, str, shell->env);
+			replace_var_manager(&i, str, array);
 		i++;
 	}
 }
@@ -122,6 +129,8 @@ int	main(void)
 	content = "THX $USER bye $END mais la dinguerie_$TUTUTUTU$ST";
 	str = ft_strdup(content);
 	expander(array, &str);
+	printf("END RESULT [%s]\n", str);
+	i = 0;
 	while (array[i])
 		free(array[i++]);
 	free(array);
