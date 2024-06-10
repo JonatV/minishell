@@ -6,10 +6,9 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:16:19 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/10 09:48:49 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:46:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
@@ -29,6 +28,6 @@ typedef struct s_cmd	t_cmd;
 #						FUNCTIONS PROTOTYPE							#
 #####################################################################
 */
-void	expander(char **array, char **str);
+int	expander(char **array, char **str);
 
 #endif

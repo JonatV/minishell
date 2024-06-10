@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 13:54:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:50:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 // 	}
 // }
 
-void init_all_cmd(t_shell *shell)
+void	init_all_cmd(t_shell *shell)
 {
 	shell->cmd_number = 1;
 	shell->cmd_array = malloc(shell->cmd_number * (sizeof(t_cmd)));

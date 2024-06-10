@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 10:25:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:48:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	builtin_unset(t_shell *shell, char *to_remove)
 	char	**new_env;
 	int		i;
 	int		j;
+
 	if (ft_strchr(to_remove, '='))
 		return ;
 	if (!ft_arrayfind(shell->env, to_remove))
