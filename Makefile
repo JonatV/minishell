@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/09 22:15:33 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/10 11:54:30 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,7 +133,9 @@ fclean: clean ## Remove all .o files and the minishell binary
 re: fclean all ## Clean everything and recompile the project
 	
 help:	## Show the commands
-	grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) | \
+	awk 'BEGIN {FS = ":.*?## "}; {split($$0, parts, ":"); sub(/^ */, "", parts[2]); printf "\033[32m%-20s\033[0m %s\n", parts[2], $$2}' | \
+	sed -e 's/\[32m##/[33m/'
 
 how_to: ## Command to help you to add update to the makefile
 	echo "No information yet."
