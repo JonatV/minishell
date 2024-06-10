@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 13:25:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:54:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,30 @@ void init_all_cmd(t_shell *shell)
 	// Init. first command
 	shell->cmd_array[0].fd_in = DEFAULT_FD;
 	shell->cmd_array[0].fd_out = DEFAULT_FD;
-	shell->cmd_array[0].data[0] = "export";
-	shell->cmd_array[0].data[1] = "foo=bar";
-	shell->cmd_array[0].data[2] = "no_equal";
-	shell->cmd_array[0].data[3] = "no_value_only=";
-	shell->cmd_array[0].data[4] = "ITSHOULDWORK=yes";
-	shell->cmd_array[0].data[5] = NULL;
-	shell->cmd_array[0].path = NULL;
+	shell->cmd_array[0].data[0] = "ls";
+	shell->cmd_array[0].data[1] = "sources/built_in";
+	shell->cmd_array[0].data[2] = NULL;
+	shell->cmd_array[0].path = "/usr/bin/ls";
 }
+// void init_all_cmd(t_shell *shell)
+// {
+// 	shell->cmd_number = 1;
+// 	shell->cmd_array = malloc(shell->cmd_number * (sizeof(t_cmd)));
+// 	if (shell->cmd_array == NULL) {
+// 		perror("malloc");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	// Init. first command
+// 	shell->cmd_array[0].fd_in = DEFAULT_FD;
+// 	shell->cmd_array[0].fd_out = DEFAULT_FD;
+// 	shell->cmd_array[0].data[0] = "export";
+// 	shell->cmd_array[0].data[1] = "foo=bar";
+// 	shell->cmd_array[0].data[2] = "no_equal";
+// 	shell->cmd_array[0].data[3] = "no_value_only=";
+// 	shell->cmd_array[0].data[4] = "ITSHOULDWORK=yes";
+// 	shell->cmd_array[0].data[5] = NULL;
+// 	shell->cmd_array[0].path = NULL;
+// }
 
 // void init_all_cmd(t_shell *shell)
 // {
