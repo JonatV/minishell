@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/09 21:41:24 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/10 17:07:39 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/10 17:59:28 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,15 @@ GIT_LOG = $(shell git log -1 --pretty=format:%s)
 
 FORMATTED_LOG := $(shell \
     message="$(GIT_LOG)"; \
-    total_length=57; \
+    total_length=60; \
     message_length=$$(echo "$$message" | wc -c); \
+    if [ $$message_length -gt $$total_length ]; then \
+        message=$$(echo "$$message" | cut -c1-54)"..."; \
+    fi; \
     padding_length=$$((total_length - message_length)); \
     padding=$$(printf '%*s' $$padding_length ''); \
     printf '%s%s' "$$message" "$$padding" \
 )
-
-
-
 
 ART_AFTER_COMPILE := "\n\
 $(E)▄▄█$(M)█$(I)█$(M)███$(E)██$(T)                                           ▄██            ▄█▄ █▄   $(E)▄▄$(M)███$(I)█$(M)█$(E)███$(N)\n\
@@ -50,13 +50,13 @@ $(E)███$(M)█$(I)▄$(M)███$(E)█▀$(T)   █$(B) > Author       
 $(E)▀▀▀$(M)█$(I)█$(M)█▀▀$(E)▀▀$(T)   █               @jveirman             @mcygan               █   $(E)▀▀$(M)▀██$(I)█$(M)▀$(E)▀▀▀$(N)\n\
 $(E)███$(M)█$(I)█$(M)▄▄▄$(E)▄▄$(T)   █                                                           █   $(E)██$(M)███$(I)▄$(M)▄$(E)▄▄▄$(N)\n\
 $(E)▀▀▀$(M)▀$(I)█$(M)█▀▀$(E)▀▀$(T)   █$(B) > Last Commit                                             $(T)█   $(E)▀▀$(M)▀▀█$(I)█$(M)▀$(E)▀▀▀$(N)\n\
-$(E)███$(M)▄$(I)█$(M)███$(E)██$(T)   █  $(FORMATTED_LOG) █   $(E)██$(M)█▄█$(I)█$(M)█$(E)███$(N)\n\
+$(E)███$(M)▄$(I)█$(M)███$(E)██$(T)   █ $(FORMATTED_LOG)█   $(E)██$(M)█▄█$(I)█$(M)█$(E)███$(N)\n\
 $(E)██▄$(M)█$(I)▄$(M)▄▄▄$(E)▄▄$(T)   █  $(G)└── $(GIT_DATE)$(N)                                           █   $(E)██$(M)▄█▄$(I)▄$(M)▄$(E)▄▄▄$(N)\n\
 $(E)▄▄█$(M)█$(I)█$(M)█▄▄$(E)▄▄$(T)   █                                                           █   $(E)▄▄$(M)███$(I)█$(M)▄$(E)▄▄▄$(N)\n\
 $(E)███$(M)█$(I)▄$(M)█▄█$(E)▄█$(T)   █$(B) > Total Commit                                            $(T)█   $(E)██$(M)██▄$(I)█$(M)▄$(E)█▄█$(N)\n\
 $(E) ▄ $(M)▄$(I) $(M)▄▄█$(E)██$(T)   █  $(GIT_TOTAL) updates                                               █   $(E) ▄$(M) ▄ $(I)▄$(M)▄$(E)███$(N)\n\
 $(E)███$(M)█$(I)█$(M)██▀$(E)▀▀$(T)   █                                                           █   $(E)██$(M)███$(I)█$(M)█$(E)▀▀▀$(N)\n\
-$(E)▄▄▄$(M)▄$(I)█$(M)███$(E)▄▄$(T)   █                                                           █   $(E)▄▄$(M)▄▄█$(I)█$(M)█$(E)█▄▄$(N)\n\
+$(E)▄▄▄$(M)▄$(I)█$(M)███$(E)▄▄$(T)   █$(B) > Progress Bar                                            $(T)█   $(E)▄▄$(M)▄▄█$(I)█$(M)█$(E)█▄▄$(N)\n\
 $(E)   $(M)▄$(I)▄$(M)███$(E)▀█$(T)   █                                                           █   $(E)  $(M) ▄▄$(I)█$(M)█$(E)█▀█$(N)\n\
 $(E)███$(M)█$(I)█$(M)▀▀█$(E)██$(T)   █                                                           █   $(E)██$(M)███$(I)▀$(M)▀$(E)███$(N)\n\
 $(E)▄▄█$(M)█$(I)█$(M)███$(E)██$(T)   █                                                           █   $(E)▄▄$(M)███$(I)█$(M)█$(E)███$(N)\n\
