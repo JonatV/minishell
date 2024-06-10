@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/09 21:41:24 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/10 18:04:44 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/10 18:09:46 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ GIT_LOG = $(shell git log -1 --pretty=format:%s)
 
 FORMATTED_LOG := $(shell \
     message="$(GIT_LOG)"; \
-    total_length=60; \
+    total_length=58; \
     message_length=$$(echo "$$message" | wc -c); \
     padding_length=$$((total_length - message_length)); \
     if [ $$message_length -gt $$total_length ]; then \
