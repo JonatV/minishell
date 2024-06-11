@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/10 11:54:30 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/11 14:52:03 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS_SHELL		=	$(SRC_SHELL_DIR)/main.c \
 					$(SRC_SHELL_DIR)/env_utils.c
 SRCS_EXPAND		=	$(SRC_EXPAND_DIR)/expander.c
 SRCS_EXEC		=	$(SRC_EXEC_DIR)/exec.c \
+					$(SRC_EXEC_DIR)/exec_utils.c \
 					$(SRC_EXEC_DIR)/fork.c \
 					$(SRC_EXEC_DIR)/pipes.c \
 					$(SRC_EXEC_DIR)/redirection.c \

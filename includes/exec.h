@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:32:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:35:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:01:30 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ typedef struct s_cmd	t_cmd;
 /*----------------				EXECUTE				---------------*/
 void	shell_executor(t_shell *shell);
 void	execution(int i, t_shell *shell);
+
+/*----------------				EXEC UTILS			---------------*/
+char	*find_valid_path(char *cmd, char **env);
 
 /*----------------				PIPES				---------------*/
 void	pipes_init(t_shell *shell);

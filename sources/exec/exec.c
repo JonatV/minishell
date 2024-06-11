@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:35:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:01:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	shell_executor(t_shell *shell)
 */
 void	execution(int i, t_shell *shell)
 {
-	int	built_in_index;
+	int		built_in_index;
+	char	*valid_path;
 
 	built_in_index = is_builtin(shell->cmd_array[i].data[0]);
 	if (built_in_index > -1)
@@ -47,7 +48,15 @@ void	execution(int i, t_shell *shell)
 	}
 	else
 	{
-		execve(shell->cmd_array[i].path, shell->cmd_array[i].data, shell->env);
+		valid_path = find_valid_path(shell->cmd_array[i].data[0], shell->env);
+		if (0 == valid_path)
+		{
+			ft_putstr_fd("Error : No such command exists in the system.\n", \
+			STDERR_FILENO);
+			exit(1); // wip: error management
+		}
+		execve(valid_path, shell->cmd_array[i].data, shell->env);
+		free(valid_path);
 		panic("Execve failed", shell);
 	}
 }
