@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 12:09:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:54:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ typedef struct s_cmd
 	int		fd_in;
 	int		fd_out;
 	char	*data[3];
-	char	*path;
-	char	*here_doc_delimiter[3];
+	char	*here_doc_delimiter[1];
 	char	*here_doc_in;
 }	t_cmd;
 
