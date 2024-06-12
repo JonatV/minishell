@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 11:57:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:27:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 		return ;
 		// builtin_exit();
 	else if (built_in_index == 3)
-		return ;
-		// builtin_echo(shell, shell->cmd_array[i].data);
+		builtin_echo(shell->cmd_array[i].data);
 	else if (built_in_index == 4)
 		builtin_unset(shell, shell->cmd_array[i].data[1]);
 	else if (built_in_index == 5)

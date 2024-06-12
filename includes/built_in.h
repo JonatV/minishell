@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/10 12:45:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:25:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int		check_var_name(char *str);
 char	*ft_extract(char *str, char target);
 void	print_export(char **array);
 void	update_export(t_shell *shell, char *str); // dev
+
+/*----------------				ECHO				---------------*/
+void	builtin_echo(char **data);
 
 /*----------------				UTILS				---------------*/
 int		is_builtin(char *to_find);
