@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 12:09:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:52:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 
 void	init_all_cmd(t_shell *shell)
 {
-	shell->cmd_number = 1;
+	shell->cmd_number = 2;
 	shell->cmd_array = malloc(shell->cmd_number * (sizeof(t_cmd)));
 	if (shell->cmd_array == NULL) {
 		perror("malloc");
@@ -52,23 +52,25 @@ void	init_all_cmd(t_shell *shell)
 	// Init. first command
 	shell->cmd_array[0].fd_in = DEFAULT_FD;
 	shell->cmd_array[0].fd_out = DEFAULT_FD;
-	shell->cmd_array[0].data[0] = "ls";
-	shell->cmd_array[0].data[1] = "sources/";
+	shell->cmd_array[0].data[0] = "grep";
+	shell->cmd_array[0].data[1] = "blue";
 	shell->cmd_array[0].data[2] = NULL;
-	shell->cmd_array[0].path = "/usr/bin/ls";
+	shell->cmd_array[0].path = "/usr/bin/grep";
 	shell->cmd_array[0].here_doc_delimiter[0] = "END";
 	shell->cmd_array[0].here_doc_delimiter[1] = "LAST";
 	shell->cmd_array[0].here_doc_delimiter[2] = NULL;
 	shell->cmd_array[0].here_doc_in = NULL;
 
-	// shell->cmd_array[0].fd_in = DEFAULT_FD;
-	// shell->cmd_array[0].fd_out = DEFAULT_FD;
-	// shell->cmd_array[0].data[0] = "grep";
-	// shell->cmd_array[0].data[1] = "blue";
-	// shell->cmd_array[0].data[2] = NULL;
-	// shell->cmd_array[0].path = "/usr/bin/grep";
-	// shell->cmd_array[0].here_doc_delimiter[0] = "END";
-	// shell->cmd_array[0].here_doc_delimiter[1] = NULL;
+	shell->cmd_array[1].fd_in = DEFAULT_FD;
+	shell->cmd_array[1].fd_out = DEFAULT_FD;
+	shell->cmd_array[1].data[0] = "grep";
+	shell->cmd_array[1].data[1] = "red";
+	shell->cmd_array[1].data[2] = NULL;
+	shell->cmd_array[1].path = "/usr/bin/grep";
+	shell->cmd_array[1].here_doc_delimiter[0] = "END";
+	shell->cmd_array[1].here_doc_delimiter[1] = "TRAP";
+	shell->cmd_array[1].here_doc_delimiter[2] = NULL;
+	shell->cmd_array[1].here_doc_in = NULL;
 }
 // void init_all_cmd(t_shell *shell)
 // {

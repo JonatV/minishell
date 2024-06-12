@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 12:22:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:55:30 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	here_doc_management(t_shell *shell)
 			i++;
 			continue ;
 		}
+		printf("HERE_DOC from cmd_array[%i]\n", i); //debug
 		here_doc_found(shell, i);
 		i++;
 	}
@@ -69,8 +70,28 @@ static void	here_doc_found(t_shell *shell, int i)
 
 void	here_doc_exploit(t_shell *shell, int i)
 {
-	(void)shell;
-	(void)i;
-	printf("HERE_DOC string [%s]\n", shell->cmd_array[i].here_doc_in);//debug
-	return ;
+	int		pipe_fd[2];
+	pid_t	pid;
+	char	*text_input;
+
+	if (0 > pipe(pipe_fd))
+		exit(EXIT_FAILURE);
+	pid = fork();
+	if (-1 == pid)
+		exit(EXIT_FAILURE);
+	if (pid)
+	{
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		waitpid(pid, NULL, 0);
+	}
+	if (0 == pid)
+	{
+		close(pipe_fd[0]);
+		text_input = shell->cmd_array[i].here_doc_in;
+		ft_putstr_fd(text_input, pipe_fd[1]);
+		free(text_input); // wip: double check here
+		close(pipe_fd[1]);
+		exit(EXIT_SUCCESS);
+	}
 }
