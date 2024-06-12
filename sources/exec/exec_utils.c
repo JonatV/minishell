@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/11 14:56:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:21:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*find_valid_path(char *cmd, char **env)
 	char	**all_paths;
 	char	*temp_path;
 	char	*full_path;
-	int i;
-	
+	int		i;
+
 	i = ft_arrayfind(env, "PATH");
 	if (i == -1)
 		return (NULL);
