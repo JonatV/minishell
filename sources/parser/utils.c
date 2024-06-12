@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:09:36 by mcygan            #+#    #+#             */
-/*   Updated: 2024/06/11 17:22:59 by mcygan           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:15:48 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../../includes/parser.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:55:16 by mcygan            #+#    #+#             */
-/*   Updated: 2024/06/12 13:56:05 by mcygan           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:06:17 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../../includes/parser.h"
 
 // Count tokens in command line
 // input = command line

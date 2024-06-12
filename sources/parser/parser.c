@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:47:09 by mcygan            #+#    #+#             */
-/*   Updated: 2024/06/12 13:30:09 by mcygan           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:06:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../../includes/parser.h"
 
 int	validate_cmd_order(t_token *tokens)
 {
