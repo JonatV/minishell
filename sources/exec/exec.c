@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/11 15:01:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:08:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	shell_executor(t_shell *shell)
 {
 	int	num_pipes;
 
+	here_doc_management(shell);
 	update_var_lastarg(shell);
 	num_pipes = shell->cmd_number;
 	pipes_init(shell);

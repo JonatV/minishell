@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/11 14:52:03 by jveirman         ###   ########.fr        #
+#    Updated: 2024/06/12 11:58:06 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,9 @@ SRCS_EXEC		=	$(SRC_EXEC_DIR)/exec.c \
 					$(SRC_EXEC_DIR)/fork.c \
 					$(SRC_EXEC_DIR)/pipes.c \
 					$(SRC_EXEC_DIR)/redirection.c \
-					$(SRC_EXEC_DIR)/error.c
+					$(SRC_EXEC_DIR)/error.c \
+					$(SRC_EXEC_DIR)/here_doc.c \
+					$(SRC_EXEC_DIR)/here_doc_utils.c 
 SRCS_SIGNAL		=	$(SRC_SIGNAL_DIR)/listener.c
 SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/unset.c \

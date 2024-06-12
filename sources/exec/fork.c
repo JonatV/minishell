@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:34:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:21:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	forks_process(t_shell *shell)
 		if (pid == 0)
 		{
 			fd_error(shell, i);
-			fd_in_management(i, j, *shell);
+			if (is_here_doc_available(shell, i))
+				here_doc_exploit(shell, i);
+			else
+				fd_in_management(i, j, *shell);
 			fd_out_management(i, j, *shell);
 			pipes_closing(shell);
 			execution(i, shell);
