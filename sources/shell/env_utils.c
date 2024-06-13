@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/10 13:09:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:36:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ void	update_var_lastarg(t_shell *shell)
 	shell->last_arg = ft_strdup(shell->cmd_array[cmd_end].data[data_end - 1]);
 }
 
+static void	update_shlvl(t_shell *shell)
+{
+	int		pos;
+	int		number;
+
+	pos = ft_arrayfind(shell->env, "SHLVL");
+	if (-1 == pos)
+	{
+		ft_arraypush(&shell->env, "SHLVL=1");
+		return ;
+	}
+	number = ft_atoi(shell->env[pos] + ft_strlen("SHLVL="));
+	free(shell->env[pos]);
+	shell->env[pos] = NULL;
+	shell->env[pos] = ft_strjoin("SHLVL=", ft_itoa(++number));
+}
+
 /*
 * INFO:
 *	function to init the minishell env by copying the envp.
@@ -46,6 +63,7 @@ void	init_env(t_shell *shell, char **envp)
 	shell->env = ft_arrayndup(envp, ft_arraysize(envp));
 	if (!shell->env)
 		panic("Malloc dup env", shell);
+	update_shlvl(shell);
 	pos = ft_arrayfind(shell->env, "_");
 	len = ft_strlen(shell->env[pos]);
 	skip = 2;
