@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/06/12 18:04:50 by jveirman         ###   ########.fr        #
+#    Updated: 2024/09/11 16:18:20 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC_EXPAND_DIR	:=	$(SRC_DIR)/expander
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
 SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
-SRC_PARSER_DIR	:=	$(SRC_DIR)/parser
 
 #-----------------				SOURCES				----------------#
 SRCS_DEV		=	$(SRC_DEV_DIR)/fake_array_from_parsing.c \
@@ -68,9 +67,6 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/pwd.c \
 					$(SRC_BUILT_DIR)/chdir.c \
 					$(SRC_BUILT_DIR)/echo.c
-SRCS_PARSER		=	$(SRC_BUILT_DIR)/parser.c	\
-					$(SRC_BUILT_DIR)/lexer.c	\
-					$(SRC_BUILT_DIR)/utils.c
 
 #-----------------				OBJECTS				----------------#
 # OBJS_FRONTEND	=	$(SRCS_FRONTEND:%.c=$(BUILD_DIR)/%.o)
@@ -81,7 +77,6 @@ OBJS_EXPAND		=	$(patsubst $(SRC_EXPAND_DIR)/%.c, $(BUILD_DIR)/expand_%.o, $(SRCS
 OBJS_SHELL		=	$(patsubst $(SRC_SHELL_DIR)/%.c, $(BUILD_DIR)/shell_%.o, $(SRCS_SHELL))
 OBJS_SIGNAL		=	$(patsubst $(SRC_SIGNAL_DIR)/%.c, $(BUILD_DIR)/signal_%.o, $(SRCS_SIGNAL))
 OBJS_BUILT		=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/built_in_%.o, $(SRCS_BUILT))
-OBJS_PARSER		=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/parser_%.o, $(SRCS_PARSER))
 
 #===================================================================#
 #								TARGETS								#
@@ -112,13 +107,10 @@ $(BUILD_DIR)/signal_%.o: $(SRC_SIGNAL_DIR)/%.c
 $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/parser_%.o: $(SRC_PARSER_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
 #-----------------			BUILD THE MINISHELL		----------------#
-$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_PARSER)
+$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_PARSER) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
