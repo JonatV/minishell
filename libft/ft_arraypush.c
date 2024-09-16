@@ -6,12 +6,18 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:55:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 10:14:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:32:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+/*
+ * Add an new element at the END of the list.
 
+ * @param	array a triple pointer to the array
+ * @param	to_add the string to add
+ * @return	Nothing, it changes the pointer from the given array to the new array.
+*/
 void	ft_arraypush(char ***array, char *to_add)
 {
 	char	**new_array;

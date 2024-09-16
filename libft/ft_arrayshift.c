@@ -6,12 +6,17 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:10:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/04 10:13:54 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:33:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+/*
+ * Destroy the element at the START of the list.
 
+ * @param	array a triple pointer to the array
+ * @return	Nothing, it changes the pointer from the given array to the new array.
+*/
 void	ft_arrayshift(char ***array)
 {
 	char	**temp;
