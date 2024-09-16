@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 17:15:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:45:52 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	init_all_cmd(t_shell *shell)
 	// Init. first command
 	shell->cmd_array[0].fd_in = DEFAULT_FD;
 	shell->cmd_array[0].fd_out = DEFAULT_FD;
-	shell->cmd_array[0].data[0] = "./a.out"; // wip: i'm struggling to send a executable only like ./hey which is a exec or ./minishell
+	shell->cmd_array[0].data[0] = "./minishell"; // wip: i'm struggling to send a executable only like ./hey which is a exec or ./minishell
 	shell->cmd_array[0].data[1] = NULL;
 	shell->cmd_array[0].here_doc_delimiter[0] = NULL;
 	shell->cmd_array[0].here_doc_in = NULL;

@@ -6,11 +6,12 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 16:44:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:33:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
 static char	*find_in_env(char *cmd, char **env);
 
 char	*find_valid_path(char *cmd, char **env)

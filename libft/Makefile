@@ -41,13 +41,12 @@ endef
 .PHONY 	:	all clean fclean re loading
 .c.o	:
 			@${CC} ${CFLAGS} -c $< -o $@
-# $(call progress_bar_libft)
+			$(call progress_bar_libft)
 
 all 	:	${NAME}
 
 ${NAME} :	${OBJS}
 			@${AR}	${NAME} ${OBJS}
-# @$(MAKE) loading
 
 
 clean 	:
