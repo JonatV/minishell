@@ -36,6 +36,8 @@ int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
 
+	if (!envp)
+		panic("Error no environment pointer", NULL);
 	if (ac != 1 || av[1])
 	{
 		panic("This program does not accept arguments", NULL);
