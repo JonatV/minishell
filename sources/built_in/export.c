@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:04:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:37:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	update_export(t_shell *shell, char *str)
 	char	*var_name;
 	int		var_exist;
 
-	var_name = ft_extract(str, '=');
+	var_name = ft_extract(str, '=', 0);
 	if (!var_name)
 		panic("Malloc export var", shell);
 	if (check_var_name(var_name) != 0)

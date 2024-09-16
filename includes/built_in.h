@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:35:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 18:25:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:36:49 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	builtin_unset(t_shell *shell, char *to_remove);
 /*----------------				EXPORT				---------------*/
 void	builtin_export(t_shell *shell, int i);
 int		check_var_name(char *str);
-char	*ft_extract(char *str, char target);
+char	*ft_extract(char *str, char target, int extract_after);
 void	print_export(char **array);
 void	update_export(t_shell *shell, char *str); // dev
 

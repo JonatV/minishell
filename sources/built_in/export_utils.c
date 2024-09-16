@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 11:54:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:38:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@ int	check_var_name(char *str)
 	return (0);
 }
 
-char	*ft_extract(char *str, char target)
+char	*ft_extract(char *str, char target, int extract_after)
 {
-	int	max;
+	int	target_pos;
 
-	max = 0;
-	while (str[max])
-	{
-		if (str[max] == target)
-			break ;
-		max++;
-	}
-	return (ft_substr(str, 0, (size_t)max));
+	target_pos = 0;
+	while (str[target_pos] != target)
+		target_pos++;
+	if (extract_after)
+		return (ft_substr(str, ++target_pos, ft_strlen(str)));
+	return (ft_substr(str, 0, (size_t)target_pos));
 }
 
 static void	print_process(char *str)
