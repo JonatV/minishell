@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 12:08:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:20:28 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	shell_executor(t_shell *shell)
 	pipes_opening(shell);
 	forks_process(shell);
 	pipes_closing(shell);
-	waiting_for_children(*shell);
+	waiting_for_children(shell);
 }
 
 /*
@@ -54,7 +54,7 @@ void	execution(int i, t_shell *shell)
 		{
 			ft_putstr_fd("Error : No such command exists in the system.\n", \
 			STDERR_FILENO);
-			exit(1); // wip: error management
+			exit(127);
 		}
 		execve(valid_path, shell->cmd_array[i].data, shell->env);
 		free(valid_path);

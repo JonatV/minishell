@@ -66,6 +66,7 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/export_utils.c \
 					$(SRC_BUILT_DIR)/pwd.c \
 					$(SRC_BUILT_DIR)/chdir.c \
+					$(SRC_BUILT_DIR)/exit.c \
 					$(SRC_BUILT_DIR)/echo.c
 
 #-----------------				OBJECTS				----------------#

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/16 14:51:06 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:36:45 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_shell
 	char	*buf;			// malloc form readline, don't handle
 	int		exit_status;
 	char	*last_arg;
+	int		exit_code;
 }	t_shell;
 
 /*
