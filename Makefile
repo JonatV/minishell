@@ -41,6 +41,9 @@ SRC_EXPAND_DIR	:=	$(SRC_DIR)/expander
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
 SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
+SRC_TOKEN_DIR	:=	$(SRC_DIR)/token
+SRC_PARSING_DIR	:=	$(SRC_DIR)/parsing
+SRC_GNL_DIR		:=	get_next_line
 
 #-----------------				SOURCES				----------------#
 SRCS_DEV		=	$(SRC_DEV_DIR)/fake_array_from_parsing.c \
@@ -67,6 +70,27 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/pwd.c \
 					$(SRC_BUILT_DIR)/chdir.c \
 					$(SRC_BUILT_DIR)/echo.c
+SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/check_variable.c \
+					$(SRC_TOKEN_DIR)/delete_quote.c \
+					$(SRC_TOKEN_DIR)/free_token.c \
+					$(SRC_TOKEN_DIR)/lst_move.c \
+					$(SRC_TOKEN_DIR)/main_token.c \
+					$(SRC_TOKEN_DIR)/second_token.c \
+					$(SRC_TOKEN_DIR)/set_variable.c \
+					$(SRC_TOKEN_DIR)/third_token.c \
+					$(SRC_TOKEN_DIR)/token.c \
+					$(SRC_TOKEN_DIR)/utils.c
+SRCS_PARSING	=	$(SRC_PARSING_DIR)/check_operator.c \
+					$(SRC_PARSING_DIR)/check_quotes_op.c \
+					$(SRC_PARSING_DIR)/check_quotes.c \
+					$(SRC_PARSING_DIR)/parse_command.c \
+					$(SRC_PARSING_DIR)/parse_command_2.c \
+					$(SRC_PARSING_DIR)/parse_red.c \
+					$(SRC_PARSING_DIR)/parsing.c \
+					$(SRC_PARSING_DIR)/set_cmd.c \
+					$(SRC_PARSING_DIR)/utils.c
+SRCS_GNL		=	$(SRC_GNL_DIR)/get_next_line_utils.c \
+					$(SRC_GNL_DIR)/get_next_line.c
 
 #-----------------				OBJECTS				----------------#
 # OBJS_FRONTEND	=	$(SRCS_FRONTEND:%.c=$(BUILD_DIR)/%.o)
@@ -77,6 +101,9 @@ OBJS_EXPAND		=	$(patsubst $(SRC_EXPAND_DIR)/%.c, $(BUILD_DIR)/expand_%.o, $(SRCS
 OBJS_SHELL		=	$(patsubst $(SRC_SHELL_DIR)/%.c, $(BUILD_DIR)/shell_%.o, $(SRCS_SHELL))
 OBJS_SIGNAL		=	$(patsubst $(SRC_SIGNAL_DIR)/%.c, $(BUILD_DIR)/signal_%.o, $(SRCS_SIGNAL))
 OBJS_BUILT		=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/built_in_%.o, $(SRCS_BUILT))
+OBJS_TOKEN		=	$(patsubst $(SRC_TOKEN_DIR)/%.c, $(BUILD_DIR)/token_%.o, $(SRCS_TOKEN))
+OBJS_PARSING	=	$(patsubst $(SRC_PARSING_DIR)/%.c, $(BUILD_DIR)/parsing_%.o, $(SRCS_PARSING))
+OBJS_GNL	=		$(patsubst $(SRC_GNL_DIR)/%.c, $(BUILD_DIR)/get_next_line_%.o, $(SRCS_GNL))
 
 #===================================================================#
 #								TARGETS								#
@@ -107,10 +134,19 @@ $(BUILD_DIR)/signal_%.o: $(SRC_SIGNAL_DIR)/%.c
 $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(BUILD_DIR)/token_%.o: $(SRC_TOKEN_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/parsing_%.o: $(SRC_PARSING_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/get_next_line_%.o: $(SRC_GNL_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 #-----------------			BUILD THE MINISHELL		----------------#
-$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT)
+$(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL) $(LIBFT) -o $@ $(LDFLAGS) -g
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
@@ -127,7 +163,7 @@ art:	## ASCII art for minishell
 
 #-----------------				COMMANDS			----------------#
 clean:	## Remove all the .o files from build directory (build include)
-	$(RM) $(BUILD_DIR)
+	$(RM) clean
 	make clean -C libft
 
 fclean: clean ## Remove all .o files and the minishell binary
