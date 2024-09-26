@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 14:05:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:27:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_builtin(char *to_find)
 *	- ✅export
 *	- ✅env
 *	- echo
-*	- exit
+*	- ✅exit
 */
 void	select_builtin(t_shell *shell, int i, int built_in_index)
 {
