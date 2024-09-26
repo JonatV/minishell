@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/10 12:35:28 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:24:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static int	replace_var_manager(int *i, char **str, char **array)
 *	and a string containing one or more variable names ($var_name). 
 *	It replaces each variable name in the string 
 *	with its corresponding value from the array."
+*	@return : nothing, it changes the str directly, that's why it's send with a double pointer.
 */
 int	expander(char **array, char **str)
 {

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:32:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 12:23:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:38:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	fd_out_management(int i, int j, t_shell shell);
 
 /*----------------				FORK				---------------*/
 void	forks_process(t_shell *shell);
-void	waiting_for_children(t_shell shell);
+void	waiting_for_children(t_shell *shell);
 
 /*----------------				HERE_DOC			---------------*/
 void	here_doc_management(t_shell *shell);

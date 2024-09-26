@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/16 11:23:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:10:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ int	main(int ac, char **av, char **envp)
 		if (!shell.buf)
 		{
 			free(shell.buf);
-			break ;
 			signal_eof(&shell);
+			// break ;
 		}
 		add_history(shell.buf);
 		dev_cmd_call(&shell); // dev
 		free(shell.buf);
 	}
-	builtin_env(&shell);
-	if (ft_strchr(shell.env[ft_arrayfind(shell.env, "SHLVL")], '9'))// dev
-		clean("Bye", &shell);// dev
+	builtin_env(&shell);												// dev	- use to check if the shlvl is correclty updated
+	if (ft_strchr(shell.env[ft_arrayfind(shell.env, "SHLVL")], '4'))	// dev	and if minishell can be run in minishell(4 times deep).
+		builtin_exit(&shell);											// dev
 	shell_executor(&shell);
-	clean("Bye", &shell);
+	builtin_exit(&shell);
 }

@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/09/11 16:18:20 by jveirman         ###   ########.fr        #
+#    Updated: 2024/09/26 20:47:24 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME			=	minishell
 CC				=	cc
 OUT				=	-o $(NAME)
 CFLAGS			=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include
-CFLAGS_DEV		=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include -fsanitize=address -g
+CFLAGS_DEV		=	-Wall -Wextra -Werror -fsanitize=address -g -I./includes -I ~/.brew/opt/readline/include
 LDFLAGS			=	-L ~/.brew/opt/readline/lib -lreadline
 
 RM				=	rm -rf
@@ -35,7 +35,7 @@ include				$(MKFILES)
 #-----------------				DIRECTORIES			----------------#
 BUILD_DIR		:=	./build
 SRC_DIR			:=	./sources
-SRC_DEV_DIR			:=	$(SRC_DIR)/dev_tool
+SRC_DEV_DIR		:=	$(SRC_DIR)/dev_tool
 SRC_EXEC_DIR	:=	$(SRC_DIR)/exec
 SRC_EXPAND_DIR	:=	$(SRC_DIR)/expander
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
@@ -69,6 +69,7 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/export_utils.c \
 					$(SRC_BUILT_DIR)/pwd.c \
 					$(SRC_BUILT_DIR)/chdir.c \
+					$(SRC_BUILT_DIR)/exit.c \
 					$(SRC_BUILT_DIR)/echo.c
 SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/check_variable.c \
 					$(SRC_TOKEN_DIR)/delete_quote.c \
@@ -117,19 +118,19 @@ all: create_dir	$(NAME)## Command to start all the compiling
 
 #-----------------				COMPILE OBJECTS		----------------#
 $(BUILD_DIR)/dev_%.o: $(SRC_DEV_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/shell_%.o: $(SRC_SHELL_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/exec_%.o: $(SRC_EXEC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/expand_%.o: $(SRC_EXPAND_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/signal_%.o: $(SRC_SIGNAL_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -146,7 +147,7 @@ $(BUILD_DIR)/get_next_line_%.o: $(SRC_GNL_DIR)/%.c
 #-----------------			BUILD THE MINISHELL		----------------#
 $(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL) $(LIBFT) -o $@ $(LDFLAGS)
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
@@ -163,7 +164,7 @@ art:	## ASCII art for minishell
 
 #-----------------				COMMANDS			----------------#
 clean:	## Remove all the .o files from build directory (build include)
-	$(RM) clean
+	$(RM) $(BUILD_DIR)
 	make clean -C libft
 
 fclean: clean ## Remove all .o files and the minishell binary

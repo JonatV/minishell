@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listener.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 14:09:00 by jveirman         ###   ########.fr       */
+/*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
+/*   Updated: 2024/09/26 14:27:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/signal.h"
+#include "../../includes/built_in.h"
 
-void	signal_eof(t_shell *shell)
+/*
+*	TODO :
+*		Check for the number of arg, it cant accept more arg.
+*		Which means, the array will looks like that, no more 
+*		shell->cmd_array[0].data[0] = "exit";
+*		shell->cmd_array[0].data[1] = NULL;
+*/
+void	builtin_exit(t_shell *shell)
 {
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	builtin_exit(shell);
-}
-
-void	signal_interrupted(int sig)
-{
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	(void) sig;
-}
-
-void	signals(void)
-{
-	signal(SIGINT, signal_interrupted);
-	signal(SIGQUIT, SIG_IGN);
+	clean("exit", shell);
+	exit(shell->exit_code);
 }
