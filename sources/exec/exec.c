@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 13:20:28 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:11:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	shell_executor(t_shell *shell)
 /*
 * TODO:
 *	- clean the exit(0) from builtin process
+*		I don't understand yet how to handle the built_in command error
 */
 void	execution(int i, t_shell *shell)
 {

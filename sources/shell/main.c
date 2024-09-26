@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/16 16:54:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:10:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	builtin_env(&shell);												// dev	- use to check if the shlvl is correclty updated
 	if (ft_strchr(shell.env[ft_arrayfind(shell.env, "SHLVL")], '4'))	// dev	and if minishell can be run in minishell(4 times deep).
-		clean("Bye", &shell);											// dev
+		builtin_exit(&shell);											// dev
 	shell_executor(&shell);
-	clean("Bye", &shell);
+	builtin_exit(&shell);
 }

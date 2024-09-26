@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 16:42:42 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:59:06 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	clean(char *str, t_shell *shell)
 	if (str)
 		ft_putstr(str);
 	free_machine(shell);
-	exit(EXIT_SUCCESS);
 }
 
 void	panic(char *str, t_shell *shell)
