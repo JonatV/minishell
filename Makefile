@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/09/11 16:18:20 by jveirman         ###   ########.fr        #
+#    Updated: 2024/09/26 10:47:57 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME			=	minishell
 CC				=	cc
 OUT				=	-o $(NAME)
 CFLAGS			=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include
-CFLAGS_DEV		=	-Wall -Wextra -Werror -I./includes -I ~/.brew/opt/readline/include -fsanitize=address -g
+CFLAGS_DEV		=	-Wall -Wextra -Werror -fsanitize=address -g -I./includes -I ~/.brew/opt/readline/include
 LDFLAGS			=	-L ~/.brew/opt/readline/lib -lreadline
 
 RM				=	rm -rf
@@ -35,7 +35,7 @@ include				$(MKFILES)
 #-----------------				DIRECTORIES			----------------#
 BUILD_DIR		:=	./build
 SRC_DIR			:=	./sources
-SRC_DEV_DIR			:=	$(SRC_DIR)/dev_tool
+SRC_DEV_DIR		:=	$(SRC_DIR)/dev_tool
 SRC_EXEC_DIR	:=	$(SRC_DIR)/exec
 SRC_EXPAND_DIR	:=	$(SRC_DIR)/expander
 SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
@@ -91,27 +91,27 @@ all: create_dir	$(NAME)## Command to start all the compiling
 
 #-----------------				COMPILE OBJECTS		----------------#
 $(BUILD_DIR)/dev_%.o: $(SRC_DEV_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/shell_%.o: $(SRC_SHELL_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/exec_%.o: $(SRC_EXEC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/expand_%.o: $(SRC_EXPAND_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/signal_%.o: $(SRC_SIGNAL_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 #-----------------			BUILD THE MINISHELL		----------------#
 $(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS) -g
+	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(LIBFT) -o $@ $(LDFLAGS)
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files
