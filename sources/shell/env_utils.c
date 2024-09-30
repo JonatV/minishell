@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+#include "../../includes/token.h"
 /*
 * INFO:
 *	find the last arg of the last command
@@ -82,5 +83,28 @@ void	init_env(t_shell *shell, char **envp)
 	len = ft_strlen(shell->env[pos]);
 	skip = 2;
 	shell->last_arg = ft_substr(shell->env[pos], skip, len - skip);
+	builtin_unset(shell, "_");
+
+
+	/*testing : find a way to pass the g_env another way than a gobal variable*/
+
+
+	g_env = ft_arrayndup(envp, ft_arraysize(envp));
+	if (!g_env)
+		panic("Malloc dup env", shell);
+	update_shlvl(shell);
+	pos = ft_arrayfind(g_env, "_");
+	if (pos == -1)
+	{
+		last_arg = (char *)malloc(sizeof(char) * 3);
+		if (!last_arg)
+			panic("Malloc init env", shell);
+		ft_strlcpy(last_arg, "_=", 2);
+		shell->last_arg = last_arg;
+		return ;
+	}
+	len = ft_strlen(g_env[pos]);
+	skip = 2;
+	shell->last_arg = ft_substr(g_env[pos], skip, len - skip);
 	builtin_unset(shell, "_");
 }

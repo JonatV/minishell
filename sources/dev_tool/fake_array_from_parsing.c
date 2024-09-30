@@ -121,8 +121,9 @@ void	init_all_cmd(t_shell *shell)
 // 	shell->cmd_array[0].fd_in = open("test_infile", O_RDONLY, 0777);
 // 	shell->cmd_array[0].fd_out = -2;
 // 	shell->cmd_array[0].data[0] = "sort";
-// 	shell->cmd_array[0].data[1] = "-r";
-// 	shell->cmd_array[0].data[2] = NULL;
+// 	shell->cmd_array[0].data[1] = "no.c";
+// 	shell->cmd_array[0].data[2] = "-r";
+// 	shell->cmd_array[0].data[3] = NULL;
 // 	shell->cmd_array[0].path = "/usr/bin/sort";
 
 // 	// Init. second command

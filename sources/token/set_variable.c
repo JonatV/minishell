@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "../../includes/token.h"
 
+/*function that concatenates tokens if the tokens are part of a variable name*/
+
 char	*fill_variable(t_lists **lst)
 {
 	char	*str;
@@ -50,10 +52,10 @@ int	set_content(t_lists **lst, t_lists **newlist)
 		content = fill_variable(lst);
 	else
 	{
-		content = ft_strdup((*lst)->token->content);
+		content = ft_strdup((*lst)->token->content); //malloc
 		*lst = (*lst)->next;
 	}
-	token = create_token(content, type);
+	token = create_token(content, type); //malloc
 	new = newlst(token);
 	add_back(newlist, new);
 	return (0);

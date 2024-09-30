@@ -42,6 +42,8 @@ int	search_variable(char **str)
 	if (ft_strlen(*str) == 1)
 		return (0);
 	tpm = ft_substr(*str, 1, ft_strlen(*str));
+	if (g_env == NULL) //debug
+		return (0); //debug
 	while (g_env[i] && ft_strncmp(tpm, g_env[i], ft_strlen(tpm)) != 0)
 		i++;
 	free(*str);

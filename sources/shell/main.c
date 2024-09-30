@@ -14,6 +14,9 @@
 #include "../../includes/exec.h"
 #include "../../includes/signal.h"
 #include "../../includes/built_in.h"
+#include "../../includes/built_in.h"
+#include "../../includes/built_in.h"
+#include "../../includes/token.h"
 
 /*
 #####################################################################
@@ -35,7 +38,9 @@ void	shell_init(t_shell *shell, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
+	t_lists	*lst;
 	
+	lst = NULL;
 	if (!envp)
 		panic("Error no environment pointer", NULL);
 	if (ac != 1 || av[1])
@@ -51,7 +56,8 @@ int	main(int ac, char **av, char **envp)
 			signal_eof(&shell);
 		}
 		add_history(shell.buf);
-		dev_cmd_call(&shell); // dev
+		main_token(shell.buf, &lst); 
+		//dev_cmd_call(&shell); // dev
 		free(shell.buf);
 	}
 	builtin_env(&shell);
