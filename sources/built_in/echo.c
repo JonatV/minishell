@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/12 18:26:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:51:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	builtin_echo(char **data)
 {
-	int	flag;
-	int	i;
+	bool	flag;
+	int		i;
 
 	if (!data[1])
 	{
 		write(1, "\n", 1);
 		return ;
 	}
-	flag = 0;
+	flag = false;
 	if (data[1][0] == '-' && data[1][1] == 'n' && !data[1][2])
-		flag++;
+		flag = true;
 	i = 1;
 	if (flag)
 		i++;
