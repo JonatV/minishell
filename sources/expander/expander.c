@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 20:24:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:57:31 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	replace_var_manager(int *i, char **str, char **array)
 	j = 0;
 	while ((*str)[*i + j])
 	{
-		if ((*str)[*i + j + 1] == '\0' \
+		if ((*str)[*i + j + 1] == '\0'
 		|| (*str)[*i + j + 1] == '$' \
 		|| ft_isspace((*str)[*i + j]))
 		{
@@ -137,7 +137,7 @@ int	expander(char **array, char **str)
 // 	array[2] = ft_strdup("END=XOXO");
 // 	array[3] = ft_strdup("TUTUTUTU=Je suis un magicien");
 // 	array[4] = NULL;
-// 	content = "THX $USER bye $END mais la dinguerie_$TUTUTUTU$ST";
+// 	content = "THX $ bye $END mais la dinguerie_$TUTUTUTU$ST";
 // 	str = ft_strdup(content);
 // 	if (expander(array, &str) == 0)
 // 		printf("The expander failed.\n");

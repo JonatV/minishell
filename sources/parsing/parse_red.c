@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_red.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:19:54 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:21:17 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/21 17:15:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	get_redir_l(t_token *token)
@@ -16,8 +17,10 @@ int	get_redir_l(t_token *token)
 	int	fd;
 
 	fd = open(token->content, O_RDONLY);
-	if (fd == -1)
-		printf("minishell: %s: No such file or directory\n", token->content);
+/* already in fd_eror function before the exec
+-	if (fd == -1)
+-		printf("minishell: %s: No such file or directory\n", token->content);
+*/
 	return (fd);
 }
 

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:23:31 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/21 17:34:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 static void	input_signal_handler(int sig)
@@ -48,12 +49,12 @@ int	get_sig_code(void)
 
 void	init_struct(t_cmd1 *cmd)
 {
-	cmd->fd_i = 0;
-	cmd->fd_o = 1;
-	cmd->pipe_i = 0;
-	cmd->pipe_o = 0;
+	cmd->fd_i = DEFAULT_FD;
+	cmd->fd_o = DEFAULT_FD;
 	cmd->type = -1;
-	cmd->f_redir = 0;
+/*
+-	cmd->f_redir = 0;
+*/
 }
 
 int	count_cmd(t_lists *lst)

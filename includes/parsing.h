@@ -16,6 +16,7 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
+# include "shell.h"
 # include "../get_next_line/get_next_line.h"
 
 typedef enum s_token_type
@@ -51,24 +52,33 @@ typedef struct s_lists
 
 typedef struct s_cmd1
 {
-	int		type;
-	char	**cmd;
-	int		fd_i;
-	int		fd_o;
-	int		pipe_i;
-	int		pipe_o;
-	int		saved_stdin;
-	int		saved_stdout;
-	int		f_redir;
+	int		fd_i; // ✅ // note: default = -2 
+	int		fd_o; // ✅ // note: default = -2 
+	char	**cmd; // ✅
+	/* 
+		todo : implement
+			char	**here_doc_delimiter;
+			char	*here_doc_in;
+	*/
+	int		type; // ✅
+/*
+-	int		pipe_i; //⛔
+-	int		pipe_o; //⛔
+-	int		saved_stdin;//⛔
+-	int		saved_stdout;//⛔
+-	int		f_redir; // ?
+*/
 }	t_cmd1;
 
 typedef struct s_all_cmd
 {
 	struct s_cmd1	*cmds;
-	int				nbrcmd;
-	int				**pipefd;
+	int				nbrcmd; // ! cmd_number
+	/*
+	-int				**pipefd; //⛔
+	- pid_t			*pids;
+	*/
 	int				status;
-	pid_t			*pids;
 }	t_all_cmd;
 
 char			**g_env;

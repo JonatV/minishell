@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/21 16:02:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:32:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
-	init_all_cmd(shell);//dev
+	// init_all_cmd(shell);//dev
 	init_env(shell, envp);
 	prompt_msg(shell);
 	signals();
@@ -57,7 +57,8 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(shell.buf);
 		parsing(&all_cmd, &(shell.buf), &lst);
-		print_all_cmd(&all_cmd);// dev
+		print_all_cmd(&all_cmd); // dev
+		shell_executor(&shell);
 		free(shell.buf);
 		lst = NULL;
 		//main_token(shell.buf, &lst);
