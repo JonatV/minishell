@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:23:39 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/06 12:00:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:08:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 */
 typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;
+typedef struct s_all_cmd t_all_cmd;
 
 /*
 #####################################################################
@@ -38,5 +39,6 @@ typedef struct s_cmd	t_cmd;
 
 /*----------------				DEV_TOOLS			---------------*/
 void	init_all_cmd(t_shell *shell);
+void	print_all_cmd(t_all_cmd *all_cmd);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/09/26 20:47:24 by jveirman         ###   ########.fr        #
+#    Updated: 2024/10/21 16:05:00 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_GNL_DIR		:=	get_next_line
 
 #-----------------				SOURCES				----------------#
 SRCS_DEV		=	$(SRC_DEV_DIR)/fake_array_from_parsing.c \
+					$(SRC_DEV_DIR)/print_array_all_cmd.c \
 					$(SRC_DEV_DIR)/command_call.c
 SRCS_SHELL		=	$(SRC_SHELL_DIR)/main.c \
 					$(SRC_SHELL_DIR)/prompt.c \
