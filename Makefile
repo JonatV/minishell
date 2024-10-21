@@ -42,7 +42,7 @@ SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
 SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
 SRC_TOKEN_DIR	:=	$(SRC_DIR)/token
-SRC_PARSING_DIR	:=	$(SRC_DIR)/parsing
+#SRC_PARSING_DIR	:=	$(SRC_DIR)/parsing
 SRC_GNL_DIR		:=	get_next_line
 
 #-----------------				SOURCES				----------------#
@@ -71,17 +71,9 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/chdir.c \
 					$(SRC_BUILT_DIR)/exit.c \
 					$(SRC_BUILT_DIR)/echo.c
-SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/check_variable.c \
-					$(SRC_TOKEN_DIR)/delete_quote.c \
-					$(SRC_TOKEN_DIR)/free_token.c \
-					$(SRC_TOKEN_DIR)/lst_move.c \
-					$(SRC_TOKEN_DIR)/main_token.c \
-					$(SRC_TOKEN_DIR)/second_token.c \
-					$(SRC_TOKEN_DIR)/set_variable.c \
-					$(SRC_TOKEN_DIR)/third_token.c \
-					$(SRC_TOKEN_DIR)/token.c \
-					$(SRC_TOKEN_DIR)/utils.c
-SRCS_PARSING	=	$(SRC_PARSING_DIR)/check_operator.c \
+SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/tokenizer_utils.c \
+					$(SRC_TOKEN_DIR)/tokenizer.c
+#SRCS_PARSING	=	$(SRC_PARSING_DIR)/check_operator.c \
 					$(SRC_PARSING_DIR)/check_quotes_op.c \
 					$(SRC_PARSING_DIR)/check_quotes.c \
 					$(SRC_PARSING_DIR)/parse_command.c \
@@ -103,7 +95,7 @@ OBJS_SHELL		=	$(patsubst $(SRC_SHELL_DIR)/%.c, $(BUILD_DIR)/shell_%.o, $(SRCS_SH
 OBJS_SIGNAL		=	$(patsubst $(SRC_SIGNAL_DIR)/%.c, $(BUILD_DIR)/signal_%.o, $(SRCS_SIGNAL))
 OBJS_BUILT		=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/built_in_%.o, $(SRCS_BUILT))
 OBJS_TOKEN		=	$(patsubst $(SRC_TOKEN_DIR)/%.c, $(BUILD_DIR)/token_%.o, $(SRCS_TOKEN))
-OBJS_PARSING	=	$(patsubst $(SRC_PARSING_DIR)/%.c, $(BUILD_DIR)/parsing_%.o, $(SRCS_PARSING))
+#OBJS_PARSING	=	$(patsubst $(SRC_PARSING_DIR)/%.c, $(BUILD_DIR)/parsing_%.o, $(SRCS_PARSING))
 OBJS_GNL	=		$(patsubst $(SRC_GNL_DIR)/%.c, $(BUILD_DIR)/get_next_line_%.o, $(SRCS_GNL))
 
 #===================================================================#
@@ -138,8 +130,8 @@ $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 $(BUILD_DIR)/token_%.o: $(SRC_TOKEN_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/parsing_%.o: $(SRC_PARSING_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+#$(BUILD_DIR)/parsing_%.o: $(SRC_PARSING_DIR)/%.c
+#	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/get_next_line_%.o: $(SRC_GNL_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
