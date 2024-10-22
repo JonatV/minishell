@@ -38,6 +38,8 @@ typedef enum e_token_type
 	TOKEN_REDIR_APPEND,
 	TOKEN_REDIR_HEREDOC,
 	TOKEN_ENV_VAR,
+	TOKEN_BIG_QUOTES,
+	TOKEN_SMALL_QUOTES,
 }	t_token_type;
 
 typedef struct s_token
@@ -46,6 +48,8 @@ typedef struct s_token
 	char				*value;
 	struct s_token		*next;
 }	t_token;
+
+char			**g_env;
 
 void		update_quote_status(char c, int *in_quote, char *quote_char);
 void		add_word_token_if_valid(char **start, char **input,
@@ -58,7 +62,7 @@ void		free_tokens(t_token *tokens);
 void		handle_quotes(char **input, t_token **tokens);
 void		handle_special_chars(char **input, t_token **tokens);
 void		handle_word(char **input, t_token **tokens);
-t_token		*tokenize_input(char *input);
+t_token		*tokenize_input(t_shell *shell);
 char		*ft_strndup(const char *src, size_t n);
 size_t		ft_strnlen(const char *s, size_t maxlen);
 

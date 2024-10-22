@@ -136,6 +136,12 @@ void	add_word_token_if_valid(char **start, char **input, t_token **tokens)
 		word = ft_strndup(*start, *input - *start);
 		if (word)
 		{
+			if (word[0] == '$' && word[1])
+			{
+				add_token_to_list(tokens, new_token(TOKEN_ENV_VAR, word));
+				free(word);
+				return ;
+			}
 			add_token_to_list(tokens, new_token(TOKEN_WORD, word));
 			free(word);
 		}

@@ -11,6 +11,28 @@
 /* ************************************************************************** */
 
 #include "../../includes/token.h"
+#include "../../includes/expander.h"
+#include "../../includes/shell.h"
+
+void	handle_variables(t_token **tokens, t_shell *shell)
+{
+	t_token *current;
+	char	*word;
+
+	current = *tokens;
+	word = NULL;
+	while (current)
+	{
+		if (current->type == TOKEN_ENV_VAR)
+		{
+			expander(shell->env, &(current->value));
+			printf("HELLO\n");
+			//current->value = word;
+		}
+		printf("%s\n", current->value);
+		current = current->next;
+	}
+}
 
 void	handle_special_chars(char **input, t_token **tokens)
 {
@@ -58,19 +80,20 @@ void	handle_word(char **input, t_token **tokens)
 	add_word_token_if_valid(&start, input, tokens);
 }
 
-t_token	*tokenize_input(char *input)
+t_token	*tokenize_input(t_shell *shell)
 {
 	t_token	*tokens;
 
 	tokens = NULL;
-	while (*input)
+	while (*(shell->buf))
 	{
-		while (*input && ft_strchr(" \t\n", *input))
-			input++;
-		if (ft_strchr("><|", *input))
-			handle_special_chars(&input, &tokens);
+		while (*(shell->buf) && ft_strchr(" \t\n", *(shell->buf)))
+			(shell->buf)++;
+		if (ft_strchr("><|", *(shell->buf)))
+			handle_special_chars(&(shell->buf), &tokens);
 		else
-			handle_word(&input, &tokens);
+			handle_word(&(shell->buf), &tokens);
 	}
+	handle_variables(&tokens, shell);
 	return (tokens);
 }

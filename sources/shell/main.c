@@ -15,6 +15,7 @@
 #include "../../includes/signal.h"
 #include "../../includes/built_in.h"
 #include "../../includes/token.h"
+#include "../../includes/expander.h"
 
 /*
 #####################################################################
@@ -54,9 +55,9 @@ int	main(int ac, char **av, char **envp)
 			// break ;
 		}
 		add_history(shell.buf);
-		tokens = tokenize_input(shell.buf);
+		tokens = tokenize_input(&shell);
 		display_tokens(tokens);
-		free(shell.buf);
+		//free(shell.buf);
 	}
 	builtin_env(&shell);												// dev	- use to check if the shlvl is correclty updated
 	if (ft_strchr(shell.env[ft_arrayfind(shell.env, "SHLVL")], '4'))	// dev	and if minishell can be run in minishell(4 times deep).
