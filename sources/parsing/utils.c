@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/21 17:34:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:58:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,17 @@ int	get_sig_code(void)
 	return (sig_code_static(0, false));
 }
 
-void	init_struct(t_cmd1 *cmd)
+void	init_struct(t_cmd *cmd)
 {
-	cmd->fd_i = DEFAULT_FD;
-	cmd->fd_o = DEFAULT_FD;
+	cmd->fd_in = DEFAULT_FD;
+	cmd->fd_out = DEFAULT_FD;
 	cmd->type = -1;
-/*
--	cmd->f_redir = 0;
-*/
+	cmd->here_doc_delimiter = NULL;
+	cmd->here_doc_in = NULL;
+	cmd->cmd = NULL;
+	cmd->data[0] = NULL; //dev wip
+	cmd->data[1] = NULL; //dev wip
+	cmd->data[2] = NULL; //dev wip
 }
 
 int	count_cmd(t_lists *lst)

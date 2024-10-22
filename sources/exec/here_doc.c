@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/21 17:50:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:02:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	here_doc_management(t_shell *shell)
 	i = 0;
 	while (i < shell->cmd_number)
 	{
-		if (!shell->cmd_array[i].here_doc_delimiter[0])
+		if (!shell->cmd_array[i].here_doc_delimiter)
 		{
 			printf("NO_HERE_DOC\n"); //debug
 			i++;
@@ -54,7 +54,7 @@ static void	here_doc_found(t_shell *shell, int i)
 
 	j = 0;
 	delimiter = shell->cmd_array[i].here_doc_delimiter;
-	while (delimiter[j])
+	while (delimiter && delimiter[j])
 	{
 		printf("CURRENT DELIMITER [%s]\n", delimiter[j]);//debug
 		if (shell->cmd_array[i].here_doc_in)

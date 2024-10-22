@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:22:14 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/22 14:47:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	single_token(t_lists *lst)
@@ -33,23 +34,26 @@ int	single_token(t_lists *lst)
 	return (1);
 }
 
-int	parsing(t_all_cmd *all_cmd, char **input, t_lists **lst)
+int	parsing(t_shell *shell, char **input)
 {
 	int	i;
+	t_lists *lst;
 
+	lst = NULL;
 	i = 0;
 	if (!check_quotes_op(input))
 		return (0);
-	if (!main_token(*input, lst))
+	if (!main_token(*input, &lst))
 		return (0);
-	if (!single_token(*lst))
+	if (!single_token(lst))
 		return (0);
-	if (!parse_command(*lst))
+	if (!parse_command(lst))
 		return (0);
-	if (!set_cmd(all_cmd, *lst, i))
+	if (!set_cmd(shell, lst, i))
 	{
 		//free_cmds(all_cmd);
 		return (0);
 	}
+	//todo Make a function fill_data
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:57:45 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/21 18:07:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:07:32 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,12 @@ typedef struct s_cmd
 	int		fd_in;
 	int		fd_out;
 	char	*data[3];
-	char	*here_doc_delimiter[1]; //? it isnt dynamic, what happen if multiple here doc for one cmd
+	char	**here_doc_delimiter; //? it isnt dynamic, what happen if multiple here doc for one cmd
 	char	*here_doc_in;
+	char	**cmd;
+
+	// wip - merging
+	int		type;
 }	t_cmd;
 
 typedef struct s_shell
@@ -75,6 +79,9 @@ typedef struct s_shell
 	int		exit_status;
 	char	*last_arg;
 	int		exit_code;
+
+	// wip - merging
+	int		status;
 }	t_shell;
 
 /*

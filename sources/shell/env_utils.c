@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/21 16:56:11 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:05:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	update_var_lastarg(t_shell *shell)
 	if (shell->last_arg)
 		free(shell->last_arg);
 	shell->last_arg = NULL;
-	shell->last_arg = ft_strdup(shell->cmd_array[cmd_end].data[data_end - 1]);
+	shell->last_arg = ft_strdup(shell->cmd_array[cmd_end].data[data_end - 1]); // wip it segfault - cause merging process then no data array yet
 }
 
 /*
