@@ -23,13 +23,8 @@ void	handle_variables(t_token **tokens, t_shell *shell)
 	word = NULL;
 	while (current)
 	{
-		if (current->type == TOKEN_ENV_VAR)
-		{
-			expander(shell->env, &(current->value));
-			printf("HELLO\n");
-			//current->value = word;
-		}
-		printf("%s\n", current->value);
+		expander(shell->env, &(current->value));
+		current->type = 0;
 		current = current->next;
 	}
 }
