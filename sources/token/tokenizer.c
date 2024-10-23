@@ -78,16 +78,18 @@ void	handle_word(char **input, t_token **tokens)
 t_token	*tokenize_input(t_shell *shell)
 {
 	t_token	*tokens;
+	char	*buf;
 
 	tokens = NULL;
-	while (*(shell->buf))
+	buf = shell->buf;
+	while (*buf)
 	{
-		while (*(shell->buf) && ft_strchr(" \t\n", *(shell->buf)))
-			(shell->buf)++;
-		if (ft_strchr("><|", *(shell->buf)))
-			handle_special_chars(&(shell->buf), &tokens);
+		while (*buf && ft_strchr(" \t\n", *buf))
+			buf++;
+		if (ft_strchr("><|", *buf))
+			handle_special_chars(&buf, &tokens);
 		else
-			handle_word(&(shell->buf), &tokens);
+			handle_word(&buf, &tokens);
 	}
 	handle_variables(&tokens, shell);
 	return (tokens);
