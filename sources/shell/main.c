@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/23 14:29:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:35:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	main(int ac, char **av, char **envp)
 		add_history(shell.buf);
 		tokens = tokenize_input(&shell);
 		display_tokens(tokens);
-		parsing(&shell, &(shell.buf));
-		print_all_cmd(&shell); // dev
-		shell_executor(&shell);
+		// parsing(&shell, &(shell.buf));
+		// print_all_cmd(&shell); // dev
+		// shell_executor(&shell);
 		free(shell.buf);
 		// dev_cmd_call(&shell); // dev
 	}

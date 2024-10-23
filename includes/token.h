@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsorel <hsorel@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:02:36 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/21 20:02:41 by hsorel           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:28:49 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
+
+#define GREEN "\e[32m"
+#define N "\e[0m"
 
 typedef enum e_token_type
 {

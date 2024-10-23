@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsorel <hsorel@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:00:33 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/21 20:00:34 by hsorel           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:33:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/token.h"
 
 char	*ft_strndup(const char *src, size_t n)
@@ -62,9 +63,10 @@ size_t	ft_strnlen(const char *s, size_t maxlen)
  	t_token	*token;
 
  	token = tokens;
+ 	printf("\n---------------------------------------------------------------------\n");
  	while (token)
  	{
- 		printf("Token: %s\t\t|\t\tType: %s", token->value, get_token_type_name(token->type));
+ 		printf("Token: %s\t\t|\t\tType: %s %s"N" (%d)", token->value, token->type ? GREEN : "", get_token_type_name(token->type), token->type);
  		printf("\n---------------------------------------------------------------------\n");
  		token = token->next;
  	}

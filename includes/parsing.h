@@ -19,28 +19,9 @@
 # include "shell.h"
 # include "../get_next_line/get_next_line.h"
 
-typedef enum s_token_type
-{
-	literal,
-	space,
-	and,
-	or,
-	simple_redir_left,
-	simple_redir_right,
-	double_redir_left,
-	double_redir_right,
-	pipeline,
-	single_quote,
-	double_quote,
-	variable,
-	undesirable,
-}	t_token_type;
 
-typedef struct s_token
-{
-	char			*content;
-	t_token_type	type;
-}	t_token;
+typedef enum e_token_type t_token_type;
+typedef struct s_token t_token;
 
 typedef struct s_lists
 {
