@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/23 14:22:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:25:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	panic(char *str, t_shell *shell)
 	ft_putstr(MSG_ERROR);
 	if (str)
 	{
-		ft_putstr(" --------- "); //from test_merge
+		ft_putstr(" : ");
 		ft_putstr(str);
 	}
 	ft_putstr("\n");
