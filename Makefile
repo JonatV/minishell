@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/10/21 16:05:00 by jveirman         ###   ########.fr        #
+#    Updated: 2024/10/23 14:36:23 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,16 +74,6 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/echo.c
 SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/tokenizer_utils.c \
 					$(SRC_TOKEN_DIR)/tokenizer.c
-SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/check_variable.c \
-					$(SRC_TOKEN_DIR)/delete_quote.c \
-					$(SRC_TOKEN_DIR)/free_token.c \
-					$(SRC_TOKEN_DIR)/lst_move.c \
-					$(SRC_TOKEN_DIR)/main_token.c \
-					$(SRC_TOKEN_DIR)/second_token.c \
-					$(SRC_TOKEN_DIR)/set_variable.c \
-					$(SRC_TOKEN_DIR)/third_token.c \
-					$(SRC_TOKEN_DIR)/token.c \
-					$(SRC_TOKEN_DIR)/utils.c
 SRCS_PARSING	=	$(SRC_PARSING_DIR)/check_operator.c \
 					$(SRC_PARSING_DIR)/check_quotes_op.c \
 					$(SRC_PARSING_DIR)/check_quotes.c \
@@ -97,8 +87,6 @@ SRCS_GNL		=	$(SRC_GNL_DIR)/get_next_line_utils.c \
 					$(SRC_GNL_DIR)/get_next_line.c
 
 #-----------------				OBJECTS				----------------#
-# OBJS_FRONTEND	=	$(SRCS_FRONTEND:%.c=$(BUILD_DIR)/%.o)
-# OBJS_EXEC	=	$(SRCS_EXEC:%.c=$(BUILD_DIR)/%.o)
 OBJS_DEV		=	$(patsubst $(SRC_DEV_DIR)/%.c, $(BUILD_DIR)/dev_%.o, $(SRCS_DEV))
 OBJS_EXEC		=	$(patsubst $(SRC_EXEC_DIR)/%.c, $(BUILD_DIR)/exec_%.o, $(SRCS_EXEC))
 OBJS_EXPAND		=	$(patsubst $(SRC_EXPAND_DIR)/%.c, $(BUILD_DIR)/expand_%.o, $(SRCS_EXPAND))
