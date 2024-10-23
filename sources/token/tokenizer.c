@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsorel <hsorel@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:00:21 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/21 20:34:28 by hsorel           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:42:11 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	handle_variables(t_token **tokens, t_shell *shell)
 	word = NULL;
 	while (current)
 	{
-		expander(shell->env, &(current->value));
-		current->type = 0;
+		if (current->type == TOKEN_ENV_VAR)
+		{
+			expander(shell->env, &(current->value));
+			current->type = 0;
+		}
 		current = current->next;
 	}
 }
@@ -79,7 +82,7 @@ t_token	*tokenize_input(t_shell *shell)
 {
 	t_token	*tokens;
 	char	*buf;
-
+	
 	tokens = NULL;
 	buf = shell->buf;
 	while (*buf)
