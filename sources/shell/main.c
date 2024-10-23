@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/23 14:24:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:29:52 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "../../includes/exec.h"
 #include "../../includes/signal.h"
 #include "../../includes/built_in.h"
-#include "../../includes/built_in.h"
-#include "../../includes/built_in.h"
+#include "../../includes/token.h"
+#include "../../includes/expander.h"
 
 /*
 #####################################################################
@@ -37,7 +37,9 @@ void	shell_init(t_shell *shell, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
-	
+	t_token	*tokens;
+
+	tokens = NULL;
 	if (!envp)
 		panic("Error no environment pointer", NULL);
 	if (ac != 1 || av[1])
@@ -52,11 +54,13 @@ int	main(int ac, char **av, char **envp)
 			signal_eof(&shell);
 		}
 		add_history(shell.buf);
+		tokens = tokenize_input(&shell);
+		display_tokens(tokens);
 		parsing(&shell, &(shell.buf));
 		print_all_cmd(&shell); // dev
 		shell_executor(&shell);
 		free(shell.buf);
-		//dev_cmd_call(&shell); // dev
+		// dev_cmd_call(&shell); // dev
 	}
 	builtin_env(&shell);												// dev	- use to check if the shlvl is correclty updated
 	if (ft_strchr(shell.env[ft_arrayfind(shell.env, "SHLVL")], '4'))	// dev	and if minishell can be run in minishell(4 times deep).

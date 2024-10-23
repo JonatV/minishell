@@ -72,6 +72,8 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/chdir.c \
 					$(SRC_BUILT_DIR)/exit.c \
 					$(SRC_BUILT_DIR)/echo.c
+SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/tokenizer_utils.c \
+					$(SRC_TOKEN_DIR)/tokenizer.c
 SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/check_variable.c \
 					$(SRC_TOKEN_DIR)/delete_quote.c \
 					$(SRC_TOKEN_DIR)/free_token.c \
