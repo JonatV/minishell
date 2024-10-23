@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/23 12:58:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:24:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #																	#
 #####################################################################
 */
-/* this wont be accepted here*/
+/* this is the test merge*/
 
 void	shell_init(t_shell *shell, char **envp)
 {
