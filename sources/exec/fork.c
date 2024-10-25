@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 12:37:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:35:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	waiting_for_children(t_shell *shell)
 		wait(&status);
 		i++;
 	}
-	if (WIFEXITED(status))
-				shell->exit_code = WEXITSTATUS(status);
+	if (WIFEXITED(status)) // wip
+		shell->exit_code = WEXITSTATUS(status); //wip
 }

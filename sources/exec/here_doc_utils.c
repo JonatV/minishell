@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/21 17:47:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:39:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_here_doc_available(t_shell *shell, int i)
 {
-	if (!shell->cmd_array[i].here_doc_in)
+	if (!shell->cmd_array[i].here_doc_input)
 		return (0);
 	return (1);
 }

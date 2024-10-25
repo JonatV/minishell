@@ -6,12 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:45 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/22 16:59:40 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:09:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-
 
 void	create_cmd(t_cmd *full_cmd, char *str, int k)
 {
@@ -49,7 +48,7 @@ t_lists	*move_lst(t_lists *lst, int i)
 		count = 0;
 		while (count < i)
 		{
-			if (lst->token->type == pipeline)
+			if (lst->token->type == TOKEN_PIPE)
 				count++;
 			lst = lst->next;
 		}
@@ -70,15 +69,15 @@ t_cmd	parse_cmds(t_lists *lst, int i, int k)
 	{
 		lst = move_lst(lst, i);
 		i = 0;
-		if (lst->token->type == literal)
-			create_cmd(&full_cmd, lst->token->content, k++);
-		else if (lst->token->type == simple_redir_right)
+		if (lst->token->type == TOKEN_WORD)
+			create_cmd(&full_cmd, lst->token->value, k++);
+		else if (lst->token->type == TOKEN_REDIR_OUT)
 			full_cmd.fd_in = get_redir_r(lst->token);
-		else if (lst->token->type == simple_redir_left)
+		else if (lst->token->type == TOKEN_REDIR_IN)
 			full_cmd.fd_in = get_redir_l(lst->token);
-		else if (lst->token->type == double_redir_right)
+		else if (lst->token->type == TOKEN_REDIR_APPEND)
 			full_cmd.fd_out = get_redir_dr(lst->token);
-		else if (lst->token->type == double_redir_left)
+		else if (lst->token->type == TOKEN_REDIR_HEREDOC)
 			full_cmd.fd_in = get_redir_dl(lst->token);
 		lst = lst->next;
 	}

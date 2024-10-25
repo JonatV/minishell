@@ -23,6 +23,10 @@
 typedef enum e_token_type t_token_type;
 typedef struct s_token t_token;
 
+# define CMD_NAME 0
+# define CMD_FLAG 1
+# define CMD_ARG 2
+# define CMD_END 3
 typedef struct s_lists
 {
 	t_token			*token;
@@ -42,7 +46,6 @@ int				set_path(char **cmd);
 int				set_path_2(char **cmd, char **tpm, int i);
 int				check_cmd_2(char **cmd, t_token *token, int i);
 int				set_cmd(t_shell *shell, t_lists *lst, int k);
-int				parsing(t_shell *shell, char **input);
 //void			free_cmds(t_all_cmd *all_cmd);
 int				check_acces(char **str);
 int				check_env(char *str);
@@ -52,9 +55,14 @@ int				get_redir_dl(t_token *token);
 int				get_redir_r(t_token *token);
 int				get_redir_dr(t_token *token);
 
+// news
+bool			cmd_array_builder(t_shell *shell, t_token **tokens_list);
+int				parsing(t_shell *shell, t_token **tokens_list);
+
+
 //utils
 void			init_struct(t_cmd *cmd);
-int				count_cmd(t_lists *lst);
+int				count_cmd(t_token *tokens_list);
 int				get_type(char **str);
 int				print_syntax_error(char *str, int i);
 void			ft_free(char *str);
@@ -65,3 +73,4 @@ int				get_sig_code(void);
 //token
 int				main_token(char *input, t_lists **lst);
 #endif
+

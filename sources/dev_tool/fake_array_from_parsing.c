@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:09:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/11 12:45:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:40:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_all_cmd(t_shell *shell)
 	shell->cmd_array[0].data[0] = "./minishell"; // wip: i'm struggling to send a executable only like ./hey which is a exec or ./minishell
 	shell->cmd_array[0].data[1] = NULL;
 	shell->cmd_array[0].here_doc_delimiter[0] = NULL;
-	shell->cmd_array[0].here_doc_in = NULL;
+	shell->cmd_array[0].here_doc_input = NULL;
 }
 // void init_all_cmd(t_shell *shell)
 // {

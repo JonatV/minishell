@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/22 16:58:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:40:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ void	init_struct(t_cmd *cmd)
 	cmd->fd_out = DEFAULT_FD;
 	cmd->type = -1;
 	cmd->here_doc_delimiter = NULL;
-	cmd->here_doc_in = NULL;
-	cmd->cmd = NULL;
-	cmd->data[0] = NULL; //dev wip
-	cmd->data[1] = NULL; //dev wip
-	cmd->data[2] = NULL; //dev wip
+	cmd->here_doc_input = NULL;
+	cmd->data[CMD_NAME] = NULL; //dev wip
+	cmd->data[CMD_FLAG] = NULL; //dev wip
+	cmd->data[CMD_ARG] = NULL; //dev wip
+	cmd->data[CMD_END] = NULL; //dev wip its the null terminated
 }
 
-int	count_cmd(t_lists *lst)
+int	count_cmd(t_token *tokens_list)
 {
 	int	i;
 
 	i = 0;
-	while (lst)
+	while (tokens_list)
 	{
-		if (lst->token->type == pipeline)
+		if (tokens_list->type == TOKEN_PIPE)
 			i++;
-		lst = lst->next;
+		tokens_list = tokens_list->next;
 	}
 	return (i + 1);
 }

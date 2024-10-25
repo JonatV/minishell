@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_operator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:09:16 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:11:26 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/25 13:35:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	close_op(char **input, char *content, char *line, int i)

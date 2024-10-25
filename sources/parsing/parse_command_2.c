@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:18:46 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:19:37 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/25 13:36:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	check_cmd_2(char **cmd, t_token *token, int i)
@@ -20,9 +21,9 @@ int	check_cmd_2(char **cmd, t_token *token, int i)
 		free(*cmd);
 		return (0);
 	}
-	str = ft_substr(token->content, i, ft_strlen(token->content));
-	free(token->content);
-	token->content = ft_strjoin(*cmd, str);
+	str = ft_substr(token->value, i, ft_strlen(token->value));
+	free(token->value);
+	token->value = ft_strjoin(*cmd, str);
 	free(*cmd);
 	free(str);
 	return (1);

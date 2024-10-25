@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/22 17:02:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:39:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ static void	here_doc_found(t_shell *shell, int i)
 	while (delimiter && delimiter[j])
 	{
 		printf("CURRENT DELIMITER [%s]\n", delimiter[j]);//debug
-		if (shell->cmd_array[i].here_doc_in)
-			free(shell->cmd_array[i].here_doc_in);
-		shell->cmd_array[i].here_doc_in = NULL;
-		shell->cmd_array[i].here_doc_in = to_the_delimiter(delimiter[j]);
+		if (shell->cmd_array[i].here_doc_input)
+			free(shell->cmd_array[i].here_doc_input);
+		shell->cmd_array[i].here_doc_input = NULL;
+		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j]);
 		if (!shell->cmd_array[i].here_doc_delimiter[j + 1])
 			break ;
 		j++;
@@ -88,7 +88,7 @@ void	here_doc_exploit(t_shell *shell, int i)
 	if (0 == pid)
 	{
 		close(pipe_fd[0]);
-		text_input = shell->cmd_array[i].here_doc_in;
+		text_input = shell->cmd_array[i].here_doc_input;
 		ft_putstr_fd(text_input, pipe_fd[1]);
 		free(text_input); // wip: double check here
 		close(pipe_fd[1]);

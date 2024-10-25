@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 15:54:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/10/23 14:43:33 by jveirman         ###   ########.fr        #
+#    Updated: 2024/10/25 15:47:24 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC_SHELL_DIR	:=	$(SRC_DIR)/shell
 SRC_SIGNAL_DIR	:=	$(SRC_DIR)/signal
 SRC_BUILT_DIR	:=	$(SRC_DIR)/built_in
 SRC_TOKEN_DIR	:=	$(SRC_DIR)/token
-# SRC_PARSING_DIR	:=	$(SRC_DIR)/parsing
+SRC_PARSING_DIR	:=	$(SRC_DIR)/parsing
 SRC_GNL_DIR		:=	get_next_line
 
 #-----------------				SOURCES				----------------#
@@ -74,15 +74,17 @@ SRCS_BUILT		=	$(SRC_BUILT_DIR)/env.c \
 					$(SRC_BUILT_DIR)/echo.c
 SRCS_TOKEN		=	$(SRC_TOKEN_DIR)/tokenizer_utils.c \
 					$(SRC_TOKEN_DIR)/tokenizer.c
-# SRCS_PARSING	=	$(SRC_PARSING_DIR)/check_operator.c \
+SRCS_PARSING	=	$(SRC_PARSING_DIR)/cmd_array_builder.c \
+					$(SRC_PARSING_DIR)/parsing.c \
+					$(SRC_PARSING_DIR)/utils.c
+
+#					$(SRC_PARSING_DIR)/check_operator.c \
+					$(SRC_PARSING_DIR)/parse_command_2.c \
+					$(SRC_PARSING_DIR)/parse_command.c \
+					$(SRC_PARSING_DIR)/parse_red.c \
 					$(SRC_PARSING_DIR)/check_quotes_op.c \
 					$(SRC_PARSING_DIR)/check_quotes.c \
-					$(SRC_PARSING_DIR)/parse_command.c \
-					$(SRC_PARSING_DIR)/parse_command_2.c \
-					$(SRC_PARSING_DIR)/parse_red.c \
-					$(SRC_PARSING_DIR)/parsing.c \
-					$(SRC_PARSING_DIR)/set_cmd.c \
-					$(SRC_PARSING_DIR)/utils.c
+					$(SRC_PARSING_DIR)/set_cmd.c
 SRCS_GNL		=	$(SRC_GNL_DIR)/get_next_line_utils.c \
 					$(SRC_GNL_DIR)/get_next_line.c
 
@@ -94,7 +96,7 @@ OBJS_SHELL		=	$(patsubst $(SRC_SHELL_DIR)/%.c, $(BUILD_DIR)/shell_%.o, $(SRCS_SH
 OBJS_SIGNAL		=	$(patsubst $(SRC_SIGNAL_DIR)/%.c, $(BUILD_DIR)/signal_%.o, $(SRCS_SIGNAL))
 OBJS_BUILT		=	$(patsubst $(SRC_BUILT_DIR)/%.c, $(BUILD_DIR)/built_in_%.o, $(SRCS_BUILT))
 OBJS_TOKEN		=	$(patsubst $(SRC_TOKEN_DIR)/%.c, $(BUILD_DIR)/token_%.o, $(SRCS_TOKEN))
-# OBJS_PARSING	=	$(patsubst $(SRC_PARSING_DIR)/%.c, $(BUILD_DIR)/parsing_%.o, $(SRCS_PARSING))
+OBJS_PARSING	=	$(patsubst $(SRC_PARSING_DIR)/%.c, $(BUILD_DIR)/parsing_%.o, $(SRCS_PARSING))
 OBJS_GNL	=		$(patsubst $(SRC_GNL_DIR)/%.c, $(BUILD_DIR)/get_next_line_%.o, $(SRCS_GNL))
 
 #===================================================================#
@@ -129,8 +131,9 @@ $(BUILD_DIR)/built_in_%.o: $(SRC_BUILT_DIR)/%.c
 $(BUILD_DIR)/token_%.o: $(SRC_TOKEN_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# $(BUILD_DIR)/parsing_%.o: $(SRC_PARSING_DIR)/%.c
-#	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/parsing_%.o: $(SRC_PARSING_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 
 $(BUILD_DIR)/get_next_line_%.o: $(SRC_GNL_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -138,7 +141,7 @@ $(BUILD_DIR)/get_next_line_%.o: $(SRC_GNL_DIR)/%.c
 #-----------------			BUILD THE MINISHELL		----------------#
 $(NAME): $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL)
 	make all -C libft
-	$(CC) $(CFLAGS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_DEV) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL) $(LIBFT) -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS_DEV) $(OBJS_DEV) $(OBJS_SHELL) $(OBJS_EXEC) $(OBJS_EXPAND) $(OBJS_SIGNAL) $(OBJS_BUILT) $(OBJS_TOKEN) $(OBJS_PARSING) $(OBJS_GNL) $(LIBFT) -o $@ $(LDFLAGS)
 
 #-----------------				SETUP DIR			----------------#
 create_dir:	## Build the directory that will gather .o files

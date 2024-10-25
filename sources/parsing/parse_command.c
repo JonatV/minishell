@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:16:19 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:17:44 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/25 13:41:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	set_path(char **cmd)
@@ -38,15 +39,15 @@ int	check_cmd(t_token *token)
 	int		i;
 
 	i = 0;
-	if (!ft_strncmp(token->content, ".", ft_strlen(token->content) - 1)
-		|| !ft_strncmp(token->content, "/", ft_strlen(token->content) - 1))
+	if (!ft_strncmp(token->value, ".", ft_strlen(token->value) - 1)
+		|| !ft_strncmp(token->value, "/", ft_strlen(token->value) - 1))
 		return (0);
-	while (token->content[i] != '\0' && token->content[i] != 32
-		&& token->content[i] != -1)
+	while (token->value[i] != '\0' && token->value[i] != 32
+		&& token->value[i] != -1)
 		i++;
 	if (i == 0)
 		return (0);
-	tpm = ft_substr(token->content, 0, i);
+	tpm = ft_substr(token->value, 0, i);
 	cmd = ft_strjoin("/", tpm);
 	free(tpm);
 	return (check_cmd_2(&cmd, token, i));
@@ -58,9 +59,9 @@ int	check_builtins(t_token *token)
 	int		i;
 
 	i = 0;
-	while (token->content[i] != '\0' && token->content[i] != 32)
+	while (token->value[i] != '\0' && token->value[i] != 32)
 		i++;
-	str = ft_substr(token->content, 0, i);
+	str = ft_substr(token->value, 0, i);
 	i = 1;
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		i = 0;
@@ -84,7 +85,7 @@ int	parse_command(t_lists *lst)
 {
 	while (lst)
 	{
-		if (lst->token->type == literal)
+		if (lst->token->type == TOKEN_WORD)
 		{
 			if (check_builtins(lst->token))
 				check_cmd(lst->token);

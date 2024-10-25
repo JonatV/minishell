@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haroldsorel <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:12:13 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/09/26 11:13:03 by haroldsorel      ###   ########.fr       */
+/*   Updated: 2024/10/25 13:36:07 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/parsing.h"
 
 int	check_quote_occurence(char *str, int i)
