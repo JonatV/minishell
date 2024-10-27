@@ -6,21 +6,19 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:00:21 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/23 15:42:11 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:36:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/token.h"
-#include "../../includes/expander.h"
-#include "../../includes/shell.h"
+#include "../../includes/minishell.h"
 
 void	handle_variables(t_token **tokens, t_shell *shell)
 {
 	t_token *current;
-	char	*word;
+	// char	*word;
 
 	current = *tokens;
-	word = NULL;
+	// word = NULL;
 	while (current)
 	{
 		if (current->type == TOKEN_ENV_VAR)

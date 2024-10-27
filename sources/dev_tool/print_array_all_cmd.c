@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:03:02 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/22 14:09:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:56:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/dev.h"
+#include "../../includes/minishell.h"
 
 static void print_cmd1(t_cmd *cmd)
 {

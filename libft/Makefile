@@ -32,16 +32,21 @@ END		=	\033[0m
 TOT 	:= $(words $(SRCS))
 C_FILE	:= 0
 
-define progress_bar_libft
-	@$(eval C_FILE=$(shell echo $$(($(C_FILE) + 1))))
-	@printf "\rLibft[%-$(TOT)s]" $$(for i in $$(seq 1 $(C_FILE)); do printf "#"; done)
-	@if [ $(C_FILE) -eq $(TOT) ]; then echo "Finish\n"; fi
-endef
+# define progress_bar_libft
+# 	@$(eval C_FILE=$(shell echo $$(($(C_FILE) + 1))))
+# 	@printf "\rLibft[%-$(TOT)s]" $$(for i in $$(seq 1 $(C_FILE)); do printf "#"; done)
+# 	@if [ $(C_FILE) -eq $(TOT) ]; then echo "Finish\n"; fi
+# endef
 
 .PHONY 	:	all clean fclean re loading
-.c.o	:
-			@${CC} ${CFLAGS} -c $< -o $@
-			$(call progress_bar_libft)
+
+%.o: %.c
+	@printf "Generating libft objects: %-33.33s\r" $@
+	@${CC} ${CFLAGS} -c $< -o $@
+
+# .c.o	:
+# 			@${CC} ${CFLAGS} -c $< -o $@
+# 			$(call progress_bar_libft)
 
 all 	:	${NAME}
 

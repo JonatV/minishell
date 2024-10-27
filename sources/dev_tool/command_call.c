@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 14:08:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:56:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/dev.h"
+#include "../../includes/minishell.h"
 
 static int	dev_str_is_in_debut(char *str, char *to_find)
 {

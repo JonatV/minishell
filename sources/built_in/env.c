@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:27:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 16:26:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:55:18 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built_in.h"
+#include "../../includes/minishell.h"
 
 void	builtin_env(t_shell *shell)
 {

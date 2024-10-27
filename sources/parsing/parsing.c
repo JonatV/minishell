@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/25 16:04:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
 // static int	single_token(t_lists *lst)
 // {
@@ -36,9 +36,9 @@
 
 int	parsing(t_shell *shell, t_token **tokens_list)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
+	// i = 0;
 	// if (!check_quotes_op(input)) //todo
 	// 	return (0);
 	// if (!single_token(lst)) //todo to keep?

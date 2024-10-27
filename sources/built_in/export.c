@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/11 14:37:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:55:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built_in.h"
+#include "../../includes/minishell.h"
 
 static void	add_var_full(t_shell *shell, char *var_name, char *str)
 {

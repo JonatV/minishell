@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 14:27:17 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:55:54 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built_in.h"
+#include "../../includes/minishell.h"
 
 int	is_builtin(char *to_find)
 {

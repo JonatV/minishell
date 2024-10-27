@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/25 15:35:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:56:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../../includes/minishell.h"
 
 /*
 #####################################################################
@@ -20,11 +20,8 @@
 
 void	shell_executor(t_shell *shell)
 {
-	int	num_pipes;
-
 	here_doc_management(shell);
 	update_var_lastarg(shell);
-	num_pipes = shell->cmd_number;
 	pipes_init(shell);
 	pipes_opening(shell);
 	forks_process(shell);

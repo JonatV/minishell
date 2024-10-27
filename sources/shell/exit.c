@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/23 14:25:02 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/minishell.h"
 
 static void	free_machine(t_shell *shell)
 {

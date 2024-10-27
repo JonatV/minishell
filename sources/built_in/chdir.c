@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 15:31:51 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:55:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built_in.h"
+#include "../../includes/minishell.h"
 
 static void	pwd_management(t_shell *shell, char *pwd)
 {

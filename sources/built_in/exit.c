@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/09/26 14:27:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:55:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built_in.h"
+#include "../../includes/minishell.h"
 
 /*
 *	TODO :

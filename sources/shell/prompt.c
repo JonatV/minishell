@@ -6,12 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:00:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/07 15:31:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
-#include "../../includes/shell.h"
+#include "../../includes/minishell.h"
 
 void	prompt_msg(t_shell *shell)
 {

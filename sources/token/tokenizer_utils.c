@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:00:33 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/23 15:33:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/token.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strndup(const char *src, size_t n)
 {
@@ -42,23 +42,23 @@ size_t	ft_strnlen(const char *s, size_t maxlen)
 	return (len);
 }
 
- const char	*get_token_type_name(t_token_type type)
- {
- 	const char	*token_type_names[7];
+const char	*get_token_type_name(t_token_type type)
+{
+	const char	*token_type_names[7];
+	
+	token_type_names[0] = "WORD";
+	token_type_names[1] = "PIPE";
+	token_type_names[2] = "REDIRECT_IN";
+	token_type_names[3] = "REDIRECT_OUT";
+	token_type_names[4] = "REDIRECT_APPEND";
+	token_type_names[5] = "REDIRECT_HEREDOC";
+	token_type_names[6] = "TOKEN_ENV_VAR";
+	if (type >= 0 && type < 7)
+		return (token_type_names[type]);
+	return ("UNKNOWN");
+}
 
- 	token_type_names[0] = "WORD";
- 	token_type_names[1] = "PIPE";
- 	token_type_names[2] = "REDIRECT_IN";
- 	token_type_names[3] = "REDIRECT_OUT";
- 	token_type_names[4] = "REDIRECT_APPEND";
- 	token_type_names[5] = "REDIRECT_HEREDOC";
- 	token_type_names[6] = "TOKEN_ENV_VAR";
- 	if (type >= 0 && type < 7)
- 		return (token_type_names[type]);
- 	return ("UNKNOWN");
- }
-
- void	display_tokens(t_token *tokens)
+void	display_tokens(t_token *tokens)
 {
  	t_token	*token;
 

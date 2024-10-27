@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/25 16:02:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
 static bool handle_token_word(t_cmd *cmd, char *value)
 {

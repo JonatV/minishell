@@ -6,46 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/25 15:40:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-
-static void	input_signal_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		set_sig_code(1);
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	}
-}
-
-void	input_signals(void)
-{
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, input_signal_handler);
-}
-
-static int	sig_code_static(int err_code, bool set_err_code)
-{
-	static int	static_err_code = 0;
-
-	if (set_err_code)
-		static_err_code = err_code;
-	return (static_err_code);
-}
-
-void	set_sig_code(int err_code)
-{
-	sig_code_static(err_code, true);
-}
-
-int	get_sig_code(void)
-{
-	return (sig_code_static(0, false));
-}
+#include "../../includes/minishell.h"
 
 void	init_struct(t_cmd *cmd)
 {

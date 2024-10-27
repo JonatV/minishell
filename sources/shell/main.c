@@ -6,16 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/25 15:31:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:57:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
-#include "../../includes/exec.h"
-#include "../../includes/signal.h"
-#include "../../includes/built_in.h"
-#include "../../includes/token.h"
-#include "../../includes/expander.h"
+#include "../../includes/minishell.h"
 
 /*
 #####################################################################
@@ -31,7 +26,7 @@ void	shell_init(t_shell *shell, char **envp)
 	// init_all_cmd(shell);//dev
 	init_env(shell, envp);
 	prompt_msg(shell);
-	signals();
+	signals_handler();
 }
 
 int	main(int ac, char **av, char **envp)
@@ -51,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 		if (!shell.buf)
 		{
 			free(shell.buf);
-			signal_eof(&shell);
+			sigeof_handler(&shell);
 		}
 		add_history(shell.buf);
 		tokens = tokenize_input(&shell);
