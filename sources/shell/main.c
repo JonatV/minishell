@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:57:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:11:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ int	main(int ac, char **av, char **envp)
 			free(shell.buf);
 			sigeof_handler(&shell);
 		}
+		else if (shell.buf[0] == '\0')
+		{
+			free(shell.buf);
+			continue;
+		}
 		add_history(shell.buf);
 		tokens = tokenize_input(&shell);
 		display_tokens(tokens);
 		parsing(&shell, &tokens);
-		// print_all_cmd(&shell); // dev
+		print_all_cmd(&shell); // dev
 		shell_executor(&shell);
 		free(shell.buf);
 		// dev_cmd_call(&shell); // dev

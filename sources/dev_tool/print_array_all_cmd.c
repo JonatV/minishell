@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:03:02 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:56:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:08:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@ static void print_cmd1(t_cmd *cmd)
 	if (!cmd)
 		return;
 
-	printf("Command Type: %d\n", cmd->type);
 	printf("Input File Descriptor: %d\n", cmd->fd_in);
 	printf("Output File Descriptor: %d\n", cmd->fd_out);
-		
-	printf("Command: ");
-	if (cmd->cmd) {
-		for (int i = 0; cmd->cmd[i] != NULL; i++) {
-			printf("\e[35m%s \e[0m", cmd->cmd[i]);
-		}
-	}
+	printf("Command:\n");
+	if (!cmd->data[CMD_NAME])
+		printf(YELLOW"Name = unknow\n"N);
+	else
+		printf(GREEN"Name = %s\n"N, cmd->data[CMD_NAME]);
+	if (!cmd->data[CMD_ARG])
+		printf(YELLOW"Argument(s) = unknow\n"N);
+	else
+		printf(GREEN"Argument(s) = %s\n"N, cmd->data[CMD_ARG]);
+	if (!cmd->data[CMD_FLAG])
+		printf(YELLOW"Flag(s) = unknow\n"N);
+	else
+		printf(GREEN"Option = %s\n"N, cmd->data[CMD_FLAG]);
 	printf("\n");
 }
 
@@ -38,7 +43,7 @@ void print_all_cmd(t_shell *shell)
 	printf("Status: %d\n", shell->status);
 	// Print the commands
 	for (int i = 0; i < shell->cmd_number; i++) {
-		printf("\n\e[4;33m Command %d:\n \e[0m", i + 1);
+		printf("\n\e[4;33m Command %d:\e[0m\n", i + 1);
 		print_cmd1(&shell->cmd_array[i]);
 	}
 }

@@ -50,7 +50,7 @@
 # define DEV_COMMAND_END "\033[1;33m/*----------------				END COMMAND				---------------*/\033[0m"
 
 /*----------------					EXEC					---------------*/
-# define MSG_ERROR "\033[1;33m ERROR\033[0m"
+# define MSG_ERROR "\033[1;33mERROR\033[0m"
 
 
 /*----------------					PARSING					---------------*/
@@ -61,6 +61,7 @@
 
 /*----------------					TOKEN					---------------*/
 #define GREEN "\e[32m"
+#define YELLOW "\033[0;33m"
 #define N "\e[0m"
 
 /*

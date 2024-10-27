@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:12:50 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 */
 void	builtin_exit(t_shell *shell)
 {
-	clean("exit", shell);
+	clean("exit\n", shell);
 	exit(shell->exit_code);
 }

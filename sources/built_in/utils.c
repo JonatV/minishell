@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:54 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/27 23:07:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	is_builtin(char *to_find)
 	int					i;
 	const char *const	built_in[B_SIZE] = \
 	{"pwd", "env", "exit", "echo", "unset", "cd", "export", NULL};
-
 	i = ft_arrayfind((char **)built_in, to_find);
 	return (i);
 }
