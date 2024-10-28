@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/27 10:57:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:52:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	count_cmd(t_token *tokens_list)
 	i = 0;
 	while (tokens_list)
 	{
-		if (tokens_list->type == TOKEN_PIPE)
+		if (tokens_list->type == TOKEN_PIPE && tokens_list->next)
 			i++;
 		tokens_list = tokens_list->next;
 	}
