@@ -6,6 +6,13 @@ CFLAGS		=	-Wall -Wextra -Werror
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 
+ifeq ($(shell uname), Linux)
+	LDFLAGS	=	""
+else
+	CFLAGS	+=	-I ~/.brew/opt/readline/include
+	LDFLAGS	=	-L ~/.brew/opt/readline/lib
+endif
+
 BUILT_IN	=	chdir echo env exit export_utils export pwd unset utils
 
 DEV_TOOL	=	command_call fake_array_from_parsing print_array_all_cmd
@@ -51,7 +58,7 @@ $(NAME): $(OBJS)
 	echo "\n"
 	make --no-print-directory all -C libft
 	echo "\nCompiling minishell now"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline -lncurses
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)  -lreadline -lncurses $(LDFLAGS)
 	echo "\033[0;32mDone !\033[0m"
 
 %.o: %.c
