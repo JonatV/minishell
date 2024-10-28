@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:03:02 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 21:08:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:09:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static void print_cmd1(t_cmd *cmd)
 	printf("Output File Descriptor: %d\n", cmd->fd_out);
 	printf("Command:\n");
 	if (!cmd->data[CMD_NAME])
-		printf(YELLOW"Name = unknow\n"N);
+		printf(YELLOW"Name = unknown\n"N);
 	else
 		printf(GREEN"Name = %s\n"N, cmd->data[CMD_NAME]);
 	if (!cmd->data[CMD_ARG])
-		printf(YELLOW"Argument(s) = unknow\n"N);
+		printf(YELLOW"Argument(s) = unknown\n"N);
 	else
 		printf(GREEN"Argument(s) = %s\n"N, cmd->data[CMD_ARG]);
 	if (!cmd->data[CMD_FLAG])
-		printf(YELLOW"Flag(s) = unknow\n"N);
+		printf(YELLOW"Flag(s) = unknown\n"N);
 	else
 		printf(GREEN"Option = %s\n"N, cmd->data[CMD_FLAG]);
 	printf("\n");
