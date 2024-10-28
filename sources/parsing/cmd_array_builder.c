@@ -6,13 +6,51 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 23:02:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:54:15 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char *get_next_line(int fd);
+static bool	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
+{
+	if (!(*tokens_list)->next)
+		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
+	else if ((*tokens_list)->next->type != TOKEN_WORD)
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+	else
+	{
+		ft_arraypush(&cmd->here_doc_delimiter, (*tokens_list)->next->value);
+		*tokens_list = (*tokens_list)->next;
+	}
+	return (true);
+}
+
+static bool	handle_token_redir_append(t_cmd *cmd, t_token **tokens_list)
+{
+	int		fd;
+
+	cmd->fd_out = -1;
+	if (!(*tokens_list)->next)
+		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
+	else if ((*tokens_list)->next->type != TOKEN_WORD)
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+	else
+	{
+		fd = open((*tokens_list)->next->value, O_CREAT | O_WRONLY | O_APPEND, \
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+		if (fd == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", (*tokens_list)->value);
+			*tokens_list = (*tokens_list)->next;
+			return (false);
+		}
+		cmd->fd_out = fd;
+		// close(fd);
+		*tokens_list = (*tokens_list)->next;
+	}
+	return (true);
+}
 
 static bool	handle_token_redir_out(t_cmd *cmd, t_token **tokens_list)
 {
@@ -108,16 +146,22 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd) //todo check if var i 
 		else if ((*tokens_list)->type == TOKEN_REDIR_IN)
 		{
 			if (!handle_token_redir_in(cmd, tokens_list))
-			{
 				return (false);
-			}
 		}
 		else if ((*tokens_list)->type == TOKEN_REDIR_OUT)
 		{
 			if (!handle_token_redir_out(cmd, tokens_list))
-			{
 				return (false);
-			}
+		}
+		else if ((*tokens_list)->type == TOKEN_REDIR_APPEND)
+		{
+			if (!handle_token_redir_append(cmd, tokens_list))
+				return (false);
+		}
+		else if ((*tokens_list)->type == TOKEN_REDIR_HEREDOC)
+		{
+			if (!handle_token_redir_heredoc(cmd, tokens_list))
+				return (false);
 		}
 		else if ((*tokens_list)->type == TOKEN_PIPE)
 		{
