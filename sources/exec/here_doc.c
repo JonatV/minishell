@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:56:49 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:48:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	here_doc_management(t_shell *shell)
 			i++;
 			continue ;
 		}
-		printf("HERE_DOC from cmd_array[%i]\n", i); //debug
+		// printf("HERE_DOC from cmd_array[%i]\n", i); //debug
 		here_doc_found(shell, i);
 		i++;
 	}
@@ -84,6 +84,7 @@ void	here_doc_exploit(t_shell *shell, int i)
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		waitpid(pid, NULL, 0);
+		close(pipe_fd[0]);
 	}
 	if (0 == pid)
 	{

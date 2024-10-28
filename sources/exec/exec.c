@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 11:43:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:58:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	execution(int i, t_shell *shell)
 	char	*valid_path;
 	
 	built_in_index = is_builtin(shell->cmd_array[i].data[CMD_NAME]);
-	printf("in builtin checking sent : %d\n", built_in_index);
 	if (built_in_index > -1)
 	{
 		select_builtin(shell, i, built_in_index);
