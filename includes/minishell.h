@@ -163,6 +163,9 @@ void		signals_handler(void);
 /*----------------  prompt.c  ---------------*/
 void		prompt_msg(t_shell *shell);
 
+/*----------------  check_cmd_line_structure.c  ---------------*/
+bool		check_cmd_line_structure(t_shell *shell);
+
 /*----------------  env_utils.c  ---------------*/
 void		update_var_lastarg(t_shell *shell);
 void		init_env(t_shell *shell, char **envp);

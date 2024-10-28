@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 22:11:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:02:15 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,8 @@ int	main(int ac, char **av, char **envp)
 	shell_init(&shell, envp);
 	while (1)
 	{
-		shell.buf = readline(shell.prompt_msg);
-		if (!shell.buf)
-		{
-			free(shell.buf);
-			sigeof_handler(&shell);
-		}
-		else if (shell.buf[0] == '\0')
-		{
-			free(shell.buf);
-			continue;
-		}
+		if (!check_cmd_line_structure(&shell))
+			continue ;
 		add_history(shell.buf);
 		tokens = tokenize_input(&shell);
 		display_tokens(tokens);

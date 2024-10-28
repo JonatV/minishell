@@ -2,7 +2,7 @@ NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
 OUT			=	-o $(NAME)
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 
@@ -23,7 +23,7 @@ EXPANDER	=	expander
 
 PARSING		=	cmd_array_builder parsing utils
 
-MINISHELL	=	env_utils exit main prompt
+MINISHELL	=	env_utils exit main prompt check_cmd_line_structure
 
 SIGNAL		=	listener
 
