@@ -2,12 +2,11 @@ NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
 OUT			=	-o $(NAME)
-CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS		=	-Wall -Wextra -Werror
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 
 ifeq ($(shell uname), Linux)
-	LDFLAGS	=	""
 else
 	CFLAGS	+=	-I ~/.brew/opt/readline/include
 	LDFLAGS	=	-L ~/.brew/opt/readline/lib
@@ -58,7 +57,7 @@ $(NAME): $(OBJS)
 	echo "\n"
 	make --no-print-directory all -C libft
 	echo "\nCompiling minishell now"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)  -lreadline -lncurses $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline -lncurses $(LDFLAGS)
 	echo "\033[0;32mDone !\033[0m"
 
 %.o: %.c
