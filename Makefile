@@ -20,7 +20,7 @@ EXEC		=	error exec_utils exec fork here_doc_utils here_doc pipes redirection
 
 EXPANDER	=	expander
 
-PARSING		=	cmd_array_builder parsing utils
+PARSING		=	cmd_array_builder parsing utils parse_token_redirection parse_token_word
 
 MINISHELL	=	env_utils exit main prompt check_cmd_line_structure
 
