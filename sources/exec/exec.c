@@ -38,7 +38,8 @@ static void	prepare_execve_data(t_cmd *cmd)
 	char	**data_flag;
 	char	**data_arg;
 	int		i;
-
+	
+	ft_arraypush(&cmd->final_cmd_line, cmd->data[CMD_NAME]);
 	if (cmd->data[CMD_FLAG] != NULL)
 	{
 		data_flag = ft_split(cmd->data[CMD_FLAG], ' ');
