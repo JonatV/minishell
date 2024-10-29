@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:49 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:05:45 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,43 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
-void	builtin_unset(t_shell *shell, char *to_remove)
+void	builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool secu)
 {
 	char	**new_env;
 	int		i;
 	int		j;
+	int		k;
+	char	**data_cmd_arg;
 
-	if (ft_strchr(to_remove, '='))
-		return ;
-	if (!ft_arrayfind(shell->env, to_remove))
-		return ;
-	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
-	if (!new_env)
-		panic("Malloc in unset", shell);
-	i = 0;
-	j = 0;
-	while (shell->env[i])
+	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, builtin_index))
 	{
-		if (str_is_in_debut(shell->env[i], to_remove))
-		{
-			i++;
-			continue ;
-		}
-		new_env[j++] = ft_strdup(shell->env[i++]);
+		printf("minishell: unset: no options allowed\n");
+		return;
 	}
-	new_env[j] = NULL;
-	ft_arrayfree(shell->env);
-	shell->env = new_env;
+	data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
+	k = -1;
+	while (data_cmd_arg[++k])
+	{
+		if (ft_strchr(data_cmd_arg[k], '='))
+			continue ;
+		if (!ft_arrayfind(shell->env, data_cmd_arg[k]))
+			continue ;
+		new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
+		if (!new_env)
+			panic("Malloc in unset", shell);
+		i = 0;
+		j = 0;
+		while (shell->env[i])
+		{
+			if (str_is_in_debut(shell->env[i], data_cmd_arg[k]))
+			{
+				i++;
+				continue ;
+			}
+			new_env[j++] = ft_strdup(shell->env[i++]);
+		}
+		new_env[j] = NULL;
+		ft_arrayfree(shell->env);
+		shell->env = new_env;
+	}
 }

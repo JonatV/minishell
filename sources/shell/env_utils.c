@@ -6,11 +6,55 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:57:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:13:45 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+static int	str_is_in_debut(char *str, char *to_find)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == to_find[i] && str[i] != '\0' && to_find[i] != '\0')
+	{
+		i++;
+	}
+	if (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='))
+		return (1);
+	return (0);
+}
+
+static void	env_unset(t_shell *shell, char *to_remove)
+{
+	char	**new_env;
+	int		i;
+	int		j;
+
+	if (!ft_arrayfind(shell->env, to_remove))
+	{
+		printf("error: env: SHELVL var isn't found");
+	}
+	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
+	if (!new_env)
+		panic("Malloc in unset", shell);
+	i = 0;
+	j = 0;
+	while (shell->env[i])
+	{
+		if (str_is_in_debut(shell->env[i], to_remove))
+		{
+			i++;
+			continue ;
+		}
+		new_env[j++] = ft_strdup(shell->env[i++]);
+	}
+	new_env[j] = NULL;
+	ft_arrayfree(shell->env);
+	shell->env = new_env;
+}
 
 /*
 * INFO:
@@ -30,7 +74,7 @@ static void	update_shlvl(t_shell *shell)
 		panic("No shlvl has been found", shell); //wip : is it the right behaviour?
 	shlvl = ft_atoi(ft_extract(shell->env[pos], '=', 1));
 	shlvl++;
-	builtin_unset(shell, "SHLVL");
+	env_unset(shell, "SHLVL");
 	str_shlvl = ft_itoa(shlvl);
 	str_to_add = ft_strjoin("SHLVL=", str_shlvl);
 	free(str_shlvl);
@@ -86,5 +130,5 @@ void	init_env(t_shell *shell, char **envp)
 	len = ft_strlen(shell->env[pos]);
 	skip = 2;
 	shell->last_arg = ft_substr(shell->env[pos], skip, len - skip);
-	builtin_unset(shell, "_");
+	env_unset(shell, "_");
 }

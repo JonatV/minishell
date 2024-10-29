@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 13:11:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:47:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ bool	check_data_validity(char **data, t_builtin builtin_index)
 		if (data[CMD_FLAG] || data[CMD_ARG])
 			return (false);
 	}
-		// printf("data[NAME] = [%s] - data[FLAG] = [%s] - data[ARG] = [%s]\n", data[CMD_NAME], data[CMD_FLAG], data[CMD_ARG]);
+	else if (BUILTIN_UNSET == builtin_index)
+	{
+		if (data[CMD_FLAG])
+			return (false);
+	}
+	// printf("data[NAME] = [%s] - data[FLAG] = [%s] - data[ARG] = [%s]\n", data[CMD_NAME], data[CMD_FLAG], data[CMD_ARG]);
 	// else if (BUILTIN_ECHO == builtin_number)
 	// 	if (data[CMD_FLAG][0] == '-' && data[CMD_FLAG][1] == 'n')
 	// 		return ()
@@ -72,7 +77,7 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 	else if (built_in_index == BUILTIN_ECHO)
 		builtin_echo(shell->cmd_array[i].data);
 	else if (built_in_index == BUILTIN_UNSET)
-		builtin_unset(shell, shell->cmd_array[i].data[1]);
+		builtin_unset(shell, i, built_in_index, true);
 	else if (built_in_index == BUILTIN_CD)
 		builtin_chdir(shell, shell->cmd_array[i].data[1]);
 	else if (built_in_index == BUILTIN_EXPORT)

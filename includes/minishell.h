@@ -206,7 +206,7 @@ int			expander(char **array, char **str);
 void		builtin_pwd(t_shell *shell, char **data, t_builtin builtin_index);
 
 /*----------------  unset.c  ---------------*/
-void		builtin_unset(t_shell *shell, char *to_remove);
+void		builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool secu);
 
 /*----------------  env.c  ---------------*/
 void		builtin_env(t_shell *shell, char **data);
@@ -231,7 +231,6 @@ void		print_export(char **array);
 void		builtin_exit(t_shell *shell);
 
 /*----------------  export.c  ---------------*/
-void		update_export(t_shell *shell, char *str);
 void		builtin_export(t_shell *shell, int i);
 
 /*----------------  print_array_all_cmd.c  ---------------*/

@@ -6,18 +6,18 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:07:10 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	add_var_full(t_shell *shell, char *var_name, char *str)
+static void	add_var_full(t_shell *shell, char *var_name, char *str, int cmd_num)
 {
 	int		i;
 	char	*var_name_equal;
-
-	builtin_unset(shell, var_name);
+	
+	builtin_unset(shell, cmd_num, 0, false);
 	var_name_equal = ft_strjoin(var_name, "=");
 	if (!var_name_equal)
 	{
@@ -33,7 +33,7 @@ static void	add_var_full(t_shell *shell, char *var_name, char *str)
 	if (str[i])
 		ft_arraypush(&(shell->env), str);
 	else
-		ft_arraypush(&(shell->env), ft_strjoin(var_name, "="));
+		ft_arraypush(&(shell->env), var_name_equal);
 }
 
 static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
@@ -46,7 +46,7 @@ static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 * TODO:
 *	- create the check_var_name function
 */
-void	update_export(t_shell *shell, char *str)
+static void	update_export(t_shell *shell, char *str, int cmd_num)
 {
 	char	*var_name;
 	int		var_exist;
@@ -54,29 +54,29 @@ void	update_export(t_shell *shell, char *str)
 	var_name = ft_extract(str, '=', 0);
 	if (!var_name)
 		panic("Malloc export var", shell);
-	if (check_var_name(var_name) != 0)
-		return ;
+	// if (check_var_name(var_name) != 0)
+	// 	return ;
 	var_exist = ft_arrayfind(shell->env, var_name);
 	if (ft_strchr(str, '=') == 0)
 		add_var_name_only(shell, var_name, var_exist);
 	else
-		add_var_full(shell, var_name, str);
+		add_var_full(shell, var_name, str, cmd_num);
 	free(var_name);
 }
 
-void	builtin_export(t_shell *shell, int i)
+void	builtin_export(t_shell *shell, int cmd_num)
 {
-	int	data_size;
 	int	j;
-
-	data_size = ft_arraysize(shell->cmd_array[i].data);
-	if (data_size > 1)
+	char	**data_cmd_arg;
+	
+	data_cmd_arg = NULL;
+	if (shell->cmd_array[cmd_num].data[CMD_ARG] != NULL)
 	{
+		data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
 		j = 0;
-		while (shell->cmd_array[i].data[j + 1])
+		while (data_cmd_arg[j])
 		{
-			update_export(shell, shell->cmd_array[i].data[j + 1]);
-			j++;
+			update_export(shell, data_cmd_arg[j++], cmd_num);
 		}
 	}
 	else
