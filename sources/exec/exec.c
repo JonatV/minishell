@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 22:58:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:58:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,30 @@ void	shell_executor(t_shell *shell)
 	pipes_closing(shell);
 	waiting_for_children(shell);
 }
-
-static void	prepare_execve_data(char **data)
+/*
+*	@note:	Function that concatenate the two array, CMD_FLAG and CMD ARG,
+*			into one null terminated array -> final_cmd_line.
+*	@param:	Current command structure
+*/
+static void	prepare_execve_data(t_cmd *cmd)
 {
-	if (data[CMD_FLAG] == NULL && data[CMD_ARG] != NULL)
+	char	**data_flag;
+	char	**data_arg;
+	int		i;
+
+	if (cmd->data[CMD_FLAG] != NULL)
 	{
-		data[CMD_FLAG] = data[CMD_ARG];
-		data[CMD_ARG] = NULL;
+		data_flag = ft_split(cmd->data[CMD_FLAG], ' ');
+		i = -1;
+		while (data_flag[++i])
+			ft_arraypush(&cmd->final_cmd_line, data_flag[i]);
+	}
+	if (cmd->data[CMD_ARG] != NULL)
+	{
+		data_arg = ft_split(cmd->data[CMD_ARG], ' ');
+		i = -1;
+		while (data_arg[++i])
+			ft_arraypush(&cmd->final_cmd_line, data_arg[i]);
 	}
 }
 
@@ -63,8 +80,8 @@ void	execution(int i, t_shell *shell)
 			STDERR_FILENO);
 			exit(127);
 		}
-		prepare_execve_data(shell->cmd_array[i].data);
-		execve(valid_path, shell->cmd_array[i].data, shell->env);
+		prepare_execve_data(&shell->cmd_array[i]);
+		execve(valid_path, shell->cmd_array[i].final_cmd_line, shell->env);
 		free(valid_path);
 		panic("Execve failed", shell);
 	}

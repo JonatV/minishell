@@ -77,7 +77,7 @@ typedef struct s_cmd
 	char	*data[4];
 	char	**here_doc_delimiter;
 	char	*here_doc_input;
-	char	**cmd; //wip will be replace by data
+	char	**final_cmd_line;
 
 	// wip - merging
 	int		type;

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/28 11:52:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:27:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_struct(t_cmd *cmd)
 	cmd->data[CMD_FLAG] = NULL; //dev wip
 	cmd->data[CMD_ARG] = NULL; //dev wip
 	cmd->data[CMD_END] = NULL; //dev wip its the null terminated
+	cmd->final_cmd_line = NULL;
 }
 
 int	count_cmd(t_token *tokens_list)
