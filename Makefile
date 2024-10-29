@@ -14,7 +14,7 @@ endif
 
 BUILT_IN	=	chdir echo env exit export_utils export pwd unset utils
 
-DEV_TOOL	=	command_call fake_array_from_parsing print_array_all_cmd
+DEV_TOOL	=	fake_array_from_parsing print_array_all_cmd
 
 EXEC		=	error exec_utils exec fork here_doc_utils here_doc pipes redirection
 
