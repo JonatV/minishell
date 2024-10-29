@@ -99,6 +99,18 @@ typedef struct s_shell
 	int		status;
 }	t_shell;
 
+typedef enum e_builtin
+{
+	BUILTIN_PWD,
+	BUILTIN_ENV,
+	BUILTIN_EXIT,
+	BUILTIN_ECHO,
+	BUILTIN_UNSET,
+	BUILTIN_CD,
+	BUILTIN_EXPORT,
+	BUILTIN_NULL,
+}	t_builtin;
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -191,15 +203,16 @@ int			main(int ac, char **av, char **envp);
 int			expander(char **array, char **str);
 
 /*----------------  pwd.c  ---------------*/
-void		builtin_pwd(t_shell *shell);
+void		builtin_pwd(t_shell *shell, char **data, t_builtin builtin_index);
 
 /*----------------  unset.c  ---------------*/
 void		builtin_unset(t_shell *shell, char *to_remove);
 
 /*----------------  env.c  ---------------*/
-void		builtin_env(t_shell *shell);
+void		builtin_env(t_shell *shell, char **data);
 
 /*----------------  utils.c  ---------------*/
+bool		check_data_validity(char **data, t_builtin builtin_index);
 int			is_builtin(char *to_find);
 void		select_builtin(t_shell *shell, int i, int built_in_index);
 
