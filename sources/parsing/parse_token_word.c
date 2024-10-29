@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 23:46:15 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:35:52 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,27 @@ static bool	handle_cmd_name(t_cmd *cmd, char *value)
 	return (true);
 }
 
-static bool	handle_cmd_flag(t_cmd *cmd, char *value)
+static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *value, int data_slot)
 {
 	char	*temp;
 
-	if (!cmd->data[CMD_FLAG])
-		cmd->data[CMD_FLAG] = ft_strdup("");
-	temp = ft_strjoin(cmd->data[CMD_FLAG], value);
+	if (!cmd->data[data_slot])
+		cmd->data[data_slot] = ft_strdup("");
+	if (cmd->data[data_slot][0] == '\0')
+		temp = ft_strjoin(cmd->data[data_slot], value);
+	else
+	{
+		temp = ft_strjoin(cmd->data[data_slot], " ");
+		if (!temp)
+			return (false);
+		free(cmd->data[data_slot]);
+		cmd->data[data_slot] = temp;
+		temp = ft_strjoin(cmd->data[data_slot], value);
+	}
 	if (!temp)
 		return (false);
-	free(cmd->data[CMD_FLAG]);
-	cmd->data[CMD_FLAG] = temp;
-	return (true);
-}
-
-static bool	handle_cmd_arg(t_cmd *cmd, char *value)
-{
-	char	*temp;
-	if (!cmd->data[CMD_ARG])
-		cmd->data[CMD_ARG] = ft_strdup("");
-	temp = ft_strjoin(cmd->data[CMD_ARG], value);
-	if (!temp)
-		return (false);
-	free(cmd->data[CMD_ARG]);
-	cmd->data[CMD_ARG] = temp;
+	free(cmd->data[data_slot]);
+	cmd->data[data_slot] = temp;
 	return (true);
 }
 
@@ -64,8 +61,8 @@ bool	handle_token_word(t_cmd *cmd, char *value)
 	if (!cmd->data[CMD_NAME])
 		return (handle_cmd_name(cmd, value));
 	else if (value[0] == '-')
-		return (handle_cmd_flag(cmd, value));
+		return (handle_cmd_arg_n_flag(cmd, value, CMD_FLAG));
 	else
-		return (handle_cmd_arg(cmd, value));
+		return (handle_cmd_arg_n_flag(cmd, value, CMD_ARG));
 	return (true);
 }
