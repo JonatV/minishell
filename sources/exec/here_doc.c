@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 22:48:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 00:54:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	here_doc_management(t_shell *shell)
 	{
 		if (!shell->cmd_array[i].here_doc_delimiter)
 		{
-			printf("NO_HERE_DOC\n"); //debug
+			// printf("NO_HERE_DOC\n"); //debug
 			i++;
 			continue ;
 		}

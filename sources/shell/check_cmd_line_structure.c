@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 14:02:51 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:43:32 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static bool	incomplete_cmd_line(char *buffer)
 	int	i;
 	
 	i = ft_strlen(buffer) - 1;
-	printf("[%s]\n", buffer);
 	while (i >= 0 && ft_isspace(buffer[i]))
 		i--;
 	if (buffer[i] == '|')

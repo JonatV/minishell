@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:30 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 01:25:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,40 @@ static void	print_process(char *str)
 {
 	int	i;
 
-	ft_putstr("declare -x ");
+	// ft_putstr_fd("\n\e[1;31mhere\e[0m\n", STDIN_FILENO);
+	// ft_putstr_fd("\n\e[1;31mhere user\e[0m\n", STDIN_FILENO);
+	ft_putstr_fd("declare -x ", STDIN_FILENO); //wip stdin check
 	i = 0;
 	while (str[i])
 	{
-		ft_putchar_fd(str[i], 1);
+		ft_putchar_fd(str[i], STDIN_FILENO);
 		if (str[i++] == '=')
 			break ;
 	}
-	ft_putchar_fd('"', 1);
+	ft_putchar_fd('"', STDIN_FILENO);
 	if (str[i])
-		ft_putstr(str + i);
-	ft_putchar_fd('"', 1);
-	ft_putchar_fd('\n', 1);
+		ft_putstr_fd(str + i, STDIN_FILENO);
+	ft_putchar_fd('"', STDIN_FILENO);
+	ft_putchar_fd('\n', STDIN_FILENO);
 }
 
 void	print_export(char **array)
 {
 	int	i;
-
+	i = 0;
+	while (array[i])
+	{
+		ft_putstr_fd(array[i], STDIN_FILENO);
+		ft_putstr_fd(" ", STDIN_FILENO);
+		i++;
+	}
 	i = 0;
 	while (array[i])
 	{
 		if (ft_strchr(array[i], '=') == 0)
 		{
-			ft_putstr("declare -x ");
-			ft_putendl_fd(array[i], 1);
+			ft_putstr_fd("declare -x ", STDIN_FILENO);
+			ft_putendl_fd(array[i], STDIN_FILENO);
 		}
 		else
 			print_process(array[i]);
