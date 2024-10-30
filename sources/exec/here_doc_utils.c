@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 22:59:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:13:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_here_doc_available(t_shell *shell, int i)
 }
 
 // todo - clean - check for eof and ctrl+c
-static char *ft_delimiter_hunter(char *ret, char *to_find)
+static char	*ft_delimiter_hunter(char *ret, char *to_find)
 {
 	char	*buf;
 	char	*temp;
@@ -33,7 +33,7 @@ static char *ft_delimiter_hunter(char *ret, char *to_find)
 		if (ft_strcmp(buf, to_find) == 0)
 		{
 			free(buf);
-			break;
+			break ;
 		}
 		temp = ret;
 		ret = ft_strjoin(ret, buf);

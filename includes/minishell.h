@@ -51,7 +51,8 @@
 
 /*----------------					EXEC					---------------*/
 # define MSG_ERROR "\033[1;33mERROR\033[0m"
-
+# define PIPE_WRITE_END 1
+# define PIPE_READ_END 0
 
 /*----------------					PARSING					---------------*/
 # define CMD_NAME 0
@@ -87,7 +88,7 @@ typedef struct s_shell
 {
 	int		cmd_number;
 	t_cmd	*cmd_array;		// malloc
-	int		*pipefds;		// malloc
+	int		**pipefds;		// malloc
 	char	**env;			// malloc + inside malloc
 	char	*prompt_msg;	// malloc
 	char	*buf;			// malloc form readline, don't handle
@@ -247,12 +248,12 @@ void		dev_cmd_call(t_shell *shell);
 void		init_all_cmd(t_shell *shell);
 
 /*----------------  fork.c  ---------------*/
-void		forks_process(t_shell *shell);
-void		waiting_for_children(t_shell *shell);
+void		forks_process(t_shell *shell, int i);
+void		waiting_for_children(t_shell *shell, int built_in_triggered);
 
 /*----------------  redirection.c  ---------------*/
-void		fd_in_management(int i, int j, t_shell shell);
-void		fd_out_management(int i, int j, t_shell shell);
+void	fd_in_management(t_shell *shell, int i);
+void	fd_out_management(t_shell *shell, int i);
 
 /*----------------  exec.c  ---------------*/
 void		shell_executor(t_shell *shell);
@@ -263,6 +264,7 @@ int			is_here_doc_available(t_shell *shell, int i);
 char		*to_the_delimiter(char *to_find);
 
 /*----------------  exec_utils.c  ---------------*/
+bool		use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered);
 char		*find_valid_path(char *cmd, char **env);
 
 /*----------------  pipes.c  ---------------*/

@@ -6,37 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 00:54:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:14:10 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	here_doc_found(t_shell *shell, int i);
-
-/*
-* INFO:
-*	Checks for each command whether one or more 
-*	here_doc_delimiter delimiters are defined.
-*/
-void	here_doc_management(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (i < shell->cmd_number)
-	{
-		if (!shell->cmd_array[i].here_doc_delimiter)
-		{
-			// printf("NO_HERE_DOC\n"); //debug
-			i++;
-			continue ;
-		}
-		// printf("HERE_DOC from cmd_array[%i]\n", i); //debug
-		here_doc_found(shell, i);
-		i++;
-	}
-}
 
 /*
 * INFO:
@@ -66,6 +40,28 @@ static void	here_doc_found(t_shell *shell, int i)
 		j++;
 	}
 	// ft_arrayfree(shell->cmd_array[i].here_doc_delimiter); // debug: dev mode has hardcoded array, decomment for prod
+}
+
+/*
+* INFO:
+*	Checks for each command whether one or more 
+*	here_doc_delimiter delimiters are defined.
+*/
+void	here_doc_management(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (i < shell->cmd_number)
+	{
+		if (!shell->cmd_array[i].here_doc_delimiter)
+		{
+			i++;
+			continue ;
+		}
+		here_doc_found(shell, i);
+		i++;
+	}
 }
 
 void	here_doc_exploit(t_shell *shell, int i)
