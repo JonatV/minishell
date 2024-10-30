@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 21:05:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:45:11 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool se
 
 	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, builtin_index))
 	{
-		printf("minishell: unset: no options allowed\n");
+		ft_putstr_fd("minishell: unset: no options allowed\n", STDERR_FILENO);
 		return;
 	}
 	data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');

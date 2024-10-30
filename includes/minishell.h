@@ -94,7 +94,8 @@ typedef struct s_shell
 	int		exit_status;
 	char	*last_arg;
 	int		exit_code;
-
+	int		current_fd_in;
+	int		current_fd_out;
 	// wip - merging
 	int		status;
 }	t_shell;
@@ -195,6 +196,9 @@ void		init_env(t_shell *shell, char **envp);
 void		clean(char *str, t_shell *shell);
 void		panic(char *str, t_shell *shell);
 
+/*----------------  init_shell.c  ---------------*/
+void		set_default_current_fds(t_shell *shell);
+
 /*----------------  main.c  ---------------*/
 void		shell_init(t_shell *shell, char **envp);
 int			main(int ac, char **av, char **envp);
@@ -217,7 +221,7 @@ int			is_builtin(char *to_find);
 void		select_builtin(t_shell *shell, int i, int built_in_index);
 
 /*----------------  echo.c  ---------------*/
-void		builtin_echo(char **data);
+void		builtin_echo(t_shell *shell, char **data);
 
 /*----------------  chdir.c  ---------------*/
 int			builtin_chdir(t_shell *shell, char *destination);
@@ -225,7 +229,7 @@ int			builtin_chdir(t_shell *shell, char *destination);
 /*----------------  export_utils.c  ---------------*/
 int			check_var_name(char *str);
 char		*ft_extract(char *str, char target, int extract_after);
-void		print_export(char **array);
+void		print_export(char **array, int fd_out);
 
 /*----------------  exit.c  ---------------*/
 void		builtin_exit(t_shell *shell);

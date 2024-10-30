@@ -22,7 +22,7 @@ EXPANDER	=	expander
 
 PARSING		=	cmd_array_builder parsing utils parse_token_redirection parse_token_word
 
-MINISHELL	=	env_utils exit main prompt check_cmd_line_structure
+MINISHELL	=	env_utils exit main prompt check_cmd_line_structure init_shell
 
 SIGNAL		=	listener
 

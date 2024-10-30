@@ -24,6 +24,7 @@ void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
 	// init_all_cmd(shell);//dev
+	set_default_current_fds(shell);
 	init_env(shell, envp);
 	prompt_msg(shell);
 	signals_handler();

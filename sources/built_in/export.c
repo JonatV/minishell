@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 01:08:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:48:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	builtin_export(t_shell *shell, int cmd_num)
 		}
 	}
 	else
-		print_export(shell->env);
+		print_export(shell->env, shell->current_fd_out);
 }

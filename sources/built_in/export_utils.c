@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 01:25:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:19:06 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,33 @@ char	*ft_extract(char *str, char target, int extract_after)
 	return (ft_substr(str, 0, (size_t)target_pos));
 }
 
-static void	print_process(char *str)
+static void	print_process(char *str, int fd_out)
 {
 	int	i;
 
-	// ft_putstr_fd("\n\e[1;31mhere\e[0m\n", STDIN_FILENO);
-	// ft_putstr_fd("\n\e[1;31mhere user\e[0m\n", STDIN_FILENO);
-	ft_putstr_fd("declare -x ", STDIN_FILENO); //wip stdin check
+	ft_putstr_fd("declare -x ", fd_out);
 	i = 0;
 	while (str[i])
 	{
-		ft_putchar_fd(str[i], STDIN_FILENO);
+		ft_putchar_fd(str[i], fd_out);
 		if (str[i++] == '=')
 			break ;
 	}
-	ft_putchar_fd('"', STDIN_FILENO);
+	ft_putchar_fd('"', fd_out);
 	if (str[i])
-		ft_putstr_fd(str + i, STDIN_FILENO);
-	ft_putchar_fd('"', STDIN_FILENO);
-	ft_putchar_fd('\n', STDIN_FILENO);
+		ft_putstr_fd(str + i, fd_out);
+	ft_putchar_fd('"', fd_out);
+	ft_putchar_fd('\n', fd_out);
 }
 
-void	print_export(char **array)
+void	print_export(char **array, int fd_out)
 {
 	int	i;
 	i = 0;
 	while (array[i])
 	{
-		ft_putstr_fd(array[i], STDIN_FILENO);
-		ft_putstr_fd(" ", STDIN_FILENO);
+		ft_putstr_fd(array[i], fd_out);
+		ft_putstr_fd(" ", fd_out);
 		i++;
 	}
 	i = 0;
@@ -70,11 +68,11 @@ void	print_export(char **array)
 	{
 		if (ft_strchr(array[i], '=') == 0)
 		{
-			ft_putstr_fd("declare -x ", STDIN_FILENO);
-			ft_putendl_fd(array[i], STDIN_FILENO);
+			ft_putstr_fd("declare -x ", fd_out);
+			ft_putendl_fd(array[i], fd_out);
 		}
 		else
-			print_process(array[i]);
+			print_process(array[i], fd_out);
 		i++;
 	}
 }

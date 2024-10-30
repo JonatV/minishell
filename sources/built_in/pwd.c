@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:42 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 12:18:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:19:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	builtin_pwd(t_shell *shell, char **data, t_builtin builtin_index)
 
 	if (!check_data_validity(data, builtin_index))
 	{
-		printf("minishell: pwd: no options allowed\n");
+		ft_putstr_fd("minishell: pwd: no options allowed\n", STDERR_FILENO);
 		return;
 	}
 	s = "PWD";
 	pwd = shell->env[ft_arrayfind(shell->env, s)];
-	ft_putendl_fd(pwd + ft_strlen(s), 1);
+	ft_putendl_fd(pwd + ft_strlen(s), shell->current_fd_out);
 }

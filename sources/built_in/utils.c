@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 17:47:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:46:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 	else if (built_in_index == BUILTIN_EXIT)
 		builtin_exit(shell);
 	else if (built_in_index == BUILTIN_ECHO)
-		builtin_echo(shell->cmd_array[i].data);
+		builtin_echo(shell, shell->cmd_array[i].data);
 	else if (built_in_index == BUILTIN_UNSET)
 		builtin_unset(shell, i, built_in_index, true);
 	else if (built_in_index == BUILTIN_CD)
-		builtin_chdir(shell, shell->cmd_array[i].data[1]);
+		builtin_chdir(shell, shell->cmd_array[i].data[1]); // todo
 	else if (built_in_index == BUILTIN_EXPORT)
 		builtin_export(shell, i);
 }

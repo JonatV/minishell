@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 17:43:51 by jveirman         ###   ########.fr       */
+/*   Created: 2024/10/30 16:41:21 by jveirman          #+#    #+#             */
+/*   Updated: 2024/10/30 16:44:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtin_echo(t_shell *shell, char **data)
+void	set_default_current_fds(t_shell *shell)
 {
-	bool	flag;
-
-	if (!data[CMD_ARG][0])
-	{
-		write(shell->current_fd_out, "\n", 1);
-		return ;
-	}
-	flag = false;
-	if (data[CMD_FLAG] && data[CMD_FLAG][0] == '-' && data[CMD_FLAG][1] == 'n')
-		flag = true;
-	ft_putstr_fd(data[CMD_ARG], shell->current_fd_out);
-	if (!flag)
-		write(shell->current_fd_out, "\n", 1);
+	shell->current_fd_in = 0;
+	shell->current_fd_out = 1;
 }
