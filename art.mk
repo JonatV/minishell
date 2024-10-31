@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/09 21:41:24 by jveirman          #+#    #+#              #
-#    Updated: 2024/10/27 11:38:26 by jveirman         ###   ########.fr        #
+#    Updated: 2024/10/31 02:22:55 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,20 @@ GIT_DATE := $(shell git log -1 --pretty=format:%cd --date=short)
 
 GIT_TOTAL:= $(shell git rev-list --count HEAD)
 
+FORMATTED_GIT_TOTAL := $(shell \
+    message="  $(GIT_TOTAL) updates"; \
+    total_length=60; \
+    message_length=$$(echo "$$message" | wc -c); \
+    padding_length=$$((total_length - message_length)); \
+    padding=$$(printf '%*s' $$padding_length ''); \
+    printf '%s%s' "$$message" "$$padding" \
+)
+
 GIT_LOG = $(shell git log -1 --pretty=format:%s)
 
 FORMATTED_LOG := $(shell \
     message="$(GIT_LOG)"; \
-    total_length=58; \
+    total_length=57; \
     message_length=$$(echo "$$message" | wc -c); \
     padding_length=$$((total_length - message_length)); \
     if [ $$message_length -gt $$total_length ]; then \
@@ -51,11 +60,11 @@ $(E)███$(M)█$(I)▄$(M)███$(E)█▀$(T)   █$(B) > Author       
 $(E)▀▀▀$(M)█$(I)█$(M)█▀▀$(E)▀▀$(T)   █               @jveirman             @hsorel               █   $(E)▀▀$(M)▀██$(I)█$(M)▀$(E)▀▀▀$(N)\n\
 $(E)███$(M)█$(I)█$(M)▄▄▄$(E)▄▄$(T)   █                                                           █   $(E)██$(M)███$(I)▄$(M)▄$(E)▄▄▄$(N)\n\
 $(E)▀▀▀$(M)▀$(I)█$(M)█▀▀$(E)▀▀$(T)   █$(B) > Last Commit                                             $(T)█   $(E)▀▀$(M)▀▀█$(I)█$(M)▀$(E)▀▀▀$(N)\n\
-$(E)███$(M)▄$(I)█$(M)███$(E)██$(T)   █ $(FORMATTED_LOG) █   $(E)██$(M)█▄█$(I)█$(M)█$(E)███$(N)\n\
-$(E)██▄$(M)█$(I)▄$(M)▄▄▄$(E)▄▄$(T)   █  $(G)└── $(GIT_DATE)$(T)                                           █   $(E)██$(M)▄█▄$(I)▄$(M)▄$(E)▄▄▄$(N)\n\
+$(E)███$(M)▄$(I)█$(M)███$(E)██$(T)   █  $(FORMATTED_LOG) █   $(E)██$(M)█▄█$(I)█$(M)█$(E)███$(N)\n\
+$(E)██▄$(M)█$(I)▄$(M)▄▄▄$(E)▄▄$(T)   █   $(G)└── $(GIT_DATE)$(T)                                          █   $(E)██$(M)▄█▄$(I)▄$(M)▄$(E)▄▄▄$(N)\n\
 $(E)▄▄█$(M)█$(I)█$(M)█▄▄$(E)▄▄$(T)   █                                                           █   $(E)▄▄$(M)███$(I)█$(M)▄$(E)▄▄▄$(N)\n\
 $(E)███$(M)█$(I)▄$(M)█▄█$(E)▄█$(T)   █$(B) > Total Commit                                            $(T)█   $(E)██$(M)██▄$(I)█$(M)▄$(E)█▄█$(N)\n\
-$(E) ▄ $(M)▄$(I) $(M)▄▄█$(E)██$(T)   █  $(GIT_TOTAL) updates                                               █   $(E) ▄$(M) ▄ $(I)▄$(M)▄$(E)███$(N)\n\
+$(E) ▄ $(M)▄$(I) $(M)▄▄█$(E)██$(T)   █$(FORMATTED_GIT_TOTAL)█   $(E) ▄$(M) ▄ $(I)▄$(M)▄$(E)███$(N)\n\
 $(E)███$(M)█$(I)█$(M)██▀$(E)▀▀$(T)   █                                                           █   $(E)██$(M)███$(I)█$(M)█$(E)▀▀▀$(N)\n\
 $(E)▄▄▄$(M)▄$(I)█$(M)███$(E)▄▄$(T)   █                                                           █   $(E)▄▄$(M)▄▄█$(I)█$(M)█$(E)█▄▄$(N)\n\
 $(E)   $(M)▄$(I)▄$(M)███$(E)▀█$(T)   █                                                           █   $(E)  $(M) ▄▄$(I)█$(M)█$(E)█▀█$(N)\n\
