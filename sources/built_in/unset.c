@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 17:45:11 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:57:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
-void	builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool secu)
+void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 {
 	char	**new_env;
 	int		i;
@@ -34,11 +34,13 @@ void	builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool se
 	int		k;
 	char	**data_cmd_arg;
 
-	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, builtin_index))
+	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_UNSET))
 	{
 		ft_putstr_fd("minishell: unset: no options allowed\n", STDERR_FILENO);
-		return;
+		return ;
 	}
+	if (!shell->cmd_array[cmd_num].data[CMD_ARG])
+		return ;
 	data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
 	k = -1;
 	while (data_cmd_arg[++k])

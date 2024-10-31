@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 17:46:02 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:02:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ bool	check_data_validity(char **data, t_builtin builtin_index)
 			return (false);
 	}
 	else if (BUILTIN_UNSET == builtin_index)
+	{
+		if (data[CMD_FLAG])
+			return (false);
+	}
+	else if (BUILTIN_EXPORT == builtin_index)
+	{
+		if (data[CMD_FLAG])
+			return (false);
+	}
+	else if (BUILTIN_ECHO == builtin_index)
 	{
 		if (data[CMD_FLAG])
 			return (false);
@@ -69,15 +79,15 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 
 	data = shell->cmd_array[i].data;
 	if (built_in_index == BUILTIN_PWD)
-		builtin_pwd(shell, data, built_in_index);
+		builtin_pwd(shell, data);
 	else if (built_in_index == BUILTIN_ENV)
 		builtin_env(shell, data);
 	else if (built_in_index == BUILTIN_EXIT)
-		builtin_exit(shell);
+		builtin_exit(shell, data, i);
 	else if (built_in_index == BUILTIN_ECHO)
 		builtin_echo(shell, shell->cmd_array[i].data);
 	else if (built_in_index == BUILTIN_UNSET)
-		builtin_unset(shell, i, built_in_index, true);
+		builtin_unset(shell, i, true);
 	else if (built_in_index == BUILTIN_CD)
 		builtin_chdir(shell, shell->cmd_array[i].data[1]); // todo
 	else if (built_in_index == BUILTIN_EXPORT)

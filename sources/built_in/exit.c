@@ -6,21 +6,54 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 22:12:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:51:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-*	TODO :
-*		Check for the number of arg, it cant accept more arg.
-*		Which means, the array will looks like that, no more 
-*		shell->cmd_array[0].data[0] = "exit";
-*		shell->cmd_array[0].data[1] = NULL;
-*/
-void	builtin_exit(t_shell *shell)
+static bool	is_non_numeric(t_shell *shell, char *str)
 {
-	clean("exit\n", shell);
+	int i = 0;
+	if (!str)
+		return (false);
+	if (str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]) && str[i] != ' ')
+		{
+			ft_putstr_fd("bash: exit: ", shell->current_fd_out);
+			ft_putstr_fd(str, shell->current_fd_out);
+			ft_putendl_fd(": numeric argument required", shell->current_fd_out);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+static bool	non_numeric_found(t_shell *shell, int i)
+{
+	return (is_non_numeric(shell, shell->cmd_array[i].data[CMD_FLAG]) \
+			|| is_non_numeric(shell, shell->cmd_array[i].data[CMD_ARG]));
+}
+
+//todo clean function for the all minishell
+void	builtin_exit(t_shell *shell, char **data, int i)
+{
+	(void)data;
+	int	size;
+
+	size = shell->cmd_array[i].num_flag + shell->cmd_array[i].num_arg;
+	ft_putstr_fd("exit\n", shell->current_fd_out);
+	if (size > 1)
+	{
+		ft_putstr_fd("bash: exit: too many arguments\n", STDERR_FILENO);
+		return ;
+	}
+	non_numeric_found(shell, i);
 	exit(shell->exit_code);
 }
+
+// "123456 qwewq 1234 090"

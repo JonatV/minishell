@@ -19,7 +19,7 @@ void	builtin_env(t_shell *shell, char **data)
 	
 	if (!check_data_validity(data, BUILTIN_ENV))
 	{
-		printf("minishell: env: no options nor arguments allowed\n");
+		ft_putstr_fd("minishell: env: no options nor arguments allowed\n", STDERR_FILENO);
 		return;
 	}
 	array = shell->env;

@@ -96,7 +96,7 @@ typedef struct s_shell
 	char	*buf;			// malloc form readline, don't handle
 	int		exit_status;
 	char	*last_arg;
-	int		exit_code;
+	int		exit_code; //wip
 	int		current_fd_in;
 	int		current_fd_out;
 	// wip - merging
@@ -210,10 +210,10 @@ int			main(int ac, char **av, char **envp);
 int			expander(char **array, char **str);
 
 /*----------------  pwd.c  ---------------*/
-void		builtin_pwd(t_shell *shell, char **data, t_builtin builtin_index);
+void		builtin_pwd(t_shell *shell, char **data);
 
 /*----------------  unset.c  ---------------*/
-void		builtin_unset(t_shell *shell, int cmd_num, t_builtin builtin_index, bool secu);
+void		builtin_unset(t_shell *shell, int cmd_num, bool secu);
 
 /*----------------  env.c  ---------------*/
 void		builtin_env(t_shell *shell, char **data);
@@ -235,7 +235,7 @@ char		*ft_extract(char *str, char target, int extract_after);
 void		print_export(char **array, int fd_out);
 
 /*----------------  exit.c  ---------------*/
-void		builtin_exit(t_shell *shell);
+void		builtin_exit(t_shell *shell, char **data, int i);
 
 /*----------------  export.c  ---------------*/
 void		builtin_export(t_shell *shell, int i);

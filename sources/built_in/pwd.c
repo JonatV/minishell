@@ -6,18 +6,18 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:42 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:19:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:59:30 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtin_pwd(t_shell *shell, char **data, t_builtin builtin_index)
+void	builtin_pwd(t_shell *shell, char **data)
 {
 	char	*pwd;
 	char	*s;
 
-	if (!check_data_validity(data, builtin_index))
+	if (!check_data_validity(data, BUILTIN_PWD))
 	{
 		ft_putstr_fd("minishell: pwd: no options allowed\n", STDERR_FILENO);
 		return;

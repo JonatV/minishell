@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 16:48:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:23:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	add_var_full(t_shell *shell, char *var_name, char *str, int cmd_num)
 	int		i;
 	char	*var_name_equal;
 	
-	builtin_unset(shell, cmd_num, 0, false);
+	builtin_unset(shell, cmd_num, false);
 	var_name_equal = ft_strjoin(var_name, "=");
 	if (!var_name_equal)
 	{
@@ -69,6 +69,11 @@ void	builtin_export(t_shell *shell, int cmd_num)
 	int	j;
 	char	**data_cmd_arg;
 	
+	if (!check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_EXPORT))
+	{
+		ft_putstr_fd("minishell: export: no options allowed\n", STDERR_FILENO);
+		return ;
+	}
 	data_cmd_arg = NULL;
 	if (shell->cmd_array[cmd_num].data[CMD_ARG] != NULL)
 	{
