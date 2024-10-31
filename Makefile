@@ -51,8 +51,8 @@ include				$(MKFILES)
 .PHONY: help all art re clean fclean check-os
 
 all: check-os	$(NAME)## Command to start all the compiling
+	clear
 	make art
-
 $(NAME): $(OBJS)
 	echo "\n"
 	make --no-print-directory all -C libft
@@ -82,8 +82,29 @@ fclean:
 
 re: fclean all
 
-art:	## ASCII art for minishell
+art: loading	## ASCII art for minishell
+	clear
 	echo $(ART_AFTER_COMPILE)
+
+loading:
+	@ current_index=0; \
+	main_index=0; \
+    for current_line in $(FULL_LINE); do \
+        for line in $(FULL_LINE); do \
+                echo -n "$$line\r"; \
+                sleep 0.01; \
+                current_index=$$((current_index + 1)); \
+                if [ $$current_index -eq 10 ]; then \
+                    break; \
+                fi; \
+        done; \
+        current_index=0; \
+        echo -n "$$current_line\r"; \
+		main_index=$$((main_index + 1)); \
+		if [ $$main_index != 27 ]; then \
+			echo -n "\n"; \
+		fi; \
+	done
 
 check-os:
 	echo "OS detected: $(shell uname)"
