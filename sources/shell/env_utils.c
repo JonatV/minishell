@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 17:13:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:22:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ static int	str_is_in_debut(char *str, char *to_find)
 	return (0);
 }
 
-static void	env_unset(t_shell *shell, char *to_remove)
+void	env_unset(t_shell *shell, char *to_remove)
 {
 	char	**new_env;
 	int		i;
 	int		j;
 
-	if (!ft_arrayfind(shell->env, to_remove))
+	if (ft_arrayfind(shell->env, to_remove) == -1)
 	{
-		printf("error: env: SHELVL var isn't found");
+		ft_putstr_fd("error: ", shell->current_fd_out);
+		ft_putstr_fd(to_remove, shell->current_fd_out);
+		ft_putendl_fd(" var isn't found", shell->current_fd_out);
 	}
 	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 	if (!new_env)

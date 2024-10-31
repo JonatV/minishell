@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:19:06 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:27:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_extract(char *str, char target, int extract_after)
 	int	target_pos;
 
 	target_pos = 0;
-	while (str[target_pos] != target)
+	while (str[target_pos] && str[target_pos] != target)
 		target_pos++;
 	if (extract_after)
 		return (ft_substr(str, ++target_pos, ft_strlen(str)));

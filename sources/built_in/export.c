@@ -6,18 +6,19 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 11:23:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:30:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	add_var_full(t_shell *shell, char *var_name, char *str, int cmd_num)
+static void	add_var_full(t_shell *shell, char *var_name, char *str, int var_exist)
 {
 	int		i;
 	char	*var_name_equal;
 	
-	builtin_unset(shell, cmd_num, false);
+	if (var_exist != -1)
+		env_unset(shell, var_name);
 	var_name_equal = ft_strjoin(var_name, "=");
 	if (!var_name_equal)
 	{
@@ -46,7 +47,7 @@ static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 * TODO:
 *	- create the check_var_name function
 */
-static void	update_export(t_shell *shell, char *str, int cmd_num)
+static void	update_export(t_shell *shell, char *str)
 {
 	char	*var_name;
 	int		var_exist;
@@ -60,7 +61,7 @@ static void	update_export(t_shell *shell, char *str, int cmd_num)
 	if (ft_strchr(str, '=') == 0)
 		add_var_name_only(shell, var_name, var_exist);
 	else
-		add_var_full(shell, var_name, str, cmd_num);
+		add_var_full(shell, var_name, str, var_exist);
 	free(var_name);
 }
 
@@ -80,9 +81,7 @@ void	builtin_export(t_shell *shell, int cmd_num)
 		data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
 		j = 0;
 		while (data_cmd_arg[j])
-		{
-			update_export(shell, data_cmd_arg[j++], cmd_num);
-		}
+			update_export(shell, data_cmd_arg[j++]);
 	}
 	else
 		print_export(shell->env, shell->current_fd_out);

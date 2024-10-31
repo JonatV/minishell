@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 15:57:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:03:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 
 	i = 0;
 	while (str[i] == to_find[i] && str[i] != '\0' && to_find[i] != '\0')
-	{
 		i++;
-	}
 	if (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='))
 		return (1);
 	return (0);
@@ -47,7 +45,7 @@ void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 	{
 		if (ft_strchr(data_cmd_arg[k], '='))
 			continue ;
-		if (!ft_arrayfind(shell->env, data_cmd_arg[k]))
+		if (ft_arrayfind(shell->env, data_cmd_arg[k]) == -1)
 			continue ;
 		new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 		if (!new_env)

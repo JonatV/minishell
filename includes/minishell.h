@@ -192,8 +192,9 @@ void		prompt_msg(t_shell *shell);
 bool		check_cmd_line_structure(t_shell *shell);
 
 /*----------------  env_utils.c  ---------------*/
-void		update_var_lastarg(t_shell *shell);
+void		env_unset(t_shell *shell, char *to_remove);
 void		init_env(t_shell *shell, char **envp);
+void		update_var_lastarg(t_shell *shell);
 
 /*----------------  exit.c  ---------------*/
 void		clean(char *str, t_shell *shell);

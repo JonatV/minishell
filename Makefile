@@ -2,7 +2,7 @@ NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
 OUT			=	-o $(NAME)
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address 
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 
