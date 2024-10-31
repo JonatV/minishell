@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:17:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:31:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	execution(int i, t_shell *shell)
 
 void	shell_executor(t_shell *shell)
 {
-	int	status;
 	int	i;
 	int	built_in_triggered;
 

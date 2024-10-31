@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:08:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 00:11:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	forks_process(t_shell *shell, int i)
 {
 	pid_t	pid;
-	int		num_cmd;
-
-	num_cmd = shell->cmd_number;
+	
 	pid = fork();
 	if (pid == 0)
 	{
