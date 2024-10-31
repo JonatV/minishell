@@ -41,7 +41,7 @@ C_FILE	:= 0
 .PHONY 	:	all clean fclean re loading
 
 %.o: %.c
-	@printf "Generating libft objects: %-33.33s\r" $@
+	@printf "Generating libft objects:\t%-33.33s\r" $@
 	@${CC} ${CFLAGS} -c $< -o $@
 
 # .c.o	:

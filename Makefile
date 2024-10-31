@@ -48,39 +48,44 @@ include				$(MKFILES)
 #===================================================================#
 
 .SILENT:
-.PHONY: help all art re clean fclean check-os
+.PHONY: help all art re clean fclean check-os dev redev
 
-all: check-os	$(NAME)## Command to start all the compiling
+all: check-os $(NAME)## Command to start all the compiling
 	clear
 	make art
+
+dev: check-os $(NAME) job_s_done## Command to start all the compiling with art skip
+
 $(NAME): $(OBJS)
-	echo "\n"
+	echo
 	make --no-print-directory all -C libft
-	echo "\nCompiling minishell now"
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline -lncurses $(LDFLAGS)
-	echo "\033[0;32mDone !\033[0m"
+
+job_s_done:
+		echo "\n\033[0;32mDone !\033[0m"
 
 %.o: %.c
-	printf "Generating minishell objects: %-33.33s\r" $@
+	printf "Generating minishell objects:\t %-33.33s\r" $@
 	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	echo "\033[0;31mCleaning libft..."
 	make --no-print-directory clean -C libft
-	echo "\nRemoving binaries..."
+	printf "Libft simple clean: \033[0;32m✅\033[0m\n"
 	$(RM) $(OBJS)
+	printf "Minishell simple clean: \033[0;32m✅\033[0m\n"
 	echo "\033[0m"
 
 fclean:
-	echo "\033[0;31mCleaning libft..."
 	make --no-print-directory fclean -C libft/
-	echo "\nDeleting objects..."
+	printf "Libft full clean: \033[0;32m✅\033[0m\n"
 	$(RM) $(OBJS)
-	echo "\nDeleting executable..."
 	$(RM) $(NAME)
-	echo "\033[0m"
+	printf "Minishell full clean: \033[0;32m✅\033[0m"
+	echo
 
 re: fclean all
+
+redev: fclean dev
 
 art: loading	## ASCII art for minishell
 	clear
@@ -89,9 +94,10 @@ art: loading	## ASCII art for minishell
 loading:
 	@ current_index=0; \
 	main_index=0; \
+	echo; \
     for current_line in $(FULL_LINE); do \
         for line in $(FULL_LINE); do \
-                echo -n "$$line\r"; \
+                printf "$$line"; \
                 sleep 0.01; \
                 current_index=$$((current_index + 1)); \
                 if [ $$current_index -eq 10 ]; then \
@@ -99,10 +105,10 @@ loading:
                 fi; \
         done; \
         current_index=0; \
-        echo -n "$$current_line\r"; \
+        printf "$$current_line"; \
 		main_index=$$((main_index + 1)); \
 		if [ $$main_index != 27 ]; then \
-			echo -n "\n"; \
+			printf "\n"; \
 		fi; \
 	done
 
