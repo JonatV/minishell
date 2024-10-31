@@ -48,13 +48,13 @@ include				$(MKFILES)
 #===================================================================#
 
 .SILENT:
-.PHONY: help all art re clean fclean check-os dev redev
+.PHONY: help all art re clean fclean check-os dev redev run
 
 all: check-os $(NAME)## Command to start all the compiling
 	clear
 	make art
 
-dev: check-os $(NAME) job_s_done## Command to start all the compiling with art skip
+dev: check-os $(NAME) job_s_done run## Command to start all the compiling with art skip
 
 $(NAME): $(OBJS)
 	echo
@@ -86,6 +86,9 @@ fclean:
 re: fclean all
 
 redev: fclean dev
+
+run:
+	./minishell
 
 art: loading	## ASCII art for minishell
 	clear
