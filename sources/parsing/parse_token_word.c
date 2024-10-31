@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 13:35:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:05:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *value, int data_slot)
 		return (false);
 	free(cmd->data[data_slot]);
 	cmd->data[data_slot] = temp;
+	if (data_slot == CMD_ARG)
+		cmd->num_arg++;
+	else
+		cmd->num_flag++;
 	return (true);
 }
 

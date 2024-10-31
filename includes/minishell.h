@@ -75,6 +75,8 @@ typedef struct s_cmd
 {
 	int		fd_in;
 	int		fd_out;
+	int		num_arg;
+	int		num_flag;
 	char	*data[4];
 	char	**here_doc_delimiter;
 	char	*here_doc_input;
