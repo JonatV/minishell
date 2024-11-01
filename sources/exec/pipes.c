@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:24:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:11:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:20:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pipes_init(t_shell *shell)
 	if (!shell->pipefds)
 		panic("malloc pipes", shell);
 	i = 0;
-	while (i < shell->cmd_number)
+	while (i < shell->cmd_number - 1)
 	{
 		shell->pipefds[i] = malloc(sizeof(int) * 2);
 		if (!shell->pipefds[i])
