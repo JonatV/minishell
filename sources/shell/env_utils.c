@@ -120,6 +120,11 @@ void	init_env(t_shell *shell, char **envp)
 		panic("Malloc dup env", shell);
 	update_shlvl(shell);
 	pos = ft_arrayfind(shell->env, "_");
+	if (shell->last_arg)
+	{
+		free(shell->last_arg);
+		shell->last_arg = NULL;
+	}
 	if (pos == -1)
 	{
 		last_arg = (char *)malloc(sizeof(char) * 3);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 17:36:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:25:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int ac, char **av, char **envp)
 		parsing(&shell, &tokens);
 		print_all_cmd(&shell); // dev
 		shell_executor(&shell);
+		free_after_execution(&shell);
 		free(shell.buf);
 	}
 }

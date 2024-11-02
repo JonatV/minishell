@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 02:31:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/01 22:13:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	shell_executor(t_shell *shell)
 	built_in_triggered = 0;
 	i = 0;
 	here_doc_management(shell);
-	update_var_lastarg(shell);
+	// update_var_lastarg(shell); //todo
 	pipes_init(shell);
 	pipes_opening(shell);
 	while (i < shell->cmd_number)

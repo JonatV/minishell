@@ -203,6 +203,9 @@ void		panic(char *str, t_shell *shell);
 /*----------------  init_shell.c  ---------------*/
 void		set_default_current_fds(t_shell *shell);
 
+/*----------------  free_helper.c  ---------------*/
+void		free_after_execution(t_shell *shell);
+
 /*----------------  main.c  ---------------*/
 void		shell_init(t_shell *shell, char **envp);
 int			main(int ac, char **av, char **envp);
@@ -271,9 +274,10 @@ bool		use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered);
 char		*find_valid_path(char *cmd, char **env);
 
 /*----------------  pipes.c  ---------------*/
-void		pipes_init(t_shell *shell);
-void		pipes_opening(t_shell *shell);
-void		pipes_closing(t_shell *shell);
+void	pipes_init(t_shell *shell);
+void	pipes_opening(t_shell *shell);
+void	pipes_closing(t_shell *shell);
+void	free_pipefds(t_shell *shell);
 
 /*----------------  here_doc.c  ---------------*/
 void		here_doc_management(t_shell *shell);
