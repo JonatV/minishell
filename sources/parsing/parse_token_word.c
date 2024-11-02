@@ -6,29 +6,29 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 12:05:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:59:22 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-static bool	handle_cmd_name(t_cmd *cmd, char *value)
+static bool	handle_cmd_name(t_cmd *cmd, char *content)
 {
-	cmd->data[CMD_NAME] = ft_strdup(value);
+	cmd->data[CMD_NAME] = ft_strdup(content);
 	if (!cmd->data[CMD_NAME])
 		return (false);
 	return (true);
 }
 
-static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *value, int data_slot)
+static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 {
 	char	*temp;
 
 	if (!cmd->data[data_slot])
 		cmd->data[data_slot] = ft_strdup("");
 	if (cmd->data[data_slot][0] == '\0')
-		temp = ft_strjoin(cmd->data[data_slot], value);
+		temp = ft_strjoin(cmd->data[data_slot], content);
 	else
 	{
 		temp = ft_strjoin(cmd->data[data_slot], " ");
@@ -36,7 +36,7 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *value, int data_slot)
 			return (false);
 		free(cmd->data[data_slot]);
 		cmd->data[data_slot] = temp;
-		temp = ft_strjoin(cmd->data[data_slot], value);
+		temp = ft_strjoin(cmd->data[data_slot], content);
 	}
 	if (!temp)
 		return (false);
@@ -60,13 +60,13 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *value, int data_slot)
 *	Second condition store the flags
 *	Third condition store the args
 */
-bool	handle_token_word(t_cmd *cmd, char *value)
+bool	handle_token_word(t_cmd *cmd, char *content)
 {
 	if (!cmd->data[CMD_NAME])
-		return (handle_cmd_name(cmd, value));
-	else if (value[0] == '-')
-		return (handle_cmd_arg_n_flag(cmd, value, CMD_FLAG));
+		return (handle_cmd_name(cmd, content));
+	else if (content[0] == '-')
+		return (handle_cmd_arg_n_flag(cmd, content, CMD_FLAG));
 	else
-		return (handle_cmd_arg_n_flag(cmd, value, CMD_ARG));
+		return (handle_cmd_arg_n_flag(cmd, content, CMD_ARG));
 	return (true);
 }

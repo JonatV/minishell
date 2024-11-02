@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:22:04 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 23:37:01 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:00:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ bool	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
 	if (!(*tokens_list)->next)
 		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
 	else if ((*tokens_list)->next->type != TOKEN_WORD)
-		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->content), false);
 	else
 	{
-		ft_arraypush(&cmd->here_doc_delimiter, (*tokens_list)->next->value);
+		ft_arraypush(&cmd->here_doc_delimiter, (*tokens_list)->next->content);
 		*tokens_list = (*tokens_list)->next;
 	}
 	return (true);
@@ -34,14 +34,14 @@ bool	handle_token_redir_append(t_cmd *cmd, t_token **tokens_list)
 	if (!(*tokens_list)->next)
 		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
 	else if ((*tokens_list)->next->type != TOKEN_WORD)
-		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->content), false);
 	else
 	{
-		fd = open((*tokens_list)->next->value, O_CREAT | O_WRONLY | O_APPEND, \
+		fd = open((*tokens_list)->next->content, O_CREAT | O_WRONLY | O_APPEND, \
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		if (fd == -1)
 		{
-			printf("minishell: %s: No such file or directory\n", (*tokens_list)->value);
+			printf("minishell: %s: No such file or directory\n", (*tokens_list)->content);
 			*tokens_list = (*tokens_list)->next;
 			return (false);
 		}
@@ -60,14 +60,14 @@ bool	handle_token_redir_out(t_cmd *cmd, t_token **tokens_list)
 	if (!(*tokens_list)->next)
 		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
 	else if ((*tokens_list)->next->type != TOKEN_WORD)
-		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->content), false);
 	else
 	{
-		fd = open((*tokens_list)->next->value, O_CREAT | O_WRONLY | O_TRUNC, \
+		fd = open((*tokens_list)->next->content, O_CREAT | O_WRONLY | O_TRUNC, \
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		if (fd == -1)
 		{
-			printf("minishell: %s: No such file or directory\n", (*tokens_list)->value);
+			printf("minishell: %s: No such file or directory\n", (*tokens_list)->content);
 			*tokens_list = (*tokens_list)->next;
 			return (false);
 		}
@@ -86,13 +86,13 @@ bool	handle_token_redir_in(t_cmd *cmd, t_token **tokens_list)
 	if (!(*tokens_list)->next)
 		return (printf("minishell: syntax error near unexpected token `newline'\n"), false);
 	else if ((*tokens_list)->next->type != TOKEN_WORD)
-		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->value), false);
+		return (printf("minishell: syntax error near unexpected token `%s'", (*tokens_list)->next->content), false);
 	else
 	{
-		fd = open((*tokens_list)->next->value, O_RDONLY);
+		fd = open((*tokens_list)->next->content, O_RDONLY);
 		if (fd == -1)
 		{
-			printf("minishell: %s: No such file or directory\n", (*tokens_list)->value);
+			printf("minishell: %s: No such file or directory\n", (*tokens_list)->content);
 			*tokens_list = (*tokens_list)->next;
 			return (false);
 		}
