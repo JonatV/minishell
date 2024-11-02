@@ -71,38 +71,6 @@
 #####################################################################
 */
 
-typedef struct s_cmd
-{
-	int		fd_in;
-	int		fd_out;
-	int		num_arg;
-	int		num_flag;
-	char	*data[4];
-	char	**here_doc_delimiter;
-	char	*here_doc_input;
-	char	**final_cmd_line;
-
-	// wip - merging
-	int		type;
-}	t_cmd;
-
-typedef struct s_shell
-{
-	int		cmd_number;
-	t_cmd	*cmd_array;		// malloc
-	int		**pipefds;		// malloc
-	char	**env;			// malloc + inside malloc
-	char	*prompt_msg;	// malloc
-	char	*buf;			// malloc form readline, don't handle
-	int		exit_status;
-	char	*last_arg;
-	int		exit_code; //wip
-	int		current_fd_in;
-	int		current_fd_out;
-	// wip - merging
-	int		status;
-}	t_shell;
-
 typedef enum e_builtin
 {
 	BUILTIN_PWD,
@@ -212,10 +180,10 @@ bool		handle_token_redir_out(t_cmd *cmd, t_token **tokens_list);
 bool		handle_token_redir_in(t_cmd *cmd, t_token **tokens_list);
 
 /*----------------  parsing.c  ---------------*/
-int			parsing(t_shell *shell, t_token **tokens_list);
+int			parsing(t_shell *shell);
 
 /*----------------  cmd_array_builder.c  ---------------*/
-bool 		cmd_array_builder(t_shell *shell, t_token **tokens_list);
+bool 		cmd_array_builder(t_shell *shell);
 
 /*----------------  listener.c  ---------------*/
 void		sigint_handler(int signal);
@@ -245,7 +213,6 @@ void		free_after_execution(t_shell *shell);
 
 /*----------------  main.c  ---------------*/
 void		shell_init(t_shell *shell, char **envp);
-int			main(int ac, char **av, char **envp);
 
 /*----------------  expander.c  ---------------*/
 int			expander(char **array, char **str);

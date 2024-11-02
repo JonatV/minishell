@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/01 21:25:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 00:36:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	shell_init(t_shell *shell, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
-	t_token	*tokens;
 
-	tokens = NULL;
 	if (!envp)
 		panic("Error no environment pointer", NULL);
 	if (ac != 1 || av[1])
@@ -45,10 +43,20 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (!check_cmd_line_structure(&shell))
 			continue ;
-		add_history(shell.buf);
-		tokens = tokenize_input(&shell);
-		// display_tokens(tokens);
-		parsing(&shell, &tokens);
+		add_history(shell.buf);// todo check where to put it
+		tokenizer(&shell);
+		if (!shell.tokens_list)
+		{
+			panic("Error while tokenizing", &shell);
+		}
+		display_tokens(shell.tokens_list);
+		if (!parsing(&shell))
+		{
+			free_tokens_list(&shell.tokens_list);
+			panic("Error while parsing", &shell);
+		}
+		free_tokens_list(&shell.tokens_list);
+		shell.tokens_list = NULL;
 		print_all_cmd(&shell); // dev
 		shell_executor(&shell);
 		free_after_execution(&shell);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/27 10:57:17 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 00:31:11 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 // 	return (1);
 // }
 
-int	parsing(t_shell *shell, t_token **tokens_list)
+int	parsing(t_shell *shell)
 {
 	// int	i;
 
@@ -43,8 +43,11 @@ int	parsing(t_shell *shell, t_token **tokens_list)
 	// 	return (0);
 	// if (!single_token(lst)) //todo to keep?
 	// 	return (0);
-	if (!cmd_array_builder(shell, tokens_list))
+	if (!cmd_array_builder(shell))
+	{
+		printf("Error while building cmd array\n");
 		return (0);
+	}
 	// if (!parse_command(lst))
 	// 	return (0);
 	// if (!set_cmd(shell, lst, i))
