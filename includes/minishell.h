@@ -274,10 +274,10 @@ bool		use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered);
 char		*find_valid_path(char *cmd, char **env);
 
 /*----------------  pipes.c  ---------------*/
-void	pipes_init(t_shell *shell);
-void	pipes_opening(t_shell *shell);
-void	pipes_closing(t_shell *shell);
-void	free_pipefds(t_shell *shell);
+void		pipes_init(t_shell *shell);
+void		pipes_opening(t_shell *shell);
+void		pipes_closing(t_shell *shell);
+void		free_pipefds(t_shell *shell);
 
 /*----------------  here_doc.c  ---------------*/
 void		here_doc_management(t_shell *shell);
