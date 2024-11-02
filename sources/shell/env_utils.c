@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 16:22:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/01 22:03:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,22 @@ void	env_unset(t_shell *shell, char *to_remove)
 	shell->env = new_env;
 }
 
+static int	get_shlvl(t_shell *shell)
+{
+	int		pos;
+	int		shlvl;
+	char	*shlvl_str;
+
+
+	pos = ft_arrayfind(shell->env, "SHLVL");
+	if (pos == -1)
+		panic("No shlvl has been found", shell); //wip : is it the right behaviour?
+	shlvl_str = ft_extract(shell->env[pos], '=', 1);
+	shlvl = ft_atoi(shlvl_str);
+	free(shlvl_str);
+	return (shlvl);
+}
+
 /*
 * INFO:
 *	find the last arg of the last command
@@ -66,15 +82,11 @@ void	env_unset(t_shell *shell, char *to_remove)
 */
 static void	update_shlvl(t_shell *shell)
 {
-	int		pos;
 	int		shlvl;
 	char	*str_shlvl;
 	char	*str_to_add;
 
-	pos = ft_arrayfind(shell->env, "SHLVL");
-	if (pos == -1)
-		panic("No shlvl has been found", shell); //wip : is it the right behaviour?
-	shlvl = ft_atoi(ft_extract(shell->env[pos], '=', 1));
+	shlvl = get_shlvl(shell);
 	shlvl++;
 	env_unset(shell, "SHLVL");
 	str_shlvl = ft_itoa(shlvl);
@@ -83,6 +95,7 @@ static void	update_shlvl(t_shell *shell)
 	if (!str_to_add)
 		panic("Malloc update shell level", shell);
 	ft_arraypush(&shell->env, str_to_add);
+	free(str_to_add);
 }
 
 void	update_var_lastarg(t_shell *shell)
