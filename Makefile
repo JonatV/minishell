@@ -26,7 +26,7 @@ MINISHELL	=	env_utils exit main prompt check_cmd_line_structure init_shell free_
 
 SIGNAL		=	listener
 
-TOKEN		=	tokenizer_utils tokenizer
+TOKEN		=	token_utils tokenizer handle_redirections handle_words handle_space
 
 SRCS		=	$(addsuffix .c, $(addprefix sources/built_in/, $(BUILT_IN))) \
 				$(addsuffix .c, $(addprefix sources/dev_tool/, $(DEV_TOOL))) \

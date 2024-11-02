@@ -124,16 +124,50 @@ typedef enum e_token_type
 	TOKEN_REDIR_APPEND,
 	TOKEN_REDIR_HEREDOC,
 	TOKEN_ENV_VAR,
-	TOKEN_BIG_QUOTES,
-	TOKEN_SMALL_QUOTES,
+	TOKEN_DOUBLE_QUOTE,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_SPACE,
 }	t_token_type;
+
+typedef struct s_cmd
+{
+	int		fd_in;
+	int		fd_out;
+	int		num_arg;
+	int		num_flag;
+	char	*data[4];
+	char	**here_doc_delimiter;
+	char	*here_doc_input;
+	char	**final_cmd_line;
+
+	// wip - merging
+	int		type;
+}	t_cmd;
 
 typedef struct s_token
 {
 	t_token_type		type;
-	char				*value;
+	char				*content;
 	struct s_token		*next;
 }	t_token;
+
+typedef struct s_shell
+{
+	int		cmd_number;
+	t_cmd	*cmd_array;		// malloc
+	int		**pipefds;		// malloc
+	char	**env;			// malloc + inside malloc
+	char	*prompt_msg;	// malloc
+	char	*buf;			// malloc form readline, don't handle
+	int		exit_status;
+	char	*last_arg;
+	int		exit_code; //wip
+	int		current_fd_in;
+	int		current_fd_out;
+	t_token	*tokens_list;	// malloc
+	// wip - merging
+	int		status;
+}	t_shell;
 
 /*
 #####################################################################
@@ -141,22 +175,25 @@ typedef struct s_token
 #####################################################################
 */
 
-/*----------------  tokenizer.c  ---------------*/
-void		handle_variables(t_token **tokens, t_shell *shell);
-void		handle_special_chars(char **input, t_token **tokens);
-void		handle_word(char **input, t_token **tokens);
-t_token		*tokenize_input(t_shell *shell);
-
-/*----------------  tokenizer_utils.c  ---------------*/
-char		*ft_strndup(const char *src, size_t n);
-size_t		ft_strnlen(const char *s, size_t maxlen);
+/*----------------  token_utils.c  ---------------*/
+void		free_tokens_list(t_token **tokens);
+void		handle_pipe(int *i, t_token **tokens_list);
 const char	*get_token_type_name(t_token_type type);
 void		display_tokens(t_token *tokens);
-t_token		*new_token(t_token_type type, char *value);
-void		add_token_to_list(t_token **tokens, t_token *new_token);
-void		free_tokens(t_token *tokens);
-void		update_quote_status(char c, int *in_quote, char *quote_char);
-void		add_word_token_if_valid(char **start, char **input, t_token **tokens);
+
+/*----------------  handle_space.c  ---------------*/
+void		handle_space(char *buf, int *i, t_token **tokens_list);
+
+/*----------------  handle_redirections.c  ---------------*/
+void		handle_redirections(char *buf, int *i, t_token **tokens_list);
+
+/*----------------  handle_words.c  ---------------*/
+void		handle_word(char *buf, int *i, t_token **tokens_list);
+
+/*----------------  tokenizer.c  ---------------*/
+bool		add_token(t_token **tokens_list, t_token *new_token);
+t_token		*create_token(t_token_type type, char **content);
+void		tokenizer(t_shell *shell);
 
 /*----------------  utils.c  ---------------*/
 void		init_struct(t_cmd *cmd);

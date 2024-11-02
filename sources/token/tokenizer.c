@@ -5,93 +5,123 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 20:00:21 by hsorel            #+#    #+#             */
-/*   Updated: 2024/10/27 20:36:40 by jveirman         ###   ########.fr       */
+/*   Created: 2024/11/02 13:56:41 by jveirman          #+#    #+#             */
+/*   Updated: 2024/11/03 00:37:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	handle_variables(t_token **tokens, t_shell *shell)
+bool	add_token(t_token **tokens_list, t_token *new_token)
 {
-	t_token *current;
-	// char	*word;
+	t_token	*current;
 
-	current = *tokens;
-	// word = NULL;
-	while (current)
+	if (!new_token)
+		return (false);
+	if (!*tokens_list)
 	{
-		if (current->type == TOKEN_ENV_VAR)
-		{
-			expander(shell->env, &(current->value));
-			current->type = 0;
-		}
+		*tokens_list = new_token;
+		return (true);
+	}
+	current = *tokens_list;
+	while (current->next) 
 		current = current->next;
-	}
+	current->next = new_token;
+	return (true);
 }
 
-void	handle_special_chars(char **input, t_token **tokens)
+t_token	*create_token(t_token_type type, char **content)
 {
-	if (**input == '>')
-	{
-		if (*(*input + 1) == '>')
-		{
-			add_token_to_list(tokens, new_token(TOKEN_REDIR_APPEND, ">>"));
-			(*input)++;
-		}
-		else
-			add_token_to_list(tokens, new_token(TOKEN_REDIR_OUT, ">"));
-	}
-	else if (**input == '<')
-	{
-		if (*(*input + 1) == '<')
-		{
-			add_token_to_list(tokens, new_token(TOKEN_REDIR_HEREDOC, "<<"));
-			(*input)++;
-		}
-		else
-			add_token_to_list(tokens, new_token(TOKEN_REDIR_IN, "<"));
-	}
-	else if (**input == '|')
-		add_token_to_list(tokens, new_token(TOKEN_PIPE, "|"));
-	(*input)++;
-}
-
-void	handle_word(char **input, t_token **tokens)
-{
-	char	*start;
-	int		in_quote;
-	char	quote_char;
-
-	start = *input;
-	in_quote = 0;
-	quote_char = '\0';
-	while (**input)
-	{
-		update_quote_status(**input, &in_quote, &quote_char);
-		if (!in_quote && ft_strchr(" \t\n><|", **input))
-			break ;
-		(*input)++;
-	}
-	add_word_token_if_valid(&start, input, tokens);
-}
-
-t_token	*tokenize_input(t_shell *shell)
-{
-	t_token	*tokens;
-	char	*buf;
+	t_token	*new_token;
 	
-	tokens = NULL;
-	buf = shell->buf;
-	while (*buf)
+	new_token = malloc(sizeof(t_token));
+	if (!new_token)
 	{
-		while (*buf && ft_strchr(" \t\n", *buf))
-			buf++;
-		if (ft_strchr("><|", *buf))
-			handle_special_chars(&buf, &tokens);
-		else
-			handle_word(&buf, &tokens);
+		free(*content);
+		return (NULL);
 	}
-	handle_variables(&tokens, shell);
-	return (tokens);
+	new_token->type = type;
+	new_token->content = *content;
+	new_token->next = NULL;
+	return (new_token);
 }
+
+void	tokenizer(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->buf[i])
+	{
+		if (ft_isspace(shell->buf[i]))
+			handle_space(shell->buf, &i, &shell->tokens_list);
+		else if (shell->buf[i] == '>' || shell->buf[i] == '<')
+			handle_redirections(shell->buf, &i, &shell->tokens_list);
+		else if (shell->buf[i] == '|')
+			handle_pipe(&i, &shell->tokens_list);
+		else
+			handle_word(shell->buf, &i, &shell->tokens_list);
+	}
+}
+
+// int	main(void)
+// {
+// 	t_shell shell;
+	
+// 	ft_memset(&shell, '\0', sizeof(t_shell));
+
+// 	while (1)
+// 	{
+// 		shell.buf = readline("Tokenizer test $ ");
+// 		if (!shell.buf)
+// 			break ;
+// 		if (!*shell.buf)
+// 		{
+// 			free(shell.buf);
+// 			continue ;
+// 		}
+// 		tokenizer(&shell);
+// 		if (!shell.tokens_list)
+// 		{
+// 			free(shell.buf);
+// 			return (printf("Error with tokens list\n"), 1);
+// 		}
+// 		add_history(shell.buf);
+// 		free(shell.buf);
+// 		display_tokens(shell.tokens_list);
+// 		free_tokens_list(&shell.tokens_list);
+// 	}
+// 	return (0);
+// }
+
+// int	main(void)
+// {
+// 	char *buf;
+// 	t_token *tokens_list;
+
+// 	tokens_list = NULL;
+// 	while (1)
+// 	{
+// 		buf = readline("Tokenizer test $ ");
+// 		if (!buf)
+// 			break ;
+// 		if (!*buf)
+// 		{
+// 			free(buf);
+// 			continue ;
+// 		}
+// 		tokens_list = tokenizer(buf);
+// 		if (!tokens_list)
+// 		{
+// 			free(buf);
+// 			return (printf("Error with tokens list\n"), 1);
+// 		}
+// 		add_history(buf);
+// 		free(buf);
+// 		display_tokens(tokens_list);
+
+// 		// printf("tokens_list: %s\n", tokens_list->content);
+// 		free_tokens_list(tokens_list);
+// 	}
+// 	return (0);
+// }
