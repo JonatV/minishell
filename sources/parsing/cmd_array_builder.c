@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 00:41:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:54:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,32 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 	init_struct(cmd);
 	while (*tokens_list)
 	{
-		if ((*tokens_list)->type == TOKEN_WORD)
-			success = handle_token_word(cmd, (*tokens_list)->content);
-		else if ((*tokens_list)->type == TOKEN_REDIR_IN)
-			success = handle_token_redir_in(cmd, tokens_list);
-		else if ((*tokens_list)->type == TOKEN_REDIR_OUT)
-			success = handle_token_redir_out(cmd, tokens_list);
-		else if ((*tokens_list)->type == TOKEN_REDIR_APPEND)
-			success = handle_token_redir_append(cmd, tokens_list);
-		else if ((*tokens_list)->type == TOKEN_REDIR_HEREDOC)
-			success = handle_token_redir_heredoc(cmd, tokens_list);
-		else if ((*tokens_list)->type == TOKEN_PIPE)
+		if ((*tokens_list)->content[0] != '\0')
 		{
-			*tokens_list = (*tokens_list)->next;
-			break ;
+			if ((*tokens_list)->type == TOKEN_WORD)
+				success = handle_token_word(cmd, (*tokens_list)->content);
+			else if ((*tokens_list)->type == TOKEN_REDIR_IN)
+				success = handle_token_redir_in(cmd, tokens_list);
+			else if ((*tokens_list)->type == TOKEN_REDIR_OUT)
+				success = handle_token_redir_out(cmd, tokens_list);
+			else if ((*tokens_list)->type == TOKEN_REDIR_APPEND)
+				success = handle_token_redir_append(cmd, tokens_list);
+			else if ((*tokens_list)->type == TOKEN_REDIR_HEREDOC)
+				success = handle_token_redir_heredoc(cmd, tokens_list);
+			else if ((*tokens_list)->type == TOKEN_PIPE)
+			{
+				*tokens_list = (*tokens_list)->next;
+				break ;
+			}
+			else//dev
+			{
+				printf("Error : unknown token type number [%d]\n", (*tokens_list)->type);//dev
+				*tokens_list = (*tokens_list)->next;
+				continue;
+			}
+			if (!success)
+				return (false);
 		}
-		else//dev
-		{
-			printf("Error : unknown token type number [%d]\n", (*tokens_list)->type);//dev
-			*tokens_list = (*tokens_list)->next;
-			continue;
-		}
-		if (!success)
-			return (false);
 		*tokens_list = (*tokens_list)->next;
 	}
 	return (true);

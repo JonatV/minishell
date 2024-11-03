@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/01 22:13:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:56:11 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	prepare_execve_data(t_cmd *cmd)
 	char	**data_flag;
 	char	**data_arg;
 	int		i;
-
+	
 	ft_arraypush(&cmd->final_cmd_line, cmd->data[CMD_NAME]);
 	if (cmd->data[CMD_FLAG] != NULL)
 	{
@@ -69,6 +69,11 @@ void	shell_executor(t_shell *shell)
 	pipes_opening(shell);
 	while (i < shell->cmd_number)
 	{
+		if(shell->cmd_array[i].data[CMD_NAME] == NULL)
+		{
+			i++;
+			continue ;
+		}
 		if (use_builtin_cmd(shell, &i, &built_in_triggered))
 			continue ;
 		forks_process(shell, i);
