@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 23:55:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 00:15:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 	{
 		if ((*tokens_list)->content[0] != '\0')
 		{
-			if ((*tokens_list)->type == TOKEN_WORD \ 
-				|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \ 
+			if ((*tokens_list)->type == TOKEN_WORD \
+				|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
 				|| (*tokens_list)->type == TOKEN_DOUBLE_QUOTE)
 				success = handle_token_word(cmd, tokens_list);
 			else if ((*tokens_list)->type == TOKEN_REDIR_IN)
