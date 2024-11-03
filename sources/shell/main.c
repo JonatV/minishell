@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 00:36:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:41:32 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
 	// init_all_cmd(shell);//dev
+	shell->pid = getpid();
+	printf("pid = %d\n", shell->pid);
 	set_default_current_fds(shell);
 	init_env(shell, envp);
 	prompt_msg(shell);

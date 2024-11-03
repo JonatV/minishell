@@ -107,7 +107,6 @@ typedef struct s_cmd
 	char	**here_doc_delimiter;
 	char	*here_doc_input;
 	char	**final_cmd_line;
-
 	// wip - merging
 	int		type;
 }	t_cmd;
@@ -133,6 +132,7 @@ typedef struct s_shell
 	int		current_fd_in;
 	int		current_fd_out;
 	t_token	*tokens_list;	// malloc
+	pid_t	pid;
 	// wip - merging
 	int		status;
 }	t_shell;
