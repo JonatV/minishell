@@ -171,7 +171,7 @@ int			print_syntax_error(char *str, int i);
 void		ft_free(char *str);
 
 /*----------------  parse_token_word.c  ---------------*/
-bool		handle_token_word(t_cmd *cmd, char *value);
+bool		handle_token_word(t_cmd *cmd, t_token **tokens_list);
 
 /*----------------  parse_token_redirection.c  ---------------*/
 bool		handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list);

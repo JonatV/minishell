@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/02 22:59:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:50:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static bool	handle_cmd_name(t_cmd *cmd, char *content)
 {
 	cmd->data[CMD_NAME] = ft_strdup(content);
+	free(content);
 	if (!cmd->data[CMD_NAME])
 		return (false);
 	return (true);
@@ -46,6 +47,7 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 		cmd->num_arg++;
 	else
 		cmd->num_flag++;
+	free(content);
 	return (true);
 }
 
@@ -60,8 +62,23 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 *	Second condition store the flags
 *	Third condition store the args
 */
-bool	handle_token_word(t_cmd *cmd, char *content)
+bool	handle_token_word(t_cmd *cmd, t_token **tokens_list)
 {
+	char	*content;
+	char	*temp;
+
+	content = ft_strdup("");
+	if (!content)
+		return (false);
+	while (*tokens_list && ((*tokens_list)->type == TOKEN_WORD || (*tokens_list)->type == TOKEN_SINGLE_QUOTE || (*tokens_list)->type == TOKEN_DOUBLE_QUOTE))
+	{
+		temp = ft_strjoin(content, (*tokens_list)->content);
+		free(content);
+		if (!temp)
+			return (false);
+		content = temp;
+		*tokens_list = (*tokens_list)->next;
+	}
 	if (!cmd->data[CMD_NAME])
 		return (handle_cmd_name(cmd, content));
 	else if (content[0] == '-')
