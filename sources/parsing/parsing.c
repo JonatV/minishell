@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/03 00:31:11 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:42:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,33 @@
 // 	return (1);
 // }
 
+static bool handling_expander(t_shell *shell)
+{
+	t_token	*tmp;
+
+	tmp = shell->tokens_list;
+	while (tmp)
+	{
+		if (tmp->type == TOKEN_WORD || tmp->type == TOKEN_DOUBLE_QUOTE)
+		{
+			if (!expander(shell->env, &tmp->content))
+				return (false);
+		}
+		tmp = tmp->next;
+	}
+	return (true);
+}
+
 int	parsing(t_shell *shell)
 {
 	// int	i;
 
 	// i = 0;
-	// if (!check_quotes_op(input)) //todo
-	// 	return (0);
+	if (!handling_expander(shell))
+	{
+		printf("Error while checking cmd line structure\n");
+		return (0);
+	}
 	// if (!single_token(lst)) //todo to keep?
 	// 	return (0);
 	if (!cmd_array_builder(shell))

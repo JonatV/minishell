@@ -215,7 +215,7 @@ void		free_after_execution(t_shell *shell);
 void		shell_init(t_shell *shell, char **envp);
 
 /*----------------  expander.c  ---------------*/
-int			expander(char **array, char **str);
+bool		expander(char **array, char **str);
 
 /*----------------  pwd.c  ---------------*/
 void		builtin_pwd(t_shell *shell, char **data);
