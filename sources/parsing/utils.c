@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/10/31 12:06:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:13:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,4 @@ int	print_syntax_error(char *str, int i)
 	else
 		printf("minishell: syntax error near unexpected token `%c'\n", str[i]);
 	return (0);
-}
-
-void	ft_free(char *str)
-{
-	free(str);
-	str = NULL;
 }

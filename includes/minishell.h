@@ -168,7 +168,6 @@ void		init_struct(t_cmd *cmd);
 int			count_cmd(t_token *tokens_list);
 int			get_type(char **str);
 int			print_syntax_error(char *str, int i);
-void		ft_free(char *str);
 
 /*----------------  parse_token_word.c  ---------------*/
 bool		handle_token_word(t_cmd *cmd, t_token **tokens_list);
@@ -235,7 +234,7 @@ void		select_builtin(t_shell *shell, int i, int built_in_index);
 void		builtin_echo(t_shell *shell, char **data);
 
 /*----------------  chdir.c  ---------------*/
-int			builtin_chdir(t_shell *shell, char *destination);
+bool			builtin_chdir(t_shell *shell, char **data);
 
 /*----------------  export_utils.c  ---------------*/
 int			check_var_name(char *str);
@@ -262,8 +261,8 @@ void		forks_process(t_shell *shell, int i);
 void		waiting_for_children(t_shell *shell, int built_in_triggered);
 
 /*----------------  redirection.c  ---------------*/
-void	fd_in_management(t_shell *shell, int i);
-void	fd_out_management(t_shell *shell, int i);
+void		fd_in_management(t_shell *shell, int i);
+void		fd_out_management(t_shell *shell, int i);
 
 /*----------------  exec.c  ---------------*/
 void		shell_executor(t_shell *shell);

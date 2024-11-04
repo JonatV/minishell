@@ -6,11 +6,45 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/27 10:55:01 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 20:14:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	count_word(char *str)
+{
+	int	i;
+	int word_count;
+
+	if (!str)
+		return (0);
+	word_count = 1;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) && str[i + 1])
+			word_count++;
+		i++;
+	}
+	return (word_count);
+}
+
+static char	*get_path_name(t_shell *shell, char **data)
+{
+	int		i;
+	char	*path_name;
+
+	if (!data[CMD_ARG])
+	{
+		i = ft_arrayfind(shell->env, "HOME");
+		if (i == -1)
+			panic("Env var not found", shell);
+		path_name = ft_strchr(shell->env[i], '=');
+		return (path_name + 1);
+	}
+	return (data[CMD_ARG]);
+}
 
 static void	pwd_management(t_shell *shell, char *pwd)
 {
@@ -54,17 +88,30 @@ static void	update_pwd(t_shell *shell, char *pwd, char *oldpwd)
 	oldpwd_management(shell, oldpwd);
 }
 
-int	builtin_chdir(t_shell *shell, char *destination)
+bool	builtin_chdir(t_shell *shell, char **data)
 {
 	char	pwd[1024]; //wip: check the limits
 	char	oldpwd[1024]; //wip: check the limits
 
+	if (!check_data_validity(data, BUILTIN_CD))
+	{
+		ft_putstr_fd("minishell: env: no options allowed\n", STDERR_FILENO);
+		return (false);
+	}
+	if (count_word(data[CMD_ARG]) > 1)
+	{
+		ft_putstr_fd("Minishell: cd: too many arguments\n", STDERR_FILENO);
+		return (false);
+	}
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
 		perror("getcwd()"); // wip: change error management
-	if (0 != chdir(destination))
-		return (1); //wip: error management
+	if (0 != chdir(get_path_name(shell, data)))
+	{
+		ft_putstr_fd("Minishell: cd: Not a directory\n", STDERR_FILENO);
+		return (false); //wip: error management
+	}
 	if (getcwd(pwd, sizeof(pwd)) == NULL)
 		perror("getcwd()"); // wip: change error management
 	update_pwd(shell, pwd, oldpwd);
-	return (0);
+	return (true);
 }
