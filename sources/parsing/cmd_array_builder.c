@@ -38,15 +38,16 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 				*tokens_list = (*tokens_list)->next;
 				break ;
 			}
-			else//dev
+			else if ((*tokens_list)->type == TOKEN_SPACE)
 			{
-				printf("Error : unknown token type number [%d]\n", (*tokens_list)->type);//dev
 				*tokens_list = (*tokens_list)->next;
-				continue;
+				continue ;
 			}
 			if (!success)
 				return (false);
 		}
+		else
+			*tokens_list = (*tokens_list)->next;
 		if (*tokens_list == NULL)
 			break ;
 		*tokens_list = (*tokens_list)->next;
