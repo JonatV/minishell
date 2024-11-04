@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/29 21:43:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:45:35 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,38 @@ static bool only_isspace_string(char *buffer)
 	return (false);
 }
 
+static bool	is_quote_incomplete(char *buffer)
+{
+	int		i;
+	bool	in_quote;
+	int		quote_type;
+
+	in_quote = false;
+	i = 0;
+	while (buffer[i])
+	{
+		if (buffer[i] == 39 || buffer[i] == 34)
+		{
+			if (!in_quote)
+			{
+				in_quote = true;
+				quote_type = buffer[i];
+			}
+			else if (quote_type == buffer[i])
+				in_quote = false;
+		}
+		i++;
+	}
+	printf("in_quote: %s\n", in_quote ? "true" : "false");
+	return (in_quote);
+}
+
 static bool	incomplete_cmd_line(char *buffer)
 {
 	int	i;
 	
+	if (is_quote_incomplete(buffer))
+		return (true);
 	i = ft_strlen(buffer) - 1;
 	while (i >= 0 && ft_isspace(buffer[i]))
 		i--;
@@ -43,19 +71,25 @@ static void	get_additionnal_cmd_line(t_shell *shell)
 	char	*tmp;
 	char	*additional_buffer;
 
-	additional_buffer = readline("> ");
-	if (!additional_buffer)
+	while (1)
 	{
+		additional_buffer = readline("> ");
+		if (!additional_buffer)
+		{
+			free(additional_buffer);
+			add_history(shell->buf);
+			sigeof_handler(shell);
+			break;
+		}
+		tmp = ft_strjoin(shell->buf, additional_buffer);
 		free(additional_buffer);
-		add_history(shell->buf);
-		sigeof_handler(shell);
+		if (!tmp)
+			panic("Error while joining strings", shell);// wip
+		free(shell->buf);
+		shell->buf = tmp;
+		if (!incomplete_cmd_line(shell->buf))
+			break;
 	}
-	tmp = ft_strjoin(shell->buf, additional_buffer);
-	free(shell->buf);
-	shell->buf = tmp;
-	if (additional_buffer[0] == '\0' || only_isspace_string(additional_buffer) || incomplete_cmd_line(additional_buffer) )
-		get_additionnal_cmd_line(shell); // recursive here to check again if the line is or isnt finished
-	free(additional_buffer);
 }
 
 bool	check_cmd_line_structure(t_shell *shell)
