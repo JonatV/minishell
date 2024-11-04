@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:06:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/02 23:33:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 01:59:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ const char	*get_token_type_name(t_token_type type)
 	token_type_names[3] = "REDIRECT_OUT";
 	token_type_names[4] = "REDIRECT_APPEND";
 	token_type_names[5] = "REDIRECT_HEREDOC";
-	token_type_names[6] = "TOKEN_ENV_VAR";
-	token_type_names[7] = "DOUBLE_QUOTE";
-	token_type_names[8] = "SINGLE_QUOTE";
-	token_type_names[9] = "SPACE";
+	token_type_names[6] = "DOUBLE_QUOTE";
+	token_type_names[7] = "SINGLE_QUOTE";
+	token_type_names[8] = "SPACE";
+	token_type_names[9] = "SKIP";
 	if (type >= 0 && type < 10)
 		return (token_type_names[type]);
 	return ("UNKNOWN");

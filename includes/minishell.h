@@ -91,10 +91,10 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_REDIR_APPEND,
 	TOKEN_REDIR_HEREDOC,
-	TOKEN_ENV_VAR,
 	TOKEN_DOUBLE_QUOTE,
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_SPACE,
+	TOKEN_SKIP,
 }	t_token_type;
 
 typedef struct s_cmd

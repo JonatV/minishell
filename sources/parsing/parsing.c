@@ -6,33 +6,46 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/03 18:42:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 02:17:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static int	single_token(t_lists *lst)
-// {
-// 	int				i;
-// 	t_token_type	type;
+static bool	regroup_litteral_tokens(t_shell *shell)
+{
+	t_token	*tmp;
+	t_token	*parent;
+	char	*content;
+	char	*str_temp;
 
-// 	i = 0;
-// 	if (!lst)
-// 		return (0);
-// 	type = lst->token->type;
-// 	while (lst)
-// 	{
-// 		lst = lst->next;
-// 		i++;
-// 	} // todo : isnt it better to check if lst->token->next is false (meaning the token is alone)
-// 	if (i == 1)
-// 		if (type != TOKEN_WORD && type != TOKEN_REDIR_HEREDOC
-// 			&& type != TOKEN_REDIR_APPEND
-// 			&& type != TOKEN_REDIR_IN && type != TOKEN_REDIR_OUT)
-// 			return (0);
-// 	return (1);
-// }
+	parent = shell->tokens_list;
+	while (parent)
+	{
+		if (parent->type == TOKEN_WORD || parent->type == TOKEN_DOUBLE_QUOTE || parent->type == TOKEN_SINGLE_QUOTE)
+		{
+			content = ft_strdup(parent->content);
+			if (!content)
+				return (false);
+			tmp = parent;
+			while (tmp->next && (tmp->next->type == TOKEN_WORD || tmp->next->type == TOKEN_DOUBLE_QUOTE || tmp->next->type == TOKEN_SINGLE_QUOTE))
+			{
+				str_temp = ft_strjoin(content, tmp->next->content);
+				free(content);
+				if (!str_temp)
+					return (false);
+				content = str_temp;
+				tmp->next->type = TOKEN_SKIP;
+				tmp = tmp->next;
+			}
+			free(parent->content);
+			parent->content = content;
+			parent->next = tmp->next;
+		}
+		parent = parent->next;
+	}
+	return (true);
+}
 
 static bool handling_expander(t_shell *shell)
 {
@@ -61,8 +74,11 @@ int	parsing(t_shell *shell)
 		printf("Error while checking cmd line structure\n");
 		return (0);
 	}
-	// if (!single_token(lst)) //todo to keep?
-	// 	return (0);
+	if (!regroup_litteral_tokens(shell))
+	{
+		printf("Error while regrouping litteral tokens\n");
+		return (0);
+	}
 	if (!cmd_array_builder(shell))
 	{
 		printf("Error while building cmd array\n");

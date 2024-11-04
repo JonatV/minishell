@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 00:15:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/04 02:16:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 	
 	init_struct(cmd);
 	while (*tokens_list)
-	{
-		if ((*tokens_list)->content[0] != '\0')
+	{	
+		if ((*tokens_list)->content[0] != '\0' || (*tokens_list)->type != TOKEN_SKIP)
 		{
 			if ((*tokens_list)->type == TOKEN_WORD \
 				|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
@@ -50,7 +50,6 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 			*tokens_list = (*tokens_list)->next;
 		if (*tokens_list == NULL)
 			break ;
-		*tokens_list = (*tokens_list)->next;
 	}
 	return (true);
 }
