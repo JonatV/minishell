@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 14:45:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:20:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool only_isspace_string(char *buffer)
 	int	j;
 
 	j = 0;
-	i = ft_strlen(buffer) - 1;
+	i = ft_strlen(buffer);
 	while (ft_isspace(buffer[j]))
 		j++;
 	if (j >= i)
