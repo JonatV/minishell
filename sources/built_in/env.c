@@ -35,7 +35,4 @@ void	builtin_env(t_shell *shell, char **data)
 			ft_putendl_fd(array[i], shell->current_fd_out);
 		i++;
 	}
-	ft_putstr_fd("_=", shell->current_fd_out);
-	ft_putstr_fd(shell->last_arg, shell->current_fd_out);
-	ft_putendl_fd("", shell->current_fd_out);
 }

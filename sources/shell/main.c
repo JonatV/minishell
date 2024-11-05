@@ -6,24 +6,15 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 23:06:55 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:59:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-#####################################################################
-#																	#
-#							--- MAIN ---							#
-#																	#
-#####################################################################
-*/
-
 void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
-	// init_all_cmd(shell);//dev
 	shell->pid = getpid();
 	set_default_current_fds(shell);
 	init_env(shell, envp);

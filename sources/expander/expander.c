@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 23:05:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:01:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ static bool	replace_double_dollar(char **str, int *i)
 	return (assemble_all_segments(segments, str));
 }
 
-
 /*
 * INFO:
 *		- first check if there's a dollar sign after the first one -> $$
@@ -97,17 +96,15 @@ static bool	replace_double_dollar(char **str, int *i)
 */
 static bool	replace_var_manager(int *i, char **content, char **env)
 {
-	int start_end[2];
+	int	start_end[2];
 	int	j;
 
 	if ((*content)[*i + 1] && (*content)[*i + 1] == '$')
 		return (replace_double_dollar(content, i));
-	// * Then check if the dollar sign is followed by a space
 	if ((*content)[*i + 1] == '\0' || ft_isspace((*content)[*i + 1]))
 		return (*i += 1, true);
 	j = 0;
 	start_end[0] = *i;
-	// * finally check if the dollar sign is followed by a variable name
 	while ((*content)[*i + j])
 	{
 		if ((*content)[*i + j + 1] == '\0' || (*content)[*i + j + 1] == '$' || ft_isspace((*content)[*i + j]))

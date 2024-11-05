@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/05 00:41:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:00:54 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ static bool handling_expander(t_shell *shell)
 
 int	parsing(t_shell *shell)
 {
-	// int	i;
-
-	// i = 0;
 	if (!handling_expander(shell))
 	{
 		printf("Error while checking cmd line structure\n");
@@ -92,12 +89,5 @@ int	parsing(t_shell *shell)
 		printf("Error while building cmd array\n");
 		return (0);
 	}
-	// if (!parse_command(lst))
-	// 	return (0);
-	// if (!set_cmd(shell, lst, i))
-	// {
-	// 	return (0);
-	// }
-	//todo Make a function fill_data
 	return (1);
 }

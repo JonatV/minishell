@@ -27,8 +27,6 @@ void shell_executor(t_shell *shell)
 	int built_in_triggered;
 
 	here_doc_management(shell);
-	update_var_lastarg(shell);
-	
 	num_pipes = shell->cmd_number - 1;
 	num_cmd = shell->cmd_number;
 	shell->pipefds = malloc(sizeof(int *) * (num_pipes * 2));

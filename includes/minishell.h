@@ -127,7 +127,6 @@ typedef struct s_shell
 	char	*prompt_msg;	// malloc
 	char	*buf;			// malloc form readline, don't handle
 	int		exit_status;
-	char	*last_arg;
 	int		exit_code; //wip
 	int		current_fd_in;
 	int		current_fd_out;
@@ -198,7 +197,6 @@ bool		check_cmd_line_structure(t_shell *shell);
 /*----------------  env_utils.c  ---------------*/
 void		env_unset(t_shell *shell, char *to_remove);
 void		init_env(t_shell *shell, char **envp);
-void		update_var_lastarg(t_shell *shell);
 
 /*----------------  exit.c  ---------------*/
 void		clean(char *str, t_shell *shell);
