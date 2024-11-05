@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 15:52:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 00:44:38 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	shell_executor(t_shell *shell)
 {
 	int	i;
 	int	built_in_triggered;
-
+	
+	signal(SIGINT, SIG_IGN);
 	g_exit_status = 0;
 	built_in_triggered = 0;
 	i = 0;

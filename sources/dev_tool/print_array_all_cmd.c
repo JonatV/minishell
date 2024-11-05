@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:03:02 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 23:09:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:31:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void print_all_cmd(t_shell *shell)
 {
 	if (!shell)
 		return;
-	printf("Number of Commands: %d\n", shell->cmd_number);
-	printf("Status: %d\n", shell->status);
+	// printf("Number of Commands: %d\n", shell->cmd_number);
+	// printf("Status: %d\n", shell->status);
 	// Print the commands
 	for (int i = 0; i < shell->cmd_number; i++) {
 		printf("\n\e[4;33m Command %d:\e[0m\n", i + 1);

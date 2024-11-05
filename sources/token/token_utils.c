@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:06:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 01:59:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:42:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	free_tokens_list(t_token **tokens)
 	t_token *current;
 	t_token *next;
 
-	printf("\n===================\nFreeing tokens list\n\n");
 	current = *tokens;
 	while (current)
 	{
@@ -26,7 +25,7 @@ void	free_tokens_list(t_token **tokens)
 		free(current);
 		current = next;
 	}
-	*tokens = NULL;  // Set tokens to NULL to avoid dangling pointer
+	*tokens = NULL;
 }
 
 void	handle_pipe(int *i, t_token **tokens_list)

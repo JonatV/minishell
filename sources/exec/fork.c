@@ -6,19 +6,22 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 00:11:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 00:38:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _GNU_SOURCE
 #include "../../includes/minishell.h"
 
 void	forks_process(t_shell *shell, int i)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		fd_error(shell, i);
 		if (is_here_doc_available(shell, i))
 			here_doc_exploit(shell, i);

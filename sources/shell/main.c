@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 16:16:12 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 00:39:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	shell_init(t_shell *shell, char **envp)
 	set_default_current_fds(shell);
 	init_env(shell, envp);
 	prompt_msg(shell);
-	signals_handler();
 }
 
 int	main(int ac, char **av, char **envp)
@@ -35,13 +34,14 @@ int	main(int ac, char **av, char **envp)
 	shell_init(&shell, envp);
 	while (1)
 	{
+		signals_handler();
 		if (!check_cmd_line_structure(&shell))
 			continue ;
 		add_history(shell.buf);// todo check where to put it
 		tokenizer(&shell);
 		if (!shell.tokens_list)
 			panic("Error while tokenizing", &shell);
-		display_tokens(shell.tokens_list);
+		// display_tokens(shell.tokens_list);
 		if (!parsing(&shell))
 		{
 			free_tokens_list(&shell.tokens_list);
