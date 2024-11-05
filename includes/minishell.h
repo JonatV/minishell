@@ -23,7 +23,7 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <signal.h>
-
+extern int g_exit_status;
 /*
 #####################################################################
 #								DEFINE								#

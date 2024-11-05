@@ -6,11 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:07:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:49:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	g_exit_status = 0;
 
 void	shell_init(t_shell *shell, char **envp)
 {
@@ -34,8 +36,12 @@ int	main(int ac, char **av, char **envp)
 	shell_init(&shell, envp);
 	while (1)
 	{
+		printf("get here\n");
 		if (!check_cmd_line_structure(&shell))
+		{
+			printf("check_cmd_line_structure has returned false\n");
 			continue ;
+		}
 		add_history(shell.buf);// todo check where to put it
 		tokenizer(&shell);
 		if (!shell.tokens_list)

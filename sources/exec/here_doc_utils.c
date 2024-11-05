@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:13:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:51:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,70 @@ int	is_here_doc_available(t_shell *shell, int i)
 	return (1);
 }
 
-// todo - clean - check for eof and ctrl+c
-static char	*ft_delimiter_hunter(char *ret, char *to_find)
+static void	signal_ctlc_heredoc(int sig)
 {
-	char	*buf;
-	char	*temp;
-
-	while (1)
+	if (sig == SIGINT)
 	{
-		buf = readline("> ");
-		if (!buf)
-			return (free(ret), NULL);
-		if (ft_strcmp(buf, to_find) == 0)
-		{
-			free(buf);
-			break ;
-		}
+		g_exit_status = 130;
+		close(STDIN_FILENO);
+		write(STDERR_FILENO, "\n", 1);
+	}
+}
+
+// todo - clean - check for eof and ctrl+c
+// static char	*ft_delimiter_hunter(char *ret, char *to_find)
+// {
+// 	char	*buf;
+// 	char	*temp;
+	
+// 	signal(SIGINT, signal_ctlc_heredoc);
+// 	while (1)
+// 	{
+// 		buf = readline("> ");
+// 		if (!buf)
+// 			return (free(ret), NULL);
+// 		if (ft_strcmp(buf, to_find) == 0)
+// 		{
+// 			free(buf);
+// 			break ;
+// 		}
+// 		temp = ret;
+// 		ret = ft_strjoin(ret, buf);
+// 		free(temp);
+// 		temp = ret;
+// 		ret = ft_strjoin(ret, "\n");
+// 		free(temp);
+// 		free(buf);
+// 	}
+// 	return (ret);
+// }
+
+static char *ft_delimiter_hunter(char *ret, char *to_find)
+{
+    char    *buf;
+    char    *temp;
+    int     stdin_backup;
+    
+    stdin_backup = dup(STDIN_FILENO);
+    if (stdin_backup == -1)
+        return (NULL);
+        
+    signal(SIGINT, signal_ctlc_heredoc);
+    while (1)
+    {
+        buf = readline("> ");
+        if (!buf || g_exit_status == 130)
+        {
+            free(ret);
+            dup2(stdin_backup, STDIN_FILENO);
+            close(stdin_backup);
+            return (NULL);
+        }
+        if (ft_strcmp(buf, to_find) == 0)
+        {
+            free(buf);
+            break;
+        }
 		temp = ret;
 		ret = ft_strjoin(ret, buf);
 		free(temp);
@@ -42,8 +90,10 @@ static char	*ft_delimiter_hunter(char *ret, char *to_find)
 		ret = ft_strjoin(ret, "\n");
 		free(temp);
 		free(buf);
-	}
-	return (ret);
+    }
+    dup2(stdin_backup, STDIN_FILENO);
+    close(stdin_backup);
+    return (ret);
 }
 
 char	*to_the_delimiter(char *to_find)

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:03:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:28:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	sigint_handler(int signal)
 		else
 		{
 			// write(1, "\n", 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			ft_putstr_fd("Signal interrupted: Press enter to continue", 1);
+			// rl_on_new_line();
+			// rl_replace_line("", 0);
+			// ft_putstr_fd("Signal interrupted: Press enter to continue", 1);
+			close(STDIN_FILENO);
 		}
 	}
 }

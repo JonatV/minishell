@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:08:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:36:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 			free(shell->buf);
 			shell->interrupted = 0;
 			shell->subreadline = false;
+			printf("Interrupted\n");
 			return (false);
 		}
 		if (!additional_buffer)
@@ -103,10 +104,11 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 bool	check_cmd_line_structure(t_shell *shell)
 {
 	char	*buffer;
-
+	
 	buffer = readline(shell->prompt_msg);
 	if (!buffer)
 	{
+		printf("Why here?");
 		free(buffer);
 		sigeof_handler(shell);
 	}
