@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:14:10 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:42:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 *	Then during the cmd execution, if the cmd has this string not set
 *	to NULL, then we will use this string has an input.
 */
-static void	here_doc_found(t_shell *shell, int i)
+static bool	here_doc_found(t_shell *shell, int i)
 {
 	int		j;
 	char	**delimiter;
@@ -35,11 +35,13 @@ static void	here_doc_found(t_shell *shell, int i)
 			free(shell->cmd_array[i].here_doc_input);
 		shell->cmd_array[i].here_doc_input = NULL;
 		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j]);
+		if (g_exit_status == 130)
+			return (false);
 		if (!shell->cmd_array[i].here_doc_delimiter[j + 1])
 			break ;
 		j++;
 	}
-	// ft_arrayfree(shell->cmd_array[i].here_doc_delimiter); // debug: dev mode has hardcoded array, decomment for prod
+	return (true);
 }
 
 /*
@@ -47,7 +49,7 @@ static void	here_doc_found(t_shell *shell, int i)
 *	Checks for each command whether one or more 
 *	here_doc_delimiter delimiters are defined.
 */
-void	here_doc_management(t_shell *shell)
+bool	here_doc_management(t_shell *shell)
 {
 	int	i;
 
@@ -59,9 +61,11 @@ void	here_doc_management(t_shell *shell)
 			i++;
 			continue ;
 		}
-		here_doc_found(shell, i);
+		if (!here_doc_found(shell, i))
+			return (false);
 		i++;
 	}
+	return (true);
 }
 
 void	here_doc_exploit(t_shell *shell, int i)

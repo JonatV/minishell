@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:51:17 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:15:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ int	is_here_doc_available(t_shell *shell, int i)
 	if (!shell->cmd_array[i].here_doc_input)
 		return (0);
 	return (1);
-}
-
-static void	signal_ctlc_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_exit_status = 130;
-		close(STDIN_FILENO);
-		write(STDERR_FILENO, "\n", 1);
-	}
 }
 
 // todo - clean - check for eof and ctrl+c
@@ -66,8 +56,7 @@ static char *ft_delimiter_hunter(char *ret, char *to_find)
     stdin_backup = dup(STDIN_FILENO);
     if (stdin_backup == -1)
         return (NULL);
-        
-    signal(SIGINT, signal_ctlc_heredoc);
+    signal(SIGINT, signal_ctlc_on_subprocess);
     while (1)
     {
         buf = readline("> ");
@@ -104,7 +93,9 @@ char	*to_the_delimiter(char *to_find)
 	if (!to_find || !to_find[0])
 		return (NULL);
 	text_stored = ft_delimiter_hunter(text_stored, to_find);
-	if (!text_stored)
+    if (g_exit_status == 130)
+        return (NULL);
+	else if (!text_stored)
 		text_stored = ft_strdup("");
 	return (text_stored);
 }

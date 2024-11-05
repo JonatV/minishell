@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:49:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:16:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void	shell_init(t_shell *shell, char **envp)
 {
 	ft_memset(shell, '\0', sizeof(t_shell));
 	shell->pid = getpid();
-	shell->subreadline = false;
 	set_default_current_fds(shell);
 	init_env(shell, envp);
 	prompt_msg(shell);
-	signals_handler(shell);
+	signals_handler();
 }
 
 int	main(int ac, char **av, char **envp)
@@ -36,12 +35,8 @@ int	main(int ac, char **av, char **envp)
 	shell_init(&shell, envp);
 	while (1)
 	{
-		printf("get here\n");
 		if (!check_cmd_line_structure(&shell))
-		{
-			printf("check_cmd_line_structure has returned false\n");
 			continue ;
-		}
 		add_history(shell.buf);// todo check where to put it
 		tokenizer(&shell);
 		if (!shell.tokens_list)

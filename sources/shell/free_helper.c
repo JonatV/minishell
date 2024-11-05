@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/01 21:54:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:49:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	free_after_execution(t_shell *shell)
 				ft_arrayfree(shell->cmd_array[i].final_cmd_line);
 			i++;
 		}
-		free_pipefds(shell);
+		if (g_exit_status == 0)
+			free_pipefds(shell);
 		free(shell->cmd_array);
 		shell->cmd_array = NULL;
 	}

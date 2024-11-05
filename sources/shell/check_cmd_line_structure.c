@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 14:36:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:15:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static bool	is_quote_incomplete(char *buffer)
 		}
 		i++;
 	}
-	printf("in_quote: %s\n", in_quote ? "true" : "false");
 	return (in_quote);
 }
 
@@ -70,23 +69,29 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 {
 	char	*tmp;
 	char	*additional_buffer;
+	int		stdin_backup;
 
-	shell->subreadline = true;
+	stdin_backup = dup(STDIN_FILENO);
+	if (stdin_backup == -1)
+		return (false);
+	signal(SIGINT, signal_ctlc_on_subprocess);
 	while (1)
 	{
 		additional_buffer = readline("> ");
-		if (shell->interrupted)
+		if (g_exit_status == 130)
 		{
 			free(additional_buffer);
 			free(shell->buf);
-			shell->interrupted = 0;
-			shell->subreadline = false;
+			dup2(stdin_backup, STDIN_FILENO);
+			close(stdin_backup);
 			printf("Interrupted\n");
 			return (false);
 		}
 		if (!additional_buffer)
 		{
 			free(additional_buffer);
+			dup2(stdin_backup, STDIN_FILENO);
+			close(stdin_backup);
 			ft_putstr_fd("Minishell: unexpected EOF while looking for matching\n", shell->current_fd_out);
 			sigeof_handler(shell);
 		}
@@ -97,8 +102,11 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 		free(shell->buf);
 		shell->buf = tmp;
 		if (!incomplete_cmd_line(shell->buf))
-			return (true);
+			break ;
 	}
+	dup2(stdin_backup, STDIN_FILENO);
+	close(stdin_backup);
+	return (true);
 }
 
 bool	check_cmd_line_structure(t_shell *shell)
@@ -108,7 +116,6 @@ bool	check_cmd_line_structure(t_shell *shell)
 	buffer = readline(shell->prompt_msg);
 	if (!buffer)
 	{
-		printf("Why here?");
 		free(buffer);
 		sigeof_handler(shell);
 	}
