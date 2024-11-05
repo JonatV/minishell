@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 19:07:30 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:28:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	select_builtin(t_shell *shell, int i, int built_in_index)
 	else if (built_in_index == BUILTIN_ENV)
 		builtin_env(shell, data);
 	else if (built_in_index == BUILTIN_EXIT)
-		builtin_exit(shell, data, i);
+		builtin_exit(shell, i);
 	else if (built_in_index == BUILTIN_ECHO)
 		builtin_echo(shell, data);
 	else if (built_in_index == BUILTIN_UNSET)

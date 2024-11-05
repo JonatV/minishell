@@ -120,6 +120,8 @@ typedef struct s_token
 
 typedef struct s_shell
 {
+	int		interrupted;
+	int		subreadline;
 	int		cmd_number;
 	t_cmd	*cmd_array;		// malloc
 	int		**pipefds;		// malloc
@@ -186,7 +188,7 @@ bool 		cmd_array_builder(t_shell *shell);
 /*----------------  listener.c  ---------------*/
 void		sigint_handler(int signal);
 void		sigeof_handler(t_shell *shell);
-void		signals_handler(void);
+void		signals_handler(t_shell *shell);
 
 /*----------------  prompt.c  ---------------*/
 void		prompt_msg(t_shell *shell);
@@ -240,7 +242,7 @@ char		*ft_extract(char *str, char target, int extract_after);
 void		print_export(char **array, int fd_out);
 
 /*----------------  exit.c  ---------------*/
-void		builtin_exit(t_shell *shell, char **data, int i);
+void		builtin_exit(t_shell *shell, int i);
 
 /*----------------  export.c  ---------------*/
 void		builtin_export(t_shell *shell, int i);

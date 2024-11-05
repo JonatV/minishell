@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 15:51:12 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:39:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ static bool	non_numeric_found(t_shell *shell, int i)
 }
 
 //todo clean function for the all minishell
-void	builtin_exit(t_shell *shell, char **data, int i)
+void	builtin_exit(t_shell *shell, int i)
 {
-	(void)data;
 	int	size;
 
 	size = shell->cmd_array[i].num_flag + shell->cmd_array[i].num_arg;
@@ -55,5 +54,3 @@ void	builtin_exit(t_shell *shell, char **data, int i)
 	non_numeric_found(shell, i);
 	exit(shell->exit_code);
 }
-
-// "123456 qwewq 1234 090"

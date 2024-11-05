@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 11:20:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:08:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,28 @@ static bool	incomplete_cmd_line(char *buffer)
 	return (false);
 }
 
-static void	get_additionnal_cmd_line(t_shell *shell)
+static bool	get_additionnal_cmd_line(t_shell *shell)
 {
 	char	*tmp;
 	char	*additional_buffer;
 
+	shell->subreadline = true;
 	while (1)
 	{
 		additional_buffer = readline("> ");
+		if (shell->interrupted)
+		{
+			free(additional_buffer);
+			free(shell->buf);
+			shell->interrupted = 0;
+			shell->subreadline = false;
+			return (false);
+		}
 		if (!additional_buffer)
 		{
 			free(additional_buffer);
-			add_history(shell->buf);
+			ft_putstr_fd("Minishell: unexpected EOF while looking for matching\n", shell->current_fd_out);
 			sigeof_handler(shell);
-			break;
 		}
 		tmp = ft_strjoin(shell->buf, additional_buffer);
 		free(additional_buffer);
@@ -88,7 +96,7 @@ static void	get_additionnal_cmd_line(t_shell *shell)
 		free(shell->buf);
 		shell->buf = tmp;
 		if (!incomplete_cmd_line(shell->buf))
-			break;
+			return (true);
 	}
 }
 
@@ -111,8 +119,7 @@ bool	check_cmd_line_structure(t_shell *shell)
 	{
 		shell->buf = ft_strdup(buffer);
 		free(buffer);
-		get_additionnal_cmd_line(shell);
-		return (true);
+		return (get_additionnal_cmd_line(shell));
 	}
 	shell->buf = buffer;
 	return (true);

@@ -6,21 +6,33 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 11:44:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:03:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # define _GNU_SOURCE
 #include "../../includes/minishell.h"
+static t_shell *shell_context = NULL;
 
 void	sigint_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		shell_context->interrupted = 1;
+		if (!shell_context->subreadline)
+		{
+			write(1, "\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else
+		{
+			// write(1, "\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			ft_putstr_fd("Signal interrupted: Press enter to continue", 1);
+		}
 	}
 }
 
@@ -30,12 +42,13 @@ void	sigeof_handler(t_shell *shell)
 	exit(shell->exit_code);
 }
 
-void signals_handler(void)
+void signals_handler(t_shell *shell)
 {
 	struct sigaction sa_int;
 
 	//SIGINT -> ctrl+c -> new line 
 	memset(&sa_int, 0, sizeof(sa_int));
+	shell_context = shell;
 	sa_int.sa_handler = &sigint_handler;
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
