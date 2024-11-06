@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:03:35 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 00:38:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 02:21:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ void	waiting_for_children(t_shell *shell, int built_in_triggered)
 	int	i;
 	int	status;
 
-	i = 0;
 	i = -1;
 	while (++i < shell->cmd_number - built_in_triggered)
 		wait(&status);
-	// if (WIFEXITED(status)) // wip
-	// 	shell->exit_code = WEXITSTATUS(status); //wip
+	if (WIFEXITED(status)) // wip
+		g_exit_status = WEXITSTATUS(status); //wip
 }
