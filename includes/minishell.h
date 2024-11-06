@@ -180,7 +180,7 @@ bool		handle_token_redir_out(t_cmd *cmd, t_token **tokens_list);
 bool		handle_token_redir_in(t_cmd *cmd, t_token **tokens_list);
 
 /*----------------  parsing.c  ---------------*/
-int			parsing(t_shell *shell);
+bool		parsing(t_shell *shell);
 
 /*----------------  cmd_array_builder.c  ---------------*/
 bool 		cmd_array_builder(t_shell *shell);
@@ -221,6 +221,7 @@ void		shell_init(t_shell *shell, char **envp);
 /*----------------  special_variable.c  ---------------*/
 bool		replace_double_dollar(char **str, int *i);
 bool		replace_dollar_question_mark(char **str, int *i);
+bool		block_special_variables(char *str, int i);
 
 /*----------------  expander.c  ---------------*/
 bool		free_all_segments(char **segments);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/05 12:00:54 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:40:42 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,30 @@ static bool handling_expander(t_shell *shell)
 		if (tmp->type == TOKEN_WORD || tmp->type == TOKEN_DOUBLE_QUOTE)
 		{
 			if (!expander(shell->env, &tmp->content))
+			{
+				if (shell->buf)
+					free(shell->buf);
 				return (false);
+			}
 		}
 		tmp = tmp->next;
 	}
 	return (true);
 }
 
-int	parsing(t_shell *shell)
+bool	parsing(t_shell *shell)
 {
 	if (!handling_expander(shell))
-	{
-		printf("Error while checking cmd line structure\n");
-		return (0);
-	}
+		return (false);
 	if (!regroup_litteral_tokens(shell))
 	{
 		printf("Error while regrouping litteral tokens\n");
-		return (0);
+		return (false);
 	}
 	if (!cmd_array_builder(shell))
 	{
 		printf("Error while building cmd array\n");
-		return (0);
+		return (false);
 	}
-	return (1);
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 02:30:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 02:35:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:48:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ bool	replace_dollar_question_mark(char **str, int *i)
 		return (free_all_segments(segments));
 	*i = ft_strlen(segments[0]) + ft_strlen(segments[1]);
 	return (assemble_all_segments(segments, str));
+}
+
+// block special variables : $_ $@ $0 $# $* $! $_ $-
+bool	block_special_variables(char *str, int i)
+{
+	char char_found[2];
+
+	char_found[0] = str[i + 1];
+	char_found[1] = '\0';
+	if (str[i + 1] && ft_strrchr("_@0#*!-", str[i + 1]))
+	{
+		mini_printf("minishell: $", char_found, ": special variable not allowed\n", STDERR_FILENO);
+		return (false);
+	}
+	return (true);
 }
