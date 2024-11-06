@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 11:23:05 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/04 19:13:02 by jveirman         ###   ########.fr       */
+/*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
+/*   Updated: 2024/11/06 01:07:15 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ void	init_struct(t_cmd *cmd)
 	cmd->data[CMD_ARG] = NULL; //dev wip
 	cmd->data[CMD_END] = NULL; //dev wip its the null terminated
 	cmd->final_cmd_line = NULL;
+}
+
+bool check_for_empty_cmd(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->cmd_number)
+	{
+		if (shell->cmd_array[i].data[CMD_NAME][0] == '\0')
+		{
+			free_after_execution(shell, false);
+			ft_putstr_fd("Minishell: '': command not found\n", STDERR_FILENO);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
 }
 
 int	count_cmd(t_token *tokens_list)

@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 15:49:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 01:03:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_after_execution(t_shell *shell)
+void	free_after_execution(t_shell *shell, bool with_pipefds)
 {
 	int	i;
 	
@@ -35,9 +35,13 @@ void	free_after_execution(t_shell *shell)
 				ft_arrayfree(shell->cmd_array[i].final_cmd_line);
 			i++;
 		}
-		if (g_exit_status == 0)
+		if (with_pipefds && g_exit_status == 0)
 			free_pipefds(shell);
-		free(shell->cmd_array);
+		if (shell->cmd_array)
+			free(shell->cmd_array);
 		shell->cmd_array = NULL;
+		if (shell->buf)
+			free(shell->buf);
+		shell->buf = NULL;
 	}
 }

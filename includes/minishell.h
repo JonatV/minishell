@@ -164,6 +164,7 @@ void		tokenizer(t_shell *shell);
 
 /*----------------  utils.c  ---------------*/
 void		init_struct(t_cmd *cmd);
+bool		check_for_empty_cmd(t_shell *shell);
 int			count_cmd(t_token *tokens_list);
 int			get_type(char **str);
 int			print_syntax_error(char *str, int i);

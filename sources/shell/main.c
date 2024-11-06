@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 00:39:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 01:05:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ int	main(int ac, char **av, char **envp)
 			free_tokens_list(&shell.tokens_list);
 			panic("Error while parsing", &shell);
 		}
+		if (!check_for_empty_cmd(&shell))
+		{
+			printf("Error while checking for empty cmd\n");
+			continue;
+		}
 		free_tokens_list(&shell.tokens_list);
 		shell.tokens_list = NULL;
 		print_all_cmd(&shell); // dev
 		shell_executor(&shell);
-		free_after_execution(&shell);
-		free(shell.buf);
+		free_after_execution(&shell, true);
 	}
 }
