@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 20:08:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:37:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,15 @@ bool	use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered)
 {
 	int	built_in_index;
 
-	set_default_current_fds(shell);
 	built_in_index = is_builtin(shell->cmd_array[*i].data[CMD_NAME]);
 	if (built_in_index > -1)
 	{
+		set_default_current_fds(shell);
 		if (shell->cmd_number != 1)
 			shell->current_fd_out = shell->pipefds[*i][PIPE_WRITE_END];
 		select_builtin(shell, *i, built_in_index);
+		free(shell->pipefds);
+		shell->pipefds = NULL;
 		(*built_in_triggered)++;
 		(*i)++;
 		return (true);

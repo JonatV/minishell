@@ -6,13 +6,23 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 20:39:28 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:26:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # define _GNU_SOURCE
 #include "../../includes/minishell.h"
 
+void	signal_ctlc_on_fork(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit_status = 130;
+		write(STDERR_FILENO, "\n", 1);
+		// close(STDIN_FILENO);
+		// exit(130);
+	}
+}
 void	signal_ctlc_on_subprocess(int sig)
 {
 	if (sig == SIGINT)
@@ -27,6 +37,7 @@ void	sigint_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
+		g_exit_status = 130;
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

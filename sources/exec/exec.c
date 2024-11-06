@@ -6,10 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 02:59:42 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:29:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _GNU_SOURCE
 #include "../../includes/minishell.h"
 
 /*
@@ -56,6 +57,56 @@ void	execution(int i, t_shell *shell)
 	panic("Execve failed", shell);
 }
 
+void waiting_for_children(t_shell *shell, int built_in_triggered)
+{
+	int status;
+	pid_t pid;
+	int i;
+	
+	i = 0;
+	while (i < shell->cmd_number - built_in_triggered)
+	{
+		pid = waitpid(shell->pid_array[i], &status, 0);
+		if (pid == -1)
+			perror("im waiting"); // todo refactor
+		if (i == shell->cmd_number - 1)
+		{
+			if (WIFEXITED(status))
+				g_exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_exit_status = 128 + WTERMSIG(status);
+		}
+		i++;
+	}
+}
+
+static void	forks_process(t_shell *shell, int i)
+{
+	pid_t	pid;
+
+	signal(SIGINT, signal_ctlc_on_fork);
+	signal(SIGQUIT, SIG_DFL);
+	pid = fork();
+	if (pid == 0)
+	{
+		fd_error(shell, i);
+		if (is_here_doc_available(shell, i))
+			here_doc_exploit(shell, i);
+		else
+			fd_in_management(shell, i);
+		fd_out_management(shell, i);
+		pipes_closing(shell);
+		execution(i, shell);
+	}
+	else if (pid < 0)
+		panic("Fork", shell);
+	else
+	{
+		shell->pid_array[i] = pid;
+		parent_process_close_fds(shell, i);
+	}
+}
+
 void	shell_executor(t_shell *shell)
 {
 	int	i;
@@ -68,7 +119,6 @@ void	shell_executor(t_shell *shell)
 	if (!here_doc_management(shell))
 		return ;
 	pipes_init(shell);
-	pipes_opening(shell);
 	while (i < shell->cmd_number)
 	{
 		if(shell->cmd_array[i].data[CMD_NAME] == NULL)
@@ -82,6 +132,6 @@ void	shell_executor(t_shell *shell)
 		i++;
 	}
 	set_default_current_fds(shell);
-	pipes_closing(shell);
+	pipes_free(shell);
 	waiting_for_children(shell, built_in_triggered);
 }

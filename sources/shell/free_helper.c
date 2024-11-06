@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 01:03:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:40:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_after_execution(t_shell *shell, bool with_pipefds)
 {
 	int	i;
-	
+	(void)with_pipefds; // todo check if its ok to remove it
 	i = 0;
 	if (shell->cmd_array)
 	{
@@ -35,8 +35,16 @@ void	free_after_execution(t_shell *shell, bool with_pipefds)
 				ft_arrayfree(shell->cmd_array[i].final_cmd_line);
 			i++;
 		}
-		if (with_pipefds && g_exit_status == 0)
-			free_pipefds(shell);
+		if (with_pipefds && g_exit_status == 0) // todo might not be needed
+		{
+			free(shell->pipefds);
+			shell->pipefds = NULL;
+		}
+		if (shell->pipefds)
+		{
+			free(shell->pipefds);
+			shell->pipefds = NULL;
+		}
 		if (shell->cmd_array)
 			free(shell->cmd_array);
 		shell->cmd_array = NULL;

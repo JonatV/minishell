@@ -123,6 +123,7 @@ typedef struct s_shell
 	int		cmd_number;
 	t_cmd	*cmd_array;		// malloc
 	int		**pipefds;		// malloc
+	pid_t	pid_array[1024];		// malloc
 	char	**env;			// malloc + inside malloc
 	char	*prompt_msg;	// malloc
 	char	*buf;			// malloc form readline, don't handle
@@ -188,6 +189,7 @@ bool 		cmd_array_builder(t_shell *shell);
 void		signal_ctlc_on_subprocess(int sig);
 void		sigint_handler(int signal);
 void		sigeof_handler(t_shell *shell);
+void		signal_ctlc_on_fork(int sig);
 void		signals_handler(void);
 
 /*----------------  prompt.c  ---------------*/
@@ -265,10 +267,6 @@ void		dev_cmd_call(t_shell *shell);
 /*----------------  fake_array_from_parsing.c  ---------------*/
 void		init_all_cmd(t_shell *shell);
 
-/*----------------  fork.c  ---------------*/
-void		forks_process(t_shell *shell, int i);
-void		waiting_for_children(t_shell *shell, int built_in_triggered);
-
 /*----------------  redirection.c  ---------------*/
 void		fd_in_management(t_shell *shell, int i);
 void		fd_out_management(t_shell *shell, int i);
@@ -286,10 +284,11 @@ bool		use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered);
 char		*find_valid_path(char *cmd, char **env);
 
 /*----------------  pipes.c  ---------------*/
+void		parent_process_close_fds(t_shell *shell, int i);
 void		pipes_init(t_shell *shell);
 void		pipes_opening(t_shell *shell);
 void		pipes_closing(t_shell *shell);
-void		free_pipefds(t_shell *shell);
+void		pipes_free(t_shell *shell);
 
 /*----------------  here_doc.c  ---------------*/
 bool		here_doc_management(t_shell *shell);
