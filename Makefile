@@ -18,11 +18,11 @@ DEV_TOOL	=	fake_array_from_parsing print_array_all_cmd
 
 EXEC		=	error exec_utils exec fork here_doc_utils here_doc pipes redirection
 
-EXPANDER	=	expander
+EXPANDER	=	expander special_variables
 
 PARSING		=	cmd_array_builder parsing utils parse_token_redirection parse_token_word
 
-MINISHELL	=	env_utils exit main prompt check_cmd_line_structure init_shell free_helper
+MINISHELL	=	env_utils exit main prompt check_cmd_line_structure init_shell free_helper global_utils
 
 SIGNAL		=	listener
 

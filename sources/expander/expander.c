@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 12:01:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 02:32:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	free_all_segments(char **segments)
+bool	free_all_segments(char **segments)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ static bool	free_all_segments(char **segments)
 	return (false);
 }
 
-static bool	assemble_all_segments(char **segments, char **str)
+bool	assemble_all_segments(char **segments, char **str)
 {
 	char	*result;
 	int		seg0_len;
@@ -73,19 +73,6 @@ static bool	replace_dollar(char **array, char **str, int *i, int *start_end)
 	return (assemble_all_segments(segments, str));
 }
 
-static bool	replace_double_dollar(char **str, int *i)
-{
-	char	*segments[3];
-
-	segments[0] = ft_substr(*str, 0, *i);
-	segments[1] = ft_itoa(getpid());
-	segments[2] = ft_substr(*str, *i + 2, ft_strlen(*str));
-	if (!segments[0] || !segments[1] || !segments[2])
-		return (free_all_segments(segments));
-	*i = ft_strlen(segments[0]) + ft_strlen(segments[1]);
-	return (assemble_all_segments(segments, str));
-}
-
 /*
 * INFO:
 *		- first check if there's a dollar sign after the first one -> $$
@@ -101,6 +88,8 @@ static bool	replace_var_manager(int *i, char **content, char **env)
 
 	if ((*content)[*i + 1] && (*content)[*i + 1] == '$')
 		return (replace_double_dollar(content, i));
+	if ((*content)[*i + 1] && (*content)[*i + 1] == '?')
+		return (replace_dollar_question_mark(content, i));
 	if ((*content)[*i + 1] == '\0' || ft_isspace((*content)[*i + 1]))
 		return (*i += 1, true);
 	j = 0;

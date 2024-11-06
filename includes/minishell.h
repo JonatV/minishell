@@ -208,13 +208,22 @@ void		panic(char *str, t_shell *shell);
 void		set_default_current_fds(t_shell *shell);
 
 /*----------------  free_helper.c  ---------------*/
-void		free_after_execution(t_shell *shell);
+void		free_after_execution(t_shell *shell, bool with_pipefds);
+
+/*----------------  global_utils.c  ---------------*/
+void		mini_printf(char *first_part, char *dynamic_info, char *last_part, int fd);
 
 /*----------------  main.c  ---------------*/
 void		shell_init(t_shell *shell, char **envp);
 
+/*----------------  special_variable.c  ---------------*/
+bool		replace_double_dollar(char **str, int *i);
+bool		replace_dollar_question_mark(char **str, int *i);
+
 /*----------------  expander.c  ---------------*/
-bool		expander(char **array, char **str);
+bool		free_all_segments(char **segments);
+bool		assemble_all_segments(char **segments, char **str);
+bool		expander(char **env, char **content);
 
 /*----------------  pwd.c  ---------------*/
 void		builtin_pwd(t_shell *shell, char **data);
