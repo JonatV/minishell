@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 16:15:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:31:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 			free(shell->buf);
 			dup2(stdin_backup, STDIN_FILENO);
 			close(stdin_backup);
-			printf("Interrupted\n");
 			return (false);
 		}
 		if (!additional_buffer)

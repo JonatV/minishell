@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 02:32:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:31:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ bool	expander(char **env, char **content)
 		if ((*content)[i] == '$')
 		{
 			if (!replace_var_manager(&i, content, env))
-				return (printf("Error while replacing the variable\n"), false);
+				return (printf("Error while replacing the variable\n"), false); // todo refactor
 			else
 				continue ;
 		}
