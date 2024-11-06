@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 03:02:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	env_unset(t_shell *shell, char *to_remove)
 
 	if (ft_arrayfind(shell->env, to_remove) == -1)
 	{
-		mini_printf("Minishell: ", to_remove, ": env var doesn't exit\n", STDERR_FILENO);
+		mini_printf("minishell: ", to_remove, ": env var doesn't exit\n", STDERR_FILENO);
 	}
 	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 	if (!new_env)

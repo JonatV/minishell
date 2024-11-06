@@ -6,12 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 01:06:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:25:21 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static bool	handle_cmd_name(t_cmd *cmd, char *content)
 {

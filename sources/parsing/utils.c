@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 01:07:15 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool check_for_empty_cmd(t_shell *shell)
 		if (shell->cmd_array[i].data[CMD_NAME][0] == '\0')
 		{
 			free_after_execution(shell, false);
-			ft_putstr_fd("Minishell: '': command not found\n", STDERR_FILENO);
+			ft_putstr_fd("minishell: '': command not found\n", STDERR_FILENO);
 			return (false);
 		}
 		i++;

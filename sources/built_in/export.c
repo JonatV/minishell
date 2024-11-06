@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 02:57:07 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	builtin_export(t_shell *shell, int cmd_num)
 	
 	if (!check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_EXPORT))
 	{
-		ft_putstr_fd("Minishell: export: no options allowed\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: export: no options allowed\n", STDERR_FILENO);
 		return ;
 	}
 	data_cmd_arg = NULL;

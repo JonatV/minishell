@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 02:56:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	builtin_echo(t_shell *shell, char **data)
 		flag = true;
 	if (!check_data_validity(data, BUILTIN_ECHO) && (!flag && data[CMD_FLAG] != NULL))
 	{
-		ft_putstr_fd("Minishell: echo: no options (but -n) allowed\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: echo: no options (but -n) allowed\n", STDERR_FILENO);
 		return;
 	}
 	if (!data[CMD_ARG])

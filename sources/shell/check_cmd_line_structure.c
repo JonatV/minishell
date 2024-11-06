@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 20:31:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 			free(additional_buffer);
 			dup2(stdin_backup, STDIN_FILENO);
 			close(stdin_backup);
-			ft_putstr_fd("Minishell: unexpected EOF while looking for matching\n", shell->current_fd_out);
+			ft_putstr_fd("minishell: unexpected EOF while looking for matching\n", shell->current_fd_out);
 			sigeof_handler(shell);
 		}
 		tmp = ft_strjoin(shell->buf, additional_buffer);
