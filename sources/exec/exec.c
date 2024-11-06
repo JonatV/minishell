@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 00:44:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/06 02:59:42 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execution(int i, t_shell *shell)
 	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], shell->env);
 	if (0 == valid_path)
 	{
-		ft_putstr_fd("Error : No such command exists in the system.\n", STDERR_FILENO);
+		mini_printf("", shell->cmd_array[i].data[CMD_NAME], ": command not found\n", STDERR_FILENO);
 		exit(127);
 	}
 	prepare_execve_data(&shell->cmd_array[i]);
