@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/06 23:40:42 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 01:04:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ bool	parsing(t_shell *shell)
 	}
 	if (!cmd_array_builder(shell))
 	{
-		printf("Error while building cmd array\n");
+		if (shell->buf)
+			free(shell->buf);//todo more free (free cmd array) i was checking to not have cmd number wrong when pipes are miss counted
+		printf("Error while building cmd array\n");// todo refactor error msg
 		return (false);
 	}
 	return (true);

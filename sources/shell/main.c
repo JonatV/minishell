@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:36:07 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 00:57:45 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ int	main(int ac, char **av, char **envp)
 		if (!check_cmd_line_structure(&shell))
 			continue ;
 		add_history(shell.buf);// todo check where to put it
-		tokenizer(&shell);
+		if (!tokenizer(&shell))
+		{
+			free_tokens_list(&shell.tokens_list);
+			continue ;
+		}
 		if (!shell.tokens_list)
 			panic("Error while tokenizing", &shell);
-		// display_tokens(shell.tokens_list);
+		display_tokens(shell.tokens_list);
 		if (!parsing(&shell))
 		{
 			free_tokens_list(&shell.tokens_list);

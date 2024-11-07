@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:56:41 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/03 00:37:12 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 00:56:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*create_token(t_token_type type, char **content)
 	return (new_token);
 }
 
-void	tokenizer(t_shell *shell)
+bool	tokenizer(t_shell *shell)
 {
 	int	i;
 
@@ -58,10 +58,14 @@ void	tokenizer(t_shell *shell)
 		else if (shell->buf[i] == '>' || shell->buf[i] == '<')
 			handle_redirections(shell->buf, &i, &shell->tokens_list);
 		else if (shell->buf[i] == '|')
-			handle_pipe(&i, &shell->tokens_list);
+		{
+			if (!handle_pipe(&i, &shell->tokens_list, shell->buf))
+				return (false);
+		}
 		else
 			handle_word(shell->buf, &i, &shell->tokens_list);
 	}
+	return (true);
 }
 
 // int	main(void)

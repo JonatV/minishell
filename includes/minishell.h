@@ -95,6 +95,7 @@ typedef enum e_token_type
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_SPACE,
 	TOKEN_SKIP,
+	TOKEN_OR,
 }	t_token_type;
 
 typedef struct s_cmd
@@ -145,7 +146,7 @@ typedef struct s_shell
 
 /*----------------  token_utils.c  ---------------*/
 void		free_tokens_list(t_token **tokens);
-void		handle_pipe(int *i, t_token **tokens_list);
+bool		handle_pipe(int *i, t_token **tokens_list, char *buf);
 const char	*get_token_type_name(t_token_type type);
 void		display_tokens(t_token *tokens);
 
@@ -161,14 +162,12 @@ void		handle_word(char *buf, int *i, t_token **tokens_list);
 /*----------------  tokenizer.c  ---------------*/
 bool		add_token(t_token **tokens_list, t_token *new_token);
 t_token		*create_token(t_token_type type, char **content);
-void		tokenizer(t_shell *shell);
+bool		tokenizer(t_shell *shell);
 
 /*----------------  utils.c  ---------------*/
 void		init_struct(t_cmd *cmd);
 bool		check_for_empty_cmd(t_shell *shell);
 int			count_cmd(t_token *tokens_list);
-int			get_type(char **str);
-int			print_syntax_error(char *str, int i);
 
 /*----------------  parse_token_word.c  ---------------*/
 bool		handle_token_word(t_cmd *cmd, t_token **tokens_list);
