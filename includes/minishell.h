@@ -31,7 +31,8 @@ extern int g_exit_status;
 */
 
 # define DEFAULT_FD -2
-# define PROMPT_MSG "\033[1;36mMinishell \033[32m$ \033[0m"
+# define PROMPT_MSG_START "[\033[1;31m"
+# define PROMPT_MSG_END "\033[0m] \033[1;36mMinishell \033[32m$\033[0m "
 
 /*----------------				STATUSES CODE				---------------*/
 # define SUCCESS		0
@@ -132,6 +133,7 @@ typedef struct s_shell
 	int		exit_code; //wip
 	int		current_fd_in;
 	int		current_fd_out;
+	char	prompt_msg[1024];
 	t_token	*tokens_list;	// malloc
 	pid_t	pid;
 	// wip - merging

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/30 17:41:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:01:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	free_machine(t_shell *shell)
 {
 	if (shell->pipefds != NULL)
 		free(shell->pipefds);
-	if (shell->prompt_msg != NULL)
-		free(shell->prompt_msg);
 	if (shell->env != NULL)
 		ft_arrayfree(shell->env);
 	if (shell->cmd_array)
