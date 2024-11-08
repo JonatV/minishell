@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:32:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,13 @@ bool	builtin_chdir(t_shell *shell, char **data)
 	if (!check_data_validity(data, BUILTIN_CD))
 	{
 		ft_putstr_fd("minishell: cd: no options allowed\n", STDERR_FILENO);
+		g_exit_status = 2;
 		return (false);
 	}
 	if (count_word(data[CMD_ARG]) > 1)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
+		g_exit_status = 1;
 		return (false);
 	}
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
@@ -108,6 +110,7 @@ bool	builtin_chdir(t_shell *shell, char **data)
 	if (0 != chdir(get_path_name(shell, data)))
 	{
 		mini_printf("minishell: cd: ", data[CMD_ARG], ": No such file or directory\n", STDERR_FILENO);
+		g_exit_status = 1;
 		return (false); //wip: error management
 	}
 	if (getcwd(pwd, sizeof(pwd)) == NULL)

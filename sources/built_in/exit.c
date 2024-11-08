@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:26:42 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static bool	is_non_numeric(t_shell *shell, char *str)
 		if (!ft_isdigit(str[i]) && str[i] != ' ')
 		{
 			mini_printf("minishell: exit: ", str, ": numeric argument required\n", shell->current_fd_out);
+			g_exit_status = 2;
 			return (true);
 		}
 		i++;
@@ -47,8 +48,9 @@ void	builtin_exit(t_shell *shell, int i)
 	if (size > 1)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+		g_exit_status = 1;
 		return ;
 	}
 	non_numeric_found(shell, i);
-	exit(shell->exit_code);
+	exit(g_exit_status);
 }

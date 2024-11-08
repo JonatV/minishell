@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:55:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/28 17:36:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:16:34 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_arraysize(char **array)
  * @param	to_add the string to add
  * @return	Nothing, it changes the pointer from the given array to the new array.
 */
-void	ft_arraypush(char ***array, char *to_add)
+bool	ft_arraypush(char ***array, char *to_add)
 {
 	char	**new_array;
 	int		array_size;
@@ -39,7 +39,7 @@ void	ft_arraypush(char ***array, char *to_add)
 	array_size = get_arraysize(*array);
 	new_array = malloc(sizeof(char *) * (array_size + 1 + 1));
 	if (!new_array)
-		return ;
+		return (false);
 	i = 0;
 	while (i < array_size)
 	{
@@ -50,10 +50,11 @@ void	ft_arraypush(char ***array, char *to_add)
 	if (!new_array[i])
 	{
 		free(new_array);
-		return ;
+		return (false);
 	}
 	new_array[++i] = NULL;
 	if (*array)
 		free(*array);
 	*array = new_array;
+	return (true);
 }

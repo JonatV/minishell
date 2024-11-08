@@ -6,39 +6,26 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 16:01:24 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:56:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	free_machine(t_shell *shell)
-{
-	if (shell->pipefds != NULL)
-		free(shell->pipefds);
-	if (shell->env != NULL)
-		ft_arrayfree(shell->env);
-	if (shell->cmd_array)
-		free(shell->cmd_array);
-}
-
-void	clean(char *str, t_shell *shell)
+void	clean(char *str, t_shell *shell, bool free_env)
 {
 	if (str)
 		ft_putstr_fd(str, shell->current_fd_out);
-	free_machine(shell);
+	free_cmd_array_struct(shell);
+	free_tokens_list(&shell->tokens_list);
+	free_shell_struct(shell, free_env);
 }
 
 void	panic(char *str, t_shell *shell)
 {
-	ft_putstr_fd(MSG_ERROR, STDERR_FILENO);
 	if (str)
-	{
-		ft_putstr_fd(" : ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-	}
-	ft_putstr_fd("\n", STDERR_FILENO);
-	if (shell != NULL)
-		free_machine(shell);
+		error_msg(str);
+	clean(NULL, shell, true);
 	exit(EXIT_FAILURE);
 }
+

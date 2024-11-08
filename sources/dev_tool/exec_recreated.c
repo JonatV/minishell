@@ -4,7 +4,7 @@ void execution(int i, t_shell *shell)
 {
 	char *valid_path;
 
-	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], shell->env);
+	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], shell->env, shell);
 	if (0 == valid_path)
 	{
 		mini_printf("", shell->cmd_array[i].data[CMD_NAME], ": command not found\n", STDERR_FILENO);

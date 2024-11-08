@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_redirections.c                              :+:      :+:    :+:   */
+/*   handle_all_token_types.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 17:04:32 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/02 23:34:45 by jveirman         ###   ########.fr       */
+/*   Created: 2024/11/02 17:09:42 by jveirman          #+#    #+#             */
+/*   Updated: 2024/11/08 13:41:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,58 @@ static t_token	*token_redirection_in(char *buf, int *i)
 	return (new_token);
 }
 
-void handle_redirections(char *buf, int *i, t_token **tokens_list)
+void handle_redirections(t_shell *shell, int *i, t_token **tokens_list)
 {
 	t_token *pending_token;
 	
-	if (buf[*i] == '>')
+	if (shell->buf[*i] == '>')
 	{
-		pending_token = token_redirection_out(buf, i);
+		pending_token = token_redirection_out(shell->buf, i);
 		if(!add_token(tokens_list, pending_token))
-		{
-			free_tokens_list(tokens_list);
-			return ;
-		}
+			panic(ERR_MALLOC, shell);
 	}
-	else if (buf[*i] == '<')
+	else if (shell->buf[*i] == '<')
 	{
-		pending_token = token_redirection_in(buf, i);
+		pending_token = token_redirection_in(shell->buf, i);
 		if(!add_token(tokens_list, pending_token))
-		{
-			free_tokens_list(tokens_list);
-			return ;
-		}
+			panic(ERR_MALLOC, shell);
 	}
-	return ;
+}
+
+bool	handle_pipe(t_shell *shell, int *i, t_token **tokens_list)
+{
+	char	*content;
+	t_token	*new_token;
+
+	if (shell->buf[*i + 1] && shell->buf[*i + 1] == '|')
+	{
+		clean(NULL, shell, false);
+		return (error_msg("'||': OR operator not allowed"));
+	}
+	content = NULL;
+	content = ft_strdup("|");
+	if (!content)
+		panic(ERR_MALLOC, shell);
+	new_token = create_token(TOKEN_PIPE, &content);
+	if (!add_token(tokens_list, new_token))
+			panic(ERR_MALLOC, shell);
+	*i += 1;
+	return (true);
+}
+
+void	handle_space(t_shell *shell, int *i, t_token **tokens_list)
+{
+	char		*tmp;
+	t_token		*pending_token;
+	int start;
+
+	start = *i;
+	while (shell->buf[*i] && ft_isspace(shell->buf[*i]))
+		*i += 1;
+	tmp = ft_substr(shell->buf, start, *i - start);
+	if (!tmp)
+		panic(ERR_MALLOC, shell);
+	pending_token = create_token(TOKEN_SPACE, &tmp);
+	if (!add_token(tokens_list, pending_token))
+		panic(ERR_MALLOC, shell);
 }

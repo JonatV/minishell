@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:25:55 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/03 11:31:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:08:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	ft_arrayfree(char **array)
 {
 	int	i;
-
+	
+	if (array == NULL)
+		return;
 	i = 0;
 	while (array[i])
 	{

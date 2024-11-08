@@ -6,40 +6,42 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:25:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:42:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	handle_cmd_name(t_cmd *cmd, char *content)
+static int	handle_cmd_name(t_cmd *cmd, char *content)
 {
 	cmd->data[CMD_NAME] = ft_strdup(content);
 	free(content);
 	if (!cmd->data[CMD_NAME])
-		return (false);
-	return (true);
+		return (1);
+	return (0);
 }
 
-static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
+static int	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 {
 	char	*temp;
 
 	if (!cmd->data[data_slot])
 		cmd->data[data_slot] = ft_strdup("");
+	if (!cmd->data[data_slot])
+		return (1);
 	if (cmd->data[data_slot][0] == '\0')
 		temp = ft_strjoin(cmd->data[data_slot], content);
 	else
 	{
 		temp = ft_strjoin(cmd->data[data_slot], " ");
 		if (!temp)
-			return (false);
+			return (1);
 		free(cmd->data[data_slot]);
 		cmd->data[data_slot] = temp;
 		temp = ft_strjoin(cmd->data[data_slot], content);
 	}
 	if (!temp)
-		return (false);
+		return (1);
 	free(cmd->data[data_slot]);
 	cmd->data[data_slot] = temp;
 	if (data_slot == CMD_ARG)
@@ -47,7 +49,7 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 	else
 		cmd->num_flag++;
 	free(content);
-	return (true);
+	return (0);
 }
 
 /*
@@ -61,20 +63,20 @@ static bool	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 *	Second condition store the flags
 *	Third condition store the args
 */
-bool	handle_token_word(t_cmd *cmd, t_token **tokens_list)
+int	handle_token_word(t_cmd *cmd, t_token **tokens_list)
 {
 	char	*content;
 	char	*temp;
 
 	content = ft_strdup("");
 	if (!content)
-		return (false);
+		return (1);
 	while (*tokens_list && ((*tokens_list)->type == TOKEN_WORD || (*tokens_list)->type == TOKEN_SINGLE_QUOTE || (*tokens_list)->type == TOKEN_DOUBLE_QUOTE))
 	{
 		temp = ft_strjoin(content, (*tokens_list)->content);
 		free(content);
 		if (!temp)
-			return (false);
+			return (1);
 		content = temp;
 		*tokens_list = (*tokens_list)->next;
 	}
@@ -84,5 +86,5 @@ bool	handle_token_word(t_cmd *cmd, t_token **tokens_list)
 		return (handle_cmd_arg_n_flag(cmd, content, CMD_FLAG));
 	else
 		return (handle_cmd_arg_n_flag(cmd, content, CMD_ARG));
-	return (true);
+	return (0);
 }

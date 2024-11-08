@@ -6,15 +6,15 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/04 02:16:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:49:34 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
+static int	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 {
-	bool	success;
+	int	success;
 	
 	init_struct(cmd);
 	while (*tokens_list)
@@ -43,31 +43,36 @@ static bool	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 				*tokens_list = (*tokens_list)->next;
 				continue ;
 			}
-			if (!success)
-				return (false);
+			if (success != 0)
+				return (success);
 		}
 		else
 			*tokens_list = (*tokens_list)->next;
 		if (*tokens_list == NULL)
 			break ;
 	}
-	return (true);
+	return (0);
 }
 
 bool cmd_array_builder(t_shell *shell)
 {
 	int		i;
 	t_token	*tmp;
+	int		ret;
 
 	shell->cmd_number = count_cmd(shell->tokens_list);
+	printf("cmd_number: %d\n", shell->cmd_number); // dev
 	shell->cmd_array = malloc(sizeof(t_cmd) * shell->cmd_number);
 	if (!shell->cmd_array)
-		return (0);
+		panic(ERR_MALLOC, shell);
 	tmp = shell->tokens_list;
 	i = 0;
 	while (i < shell->cmd_number)
 	{
-		if(!parse_cmds(&tmp, &shell->cmd_array[i]))
+		ret = parse_cmds(&tmp, &shell->cmd_array[i]);
+		if(ret == 1)
+			panic(ERR_MALLOC, shell);
+		else if (ret == 2)
 			return (false);
 		i++;
 	}

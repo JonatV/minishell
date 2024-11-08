@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:30:46 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	init_struct(t_cmd *cmd)
 	cmd->fd_out = DEFAULT_FD;
 	cmd->num_arg = 0;
 	cmd->num_flag = 0;
-	cmd->type = -1;
+	cmd->file_name_in = NULL;
+	cmd->file_name_out = NULL;
 	cmd->here_doc_delimiter = NULL;
 	cmd->here_doc_input = NULL;
-	cmd->data[CMD_NAME] = NULL; //dev wip
-	cmd->data[CMD_FLAG] = NULL; //dev wip
-	cmd->data[CMD_ARG] = NULL; //dev wip
-	cmd->data[CMD_END] = NULL; //dev wip its the null terminated
+	cmd->data[CMD_NAME] = NULL;
+	cmd->data[CMD_FLAG] = NULL;
+	cmd->data[CMD_ARG] = NULL;
+	cmd->data[CMD_END] = NULL;
 	cmd->final_cmd_line = NULL;
 }
 
@@ -35,9 +36,9 @@ bool check_for_empty_cmd(t_shell *shell)
 	i = 0;
 	while (i < shell->cmd_number)
 	{
-		if (shell->cmd_array[i].data[CMD_NAME][0] == '\0')
-		{
-			free_after_execution(shell, false);
+		if (shell->cmd_array[i].data[CMD_NAME] && shell->cmd_array[i].data[CMD_NAME][0] == '\0')
+		{	
+			clean(NULL, shell, false);
 			ft_putstr_fd("minishell: '': command not found\n", STDERR_FILENO);
 			return (false);
 		}

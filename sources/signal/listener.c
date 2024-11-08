@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 20:26:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:57:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	sigint_handler(int signal)
 
 void	sigeof_handler(t_shell *shell)
 {
-	clean("exit\n", shell);
-	exit(shell->exit_code);
+	clean("exit\n", shell, true);
+	exit(g_exit_status);
 }
 
 void signals_handler(void)

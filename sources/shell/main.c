@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 00:57:45 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:31:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	shell_init(t_shell *shell, char **envp)
 	ft_memset(shell, '\0', sizeof(t_shell));
 	shell->pid = getpid();
 	set_default_current_fds(shell);
+	shell->number_of_pipe = 0;
 	init_env(shell, envp);
 	prompt_msg(shell);
 }
@@ -28,9 +29,9 @@ int	main(int ac, char **av, char **envp)
 	t_shell	shell;
 
 	if (!envp)
-		panic("Error no environment pointer", NULL);
+		return (error_msg("no environment"));
 	if (ac != 1 || av[1])
-		panic("This program does not accept arguments", NULL);
+		return (error_msg("This program does not accept arguments"));
 	shell_init(&shell, envp);
 	while (1)
 	{
@@ -39,27 +40,18 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		add_history(shell.buf);// todo check where to put it
 		if (!tokenizer(&shell))
-		{
-			free_tokens_list(&shell.tokens_list);
 			continue ;
-		}
 		if (!shell.tokens_list)
 			panic("Error while tokenizing", &shell);
-		display_tokens(shell.tokens_list);
+		// display_tokens(shell.tokens_list);
 		if (!parsing(&shell))
-		{
-			free_tokens_list(&shell.tokens_list);
 			continue ;
-		}
 		if (!check_for_empty_cmd(&shell))
-		{
-			printf("Error while checking for empty cmd\n");
-			continue;
-		}
+			continue ;
 		free_tokens_list(&shell.tokens_list);
 		shell.tokens_list = NULL;
 		// print_all_cmd(&shell); // dev
 		shell_executor(&shell);
-		free_after_execution(&shell, true);
+		clean(NULL, &shell, false);
 	}
 }

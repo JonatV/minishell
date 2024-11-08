@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 13:24:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/06/09 21:28:31 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:16:10 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include <stdlib.h>
 
 typedef struct s_list
@@ -81,5 +82,5 @@ void	ft_arrayprint(char **array, char *delimiter);
 void	ft_arraypop(char ***array);
 void	ft_arrayunshift(char ***array, char *to_add);
 void	ft_arrayshift(char ***array);
-void	ft_arraypush(char ***array, char *to_add);
+bool	ft_arraypush(char ***array, char *to_add);
 #endif

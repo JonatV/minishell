@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:28:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_UNSET))
 	{
 		ft_putstr_fd("minishell: unset: no options allowed\n", STDERR_FILENO);
+		g_exit_status = 2;
 		return ;
 	}
 	if (!shell->cmd_array[cmd_num].data[CMD_ARG])

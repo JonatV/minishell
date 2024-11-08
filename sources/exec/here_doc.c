@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/05 15:42:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:01:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ static bool	here_doc_found(t_shell *shell, int i)
 		if (shell->cmd_array[i].here_doc_input)
 			free(shell->cmd_array[i].here_doc_input);
 		shell->cmd_array[i].here_doc_input = NULL;
-		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j]);
+		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j], shell);
 		if (g_exit_status == 130)
-			return (false);
+		{
+			clean( NULL, shell, false);
+			exit(130);
+		}
 		if (!shell->cmd_array[i].here_doc_delimiter[j + 1])
 			break ;
 		j++;
@@ -75,24 +78,30 @@ void	here_doc_exploit(t_shell *shell, int i)
 	char	*text_input;
 
 	if (0 > pipe(pipe_fd))
-		exit(EXIT_FAILURE);
+		panic("pipe failed", shell);
 	pid = fork();
 	if (-1 == pid)
-		exit(EXIT_FAILURE);
+		panic("fork failed", shell);
 	if (pid)
 	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
-		close(pipe_fd[0]);
+		if (close(pipe_fd[1]) == -1)
+			panic("close failed", shell);
+		if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+			panic("dup2 failed", shell);
+		if (waitpid(pid, NULL, 0) == -1)
+			panic("waitpid failed", shell);
+		if (close(pipe_fd[0]) == -1)
+			panic("close failed", shell);
 	}
 	if (0 == pid)
 	{
-		close(pipe_fd[0]);
+		if (close(pipe_fd[0]) == -1)
+			panic("close failed", shell);
 		text_input = shell->cmd_array[i].here_doc_input;
 		ft_putstr_fd(text_input, pipe_fd[1]);
 		free(text_input); // wip: double check here
-		close(pipe_fd[1]);
+		if (close(pipe_fd[1]) == -1)
+			panic("close failed", shell);
 		exit(EXIT_SUCCESS);
 	}
 }

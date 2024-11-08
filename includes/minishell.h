@@ -66,6 +66,9 @@ extern int g_exit_status;
 #define YELLOW "\033[0;33m"
 #define N "\e[0m"
 
+/*----------------					ERR_MSG					---------------*/
+# define ERR_MALLOC "malloc failed"
+
 /*
 #####################################################################
 #							STRUCTURE								#
@@ -105,12 +108,12 @@ typedef struct s_cmd
 	int		fd_out;
 	int		num_arg;
 	int		num_flag;
+	char	*file_name_in;
+	char	*file_name_out;
 	char	*data[4];
 	char	**here_doc_delimiter;
 	char	*here_doc_input;
 	char	**final_cmd_line;
-	// wip - merging
-	int		type;
 }	t_cmd;
 
 typedef struct s_token
@@ -122,22 +125,19 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	int		cmd_number;
-	t_cmd	*cmd_array;		// malloc
-	int		**pipefds;		// malloc
-	pid_t	pid_array[1024];		// malloc
-	char	**env;			// malloc + inside malloc
-	char	*prompt_msg;	// malloc
-	char	*buf;			// malloc form readline, don't handle
-	int		exit_status;
-	int		exit_code; //wip
 	int		current_fd_in;
 	int		current_fd_out;
-	char	prompt_msg[1024];
-	t_token	*tokens_list;	// malloc
+	int		cmd_number;
 	pid_t	pid;
-	// wip - merging
-	int		status;
+	pid_t	pid_array[1024];
+	char	prompt_msg[1024];
+	int		number_of_pipe;
+
+	char	*buf;			// malloc form readline, don't handle
+	t_token	*tokens_list;	// malloc
+	t_cmd	*cmd_array;		// malloc
+	char	**env;			// malloc + inside malloc
+	int		**pipefds;		// malloc
 }	t_shell;
 
 /*
@@ -146,20 +146,17 @@ typedef struct s_shell
 #####################################################################
 */
 
+
+/*----------------  handle_all_token_types.c  ---------------*/
+void		handle_redirections(t_shell *shell, int *i, t_token **tokens_list);
+bool		handle_pipe(t_shell *shell, int *i, t_token **tokens_list);
+void		handle_space(t_shell *shell, int *i, t_token **tokens_list);
+
 /*----------------  token_utils.c  ---------------*/
 void		free_tokens_list(t_token **tokens);
-bool		handle_pipe(int *i, t_token **tokens_list, char *buf);
+void		handle_word(t_shell *shell, int *i, t_token **tokens_list);
 const char	*get_token_type_name(t_token_type type);
 void		display_tokens(t_token *tokens);
-
-/*----------------  handle_space.c  ---------------*/
-void		handle_space(char *buf, int *i, t_token **tokens_list);
-
-/*----------------  handle_redirections.c  ---------------*/
-void		handle_redirections(char *buf, int *i, t_token **tokens_list);
-
-/*----------------  handle_words.c  ---------------*/
-void		handle_word(char *buf, int *i, t_token **tokens_list);
 
 /*----------------  tokenizer.c  ---------------*/
 bool		add_token(t_token **tokens_list, t_token *new_token);
@@ -172,13 +169,13 @@ bool		check_for_empty_cmd(t_shell *shell);
 int			count_cmd(t_token *tokens_list);
 
 /*----------------  parse_token_word.c  ---------------*/
-bool		handle_token_word(t_cmd *cmd, t_token **tokens_list);
+int		handle_token_word(t_cmd *cmd, t_token **tokens_list);
 
 /*----------------  parse_token_redirection.c  ---------------*/
-bool		handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list);
-bool		handle_token_redir_append(t_cmd *cmd, t_token **tokens_list);
-bool		handle_token_redir_out(t_cmd *cmd, t_token **tokens_list);
-bool		handle_token_redir_in(t_cmd *cmd, t_token **tokens_list);
+int		handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list);
+int		handle_token_redir_append(t_cmd *cmd, t_token **tokens_list);
+int		handle_token_redir_out(t_cmd *cmd, t_token **tokens_list);
+int		handle_token_redir_in(t_cmd *cmd, t_token **tokens_list);
 
 /*----------------  parsing.c  ---------------*/
 bool		parsing(t_shell *shell);
@@ -204,7 +201,7 @@ void		env_unset(t_shell *shell, char *to_remove);
 void		init_env(t_shell *shell, char **envp);
 
 /*----------------  exit.c  ---------------*/
-void		clean(char *str, t_shell *shell);
+void		clean(char *str, t_shell *shell, bool free_env);
 void		panic(char *str, t_shell *shell);
 
 /*----------------  init_shell.c  ---------------*/
@@ -212,9 +209,12 @@ void		set_default_current_fds(t_shell *shell);
 
 /*----------------  free_helper.c  ---------------*/
 void		free_after_execution(t_shell *shell, bool with_pipefds);
+void		free_shell_struct(t_shell *shell, bool free_env);
+void		free_cmd_array_struct(t_shell *shell);
 
 /*----------------  global_utils.c  ---------------*/
 void		mini_printf(char *first_part, char *dynamic_info, char *last_part, int fd);
+bool		error_msg(char *msg);
 
 /*----------------  main.c  ---------------*/
 void		shell_init(t_shell *shell, char **envp);
@@ -279,17 +279,17 @@ void		execution(int i, t_shell *shell);
 
 /*----------------  here_doc_utils.c  ---------------*/
 int			is_here_doc_available(t_shell *shell, int i);
-char		*to_the_delimiter(char *to_find);
+char		*to_the_delimiter(char *to_find, t_shell *shell);
 
 /*----------------  exec_utils.c  ---------------*/
 bool		use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered);
-char		*find_valid_path(char *cmd, char **env);
+char		*find_valid_path(char *cmd, char **env, t_shell *shell);
 
 /*----------------  pipes.c  ---------------*/
 void		parent_process_close_fds(t_shell *shell, int i);
 void		pipes_init(t_shell *shell);
 void		pipes_opening(t_shell *shell);
-void		pipes_closing(t_shell *shell);
+void		pipes_closing(t_shell *shell, int i);
 void		pipes_free(t_shell *shell);
 
 /*----------------  here_doc.c  ---------------*/

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 11:21:39 by haroldsorel       #+#    #+#             */
-/*   Updated: 2024/11/07 01:04:20 by jveirman         ###   ########.fr       */
+/*   Created: 2024/09/26 11:21:39 by jveirman          #+#    #+#             */
+/*   Updated: 2024/11/08 12:52:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,15 @@ static bool handling_expander(t_shell *shell)
 bool	parsing(t_shell *shell)
 {
 	if (!handling_expander(shell))
-		return (false);
-	if (!regroup_litteral_tokens(shell))
 	{
-		printf("Error while regrouping litteral tokens\n");
+		clean(NULL, shell, false);
 		return (false);
 	}
+	if (!regroup_litteral_tokens(shell))
+		panic(ERR_MALLOC, shell);
 	if (!cmd_array_builder(shell))
 	{
-		if (shell->buf)
-			free(shell->buf);//todo more free (free cmd array) i was checking to not have cmd number wrong when pipes are miss counted
-		printf("Error while building cmd array\n");// todo refactor error msg
+		clean(NULL, shell, false);
 		return (false);
 	}
 	return (true);

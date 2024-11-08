@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:42 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:15:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	builtin_pwd(t_shell *shell, char **data)
 	if (!check_data_validity(data, BUILTIN_PWD))
 	{
 		ft_putstr_fd("minishell: pwd: no options allowed\n", STDERR_FILENO);
+		g_exit_status = 2;
 		return;
 	}
 	s = "PWD";
