@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:40:15 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:53:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static bool	here_doc_found(t_shell *shell, int i)
 		shell->cmd_array[i].here_doc_input = NULL;
 		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j], shell);
 		if (g_exit_status == 130)
-		{
-			clean(NULL, shell, false);
-			exit(130);
-		}
+			return (false);
 		if (!shell->cmd_array[i].here_doc_delimiter[j + 1]) // ? is this useful?
 			break ;
 		j++;
@@ -98,7 +95,8 @@ void	here_doc_exploit(t_shell *shell, int i)
 			panic("close failed", shell);
 		text_input = shell->cmd_array[i].here_doc_input;
 		ft_putstr_fd(text_input, pipe_fd[1]);
-		free(text_input); // wip: double check here
+		if (text_input)
+			free(text_input);
 		if (close(pipe_fd[1]) == -1)
 			panic("close failed", shell);
 		exit(EXIT_SUCCESS);

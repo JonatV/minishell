@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:45:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:52:54 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static char *ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 		buf = readline("> ");
 		if (!buf || g_exit_status == 130)
 		{
-			free(ret);
+			if (buf)
+				free(buf);
+			if (ret)
+				free(ret);
 			if (dup2(stdin_backup, STDIN_FILENO) == -1)
 				panic("dup2 failed", shell);
 			if (close(stdin_backup) == -1)
@@ -79,13 +82,16 @@ char	*to_the_delimiter(char *to_find, t_shell *shell)
 		return (NULL);
 	text_stored = ft_delimiter_hunter(text_stored, to_find, shell);
 	if (g_exit_status == 130)
+	{
+		if (text_stored)
+			free(text_stored);
 		return (NULL);
+	}
 	else if (!text_stored)
 	{
 		text_stored = ft_strdup("");
 		if (!text_stored)
 			panic(ERR_MALLOC, shell);
 	}
-	
 	return (text_stored);
 }

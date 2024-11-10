@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 15:56:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:19:06 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ void	shell_executor(t_shell *shell)
 	signal(SIGINT, SIG_IGN);
 	g_exit_status = 0;
 	i = 0;
-	here_doc_management(shell);
+	if (!here_doc_management(shell))
+		return ;
 	pipes_init(shell);
 	while (i < shell->cmd_number)
 	{

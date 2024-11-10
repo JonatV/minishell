@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 18:56:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:52:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	panic(char *str, t_shell *shell)
 	if (str)
 		error_msg(str);
 	clean(NULL, shell, true);
-	exit(EXIT_FAILURE);
+	g_exit_status = 1;
+	exit(g_exit_status);
 }
 
