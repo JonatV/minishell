@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 19:01:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:54:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	here_doc_found(t_shell *shell, int i)
 		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j], shell);
 		if (g_exit_status == 130)
 		{
-			clean( NULL, shell, false);
+			clean(NULL, shell, false);
 			exit(130);
 		}
 		if (!shell->cmd_array[i].here_doc_delimiter[j + 1])

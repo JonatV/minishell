@@ -6,21 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/10/31 16:27:48 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:31:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	check_var_name(char *str)
-{
-	if (ft_isdigit(str[0]))
-	{
-		ft_putendl_fd("Not a valid indentifier", 1);
-		return (1);
-	}
-	return (0);
-}
 
 char	*ft_extract(char *str, char target, int extract_after)
 {
@@ -53,16 +43,10 @@ static void	print_process(char *str, int fd_out)
 	ft_putchar_fd('\n', fd_out);
 }
 
-void	print_export(char **array, int fd_out)
+int	print_export(char **array, int fd_out)
 {
 	int	i;
-	i = 0;
-	while (array[i])
-	{
-		ft_putstr_fd(array[i], fd_out);
-		ft_putstr_fd(" ", fd_out);
-		i++;
-	}
+	
 	i = 0;
 	while (array[i])
 	{
@@ -75,4 +59,5 @@ void	print_export(char **array, int fd_out)
 			print_process(array[i], fd_out);
 		i++;
 	}
+	return (0);
 }

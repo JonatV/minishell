@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 11:30:31 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:54:28 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 	char	*full_path;
 	int		i;
 
-	// ft_arrayprint(env, "\n");	// dev
 	i = ft_arrayfind(env, "PATH");
 	if (i == -1)
 		panic("PATH not found in env", shell);
@@ -66,23 +65,20 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 	return (0);
 }
 
-// todo thouroughly check this function
-bool	use_builtin_cmd(t_shell *shell, int *i, int *built_in_triggered)
+bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index)
 {
-	int	built_in_index;
-
-	built_in_index = is_builtin(shell->cmd_array[*i].data[CMD_NAME]);
-	if (built_in_index > -1)
+	if (built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[*i].data[CMD_ARG] != NULL))
 	{
-		set_default_current_fds(shell);
-		if (shell->cmd_number != 1)
-			shell->current_fd_out = shell->pipefds[*i][PIPE_WRITE_END];
-		select_builtin(shell, *i, built_in_index);
-		free(shell->pipefds);
-		shell->pipefds = NULL;
-		(*built_in_triggered)++;
-		(*i)++;
-		return (true);
+		shell->cmd_array[*i].builtin_return = select_builtin(shell, *i, built_in_index, SKIP_EXIT);
 	}
 	return (false);
+}
+
+void execute_builtin(t_shell *shell, int i, int built_in_index)
+{
+	if (built_in_index == -1)
+		return ;
+	if (built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[i].data[CMD_ARG] != NULL))
+		exit(shell->cmd_array[i].builtin_return);
+	select_builtin(shell, i, built_in_index, NOSKIP_EXIT);
 }

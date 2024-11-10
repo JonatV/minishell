@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 14:44:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:58:14 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	execution(int i, t_shell *shell)
 	panic("execve failed", shell);
 }
 
-void waiting_for_children(t_shell *shell, int built_in_triggered)
+void waiting_for_children(t_shell *shell)
 {
 	int status;
 	int i;
 	
 	i = 0;
-	while (i < shell->cmd_number - built_in_triggered)
+	while (i < shell->cmd_number)
 	{
 		if (waitpid(shell->pid_array[i], &status, 0) == -1)
 			panic("waitpid failed", shell);
@@ -108,7 +108,7 @@ void waiting_for_children(t_shell *shell, int built_in_triggered)
 	}
 }
 
-static void	forks_process(t_shell *shell, int i)
+static void	forks_process(t_shell *shell, int i, int built_in_index)
 {
 	pid_t	pid;
 
@@ -125,6 +125,7 @@ static void	forks_process(t_shell *shell, int i)
 			fd_in_management(shell, i);
 		fd_out_management(shell, i);
 		pipes_closing(shell, i);
+		execute_builtin(shell, i, built_in_index);
 		execution(i, shell);
 	}
 	else if (pid < 0)
@@ -139,28 +140,27 @@ static void	forks_process(t_shell *shell, int i)
 void	shell_executor(t_shell *shell)
 {
 	int	i;
-	int	built_in_triggered;
+	int	built_in_index;
 	
 	print_all_cmd(shell);
 	signal(SIGINT, SIG_IGN);
 	g_exit_status = 0;
-	built_in_triggered = 0;
 	i = 0;
 	here_doc_management(shell);
 	pipes_init(shell);
 	while (i < shell->cmd_number)
 	{
+		built_in_index = is_builtin(shell->cmd_array[i].data[CMD_NAME]);
 		// if(shell->cmd_array[i].data[CMD_NAME] == NULL)
 		// {
 		// 	i++;
 		// 	continue ;
 		// }
-		if (shell->cmd_array[i].data[CMD_NAME] && use_builtin_cmd(shell, &i, &built_in_triggered))
-			continue ;
-		forks_process(shell, i);
+		use_builtin_env_changer(shell, &i, built_in_index);
+		forks_process(shell, i, built_in_index);
 		i++;
 	}
 	set_default_current_fds(shell);
 	pipes_free(shell);
-	waiting_for_children(shell, built_in_triggered);
+	waiting_for_children(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 12:28:48 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:16:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 		return (1);
 	return (0);
 }
-
-void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
+int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 {
 	char	**new_env;
 	int		i;
@@ -35,12 +34,13 @@ void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_UNSET))
 	{
 		ft_putstr_fd("minishell: unset: no options allowed\n", STDERR_FILENO);
-		g_exit_status = 2;
-		return ;
+		return (2);
 	}
 	if (!shell->cmd_array[cmd_num].data[CMD_ARG])
-		return ;
+		return (0);
 	data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
+	if (!data_cmd_arg)
+		panic(ERR_MALLOC, shell);
 	k = -1;
 	while (data_cmd_arg[++k])
 	{
@@ -50,7 +50,10 @@ void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 			continue ;
 		new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 		if (!new_env)
-			panic("Malloc in unset", shell);
+		{
+			ft_arrayfree(data_cmd_arg);
+			panic(ERR_MALLOC, shell);
+		}
 		i = 0;
 		j = 0;
 		while (shell->env[i])
@@ -66,4 +69,5 @@ void	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 		ft_arrayfree(shell->env);
 		shell->env = new_env;
 	}
+	return (0);
 }

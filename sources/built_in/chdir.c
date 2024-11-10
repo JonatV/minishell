@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 12:32:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_path_name(t_shell *shell, char **data)
 	return (data[CMD_ARG]);
 }
 
-static void	pwd_management(t_shell *shell, char *pwd)
+void	pwd_management(t_shell *shell, char *pwd)
 {
 	char	*temp;
 	int		pwd_pos;
@@ -54,14 +54,21 @@ static void	pwd_management(t_shell *shell, char *pwd)
 	pwd_pos = ft_arrayfind(shell->env, "PWD");
 	temp = ft_strjoin("PWD=", pwd);
 	if (!temp)
-		panic("Malloc for pwd", shell);
+		panic(ERR_MALLOC, shell);
 	if (pwd_pos != -1) // info: if the element exist then enter the changement process otherwise jump the process
 	{
 		free(shell->env[pwd_pos]);
 		shell->env[pwd_pos] = temp;
 	}
 	else
+	{
+		if (!ft_arraypush(&shell->env, temp))
+		{
+			free(temp);
+			panic(ERR_MALLOC, shell);
+		}
 		free(temp);
+	}
 }
 
 static void	oldpwd_management(t_shell *shell, char *oldpwd)
@@ -79,7 +86,11 @@ static void	oldpwd_management(t_shell *shell, char *oldpwd)
 		shell->env[oldpwd_pos] = temp;
 	}
 	else
+	{
+		if (!ft_arraypush(&shell->env, temp))
+			panic(ERR_MALLOC, shell);
 		free(temp);
+	}
 }
 
 static void	update_pwd(t_shell *shell, char *pwd, char *oldpwd)
@@ -88,33 +99,30 @@ static void	update_pwd(t_shell *shell, char *pwd, char *oldpwd)
 	oldpwd_management(shell, oldpwd);
 }
 
-bool	builtin_chdir(t_shell *shell, char **data)
+int	builtin_chdir(t_shell *shell, char **data)
 {
 	char	pwd[1024]; //wip: check the limits
 	char	oldpwd[1024]; //wip: check the limits
 
 	if (!check_data_validity(data, BUILTIN_CD))
 	{
-		ft_putstr_fd("minishell: cd: no options allowed\n", STDERR_FILENO);
-		g_exit_status = 2;
-		return (false);
+		error_msg("cd: no options allowed");
+		return (2);
 	}
 	if (count_word(data[CMD_ARG]) > 1)
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
-		g_exit_status = 1;
-		return (false);
+		error_msg("cd: too many arguments");
+		return (1);
 	}
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
-		perror("getcwd()"); // wip: change error management
+		panic("getcwd failed", shell);
 	if (0 != chdir(get_path_name(shell, data)))
 	{
 		mini_printf("minishell: cd: ", data[CMD_ARG], ": No such file or directory\n", STDERR_FILENO);
-		g_exit_status = 1;
-		return (false); //wip: error management
+		return (1);
 	}
 	if (getcwd(pwd, sizeof(pwd)) == NULL)
-		perror("getcwd()"); // wip: change error management
+		panic("getcwd failed", shell);
 	update_pwd(shell, pwd, oldpwd);
-	return (true);
+	return (0);
 }

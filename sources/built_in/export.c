@@ -6,25 +6,23 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 13:35:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:17:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	add_var_full(t_shell *shell, char *var_name, char *str, int var_exist)
+static bool	add_var_full(t_shell *shell, char *var_name, char *str, int var_exist)
 {
 	int		i;
 	char	*var_name_equal;
+	bool	success;
 	
 	if (var_exist != -1)
 		env_unset(shell, var_name);
 	var_name_equal = ft_strjoin(var_name, "=");
 	if (!var_name_equal)
-	{
-		free(var_name);
-		panic("Malloc failed when adding var to env", shell);
-	}
+		panic(ERR_MALLOC, shell);
 	i = 0;
 	while (str[i])
 	{
@@ -32,58 +30,91 @@ static void	add_var_full(t_shell *shell, char *var_name, char *str, int var_exis
 			break ;
 	}
 	if (str[i])
-		ft_arraypush(&(shell->env), str);
+		success = ft_arraypush(&(shell->env), str);
 	else
-		ft_arraypush(&(shell->env), var_name_equal);
+		success = ft_arraypush(&(shell->env), var_name_equal);
+	free(var_name_equal);
+	return (success);
 }
 
-static void	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
+static bool	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 {
 	if (var_exist == -1)
-		ft_arraypush(&(shell->env), var_name);
+		return (ft_arraypush(&(shell->env), var_name));
+	return (true);
 }
 
-/*
-* TODO:
-*	- create the check_var_name function
-*/
-static void	update_export(t_shell *shell, char *str)
+static int check_var_name(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+	{
+		mini_printf("minishell: export: ", str, ": not a valid identifier\n", STDERR_FILENO);
+		return (1);
+	}
+	i++;
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			mini_printf("minishell: export: ", str, ": not a valid identifier\n", STDERR_FILENO);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+static int	update_export(t_shell *shell, char *str)
 {
 	char	*var_name;
 	int		var_exist;
+	bool	success;
 
 	var_name = ft_extract(str, '=', 0);
 	if (!var_name)
-		panic("Malloc export var", shell);
-	// if (check_var_name(var_name) != 0)
-	// 	return ;
+		panic(ERR_MALLOC, shell);
+	if (check_var_name(var_name) == 1)
+	{
+		free(var_name);
+		return (1);
+	}
 	var_exist = ft_arrayfind(shell->env, var_name);
 	if (ft_strchr(str, '=') == 0)
-		add_var_name_only(shell, var_name, var_exist);
+		success = add_var_name_only(shell, var_name, var_exist);
 	else
-		add_var_full(shell, var_name, str, var_exist);
+		success = add_var_full(shell, var_name, str, var_exist);
 	free(var_name);
+	if (!success)
+		panic(ERR_MALLOC, shell);
+	return (0);
 }
 
-void	builtin_export(t_shell *shell, int cmd_num)
+int	builtin_export(t_shell *shell, int cmd_num)
 {
-	int	j;
+	int		j;
 	char	**data_cmd_arg;
+	int	success;
 	
 	if (!check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_EXPORT))
 	{
-		ft_putstr_fd("minishell: export: no options allowed\n", STDERR_FILENO);
-		g_exit_status = 2;
-		return ;
+		error_msg("export: no options allowed");
+		return (2);
 	}
 	data_cmd_arg = NULL;
 	if (shell->cmd_array[cmd_num].data[CMD_ARG] != NULL)
 	{
 		data_cmd_arg = ft_split(shell->cmd_array[cmd_num].data[CMD_ARG], ' ');
+		if (!data_cmd_arg)
+			panic(ERR_MALLOC, shell);
 		j = 0;
 		while (data_cmd_arg[j])
-			update_export(shell, data_cmd_arg[j++]);
+			success = update_export(shell, data_cmd_arg[j++]);
+		ft_arrayfree(data_cmd_arg);
 	}
 	else
-		print_export(shell->env, shell->current_fd_out);
+		return (print_export(shell->env, shell->current_fd_out));
+	return (success);
 }

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_env(t_shell *shell, char **data)
+int	builtin_env(t_shell *shell, char **data)
 {
 	int		i;
 	char	**array;
@@ -20,8 +20,7 @@ void	builtin_env(t_shell *shell, char **data)
 	if (!check_data_validity(data, BUILTIN_ENV))
 	{
 		ft_putstr_fd("minishell: env: no options nor arguments allowed\n", STDERR_FILENO);
-		g_exit_status = 2;
-		return;
+		return (2);
 	}
 	array = shell->env;
 	i = 0;
@@ -36,4 +35,5 @@ void	builtin_env(t_shell *shell, char **data)
 			ft_putendl_fd(array[i], shell->current_fd_out);
 		i++;
 	}
+	return (0);
 }

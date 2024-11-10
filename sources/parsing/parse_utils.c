@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 14:30:46 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:22:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_struct(t_cmd *cmd)
 	cmd->fd_out = DEFAULT_FD;
 	cmd->num_arg = 0;
 	cmd->num_flag = 0;
+	cmd->builtin_return = 0;
 	cmd->file_name_in = NULL;
 	cmd->file_name_out = NULL;
 	cmd->here_doc_delimiter = NULL;
