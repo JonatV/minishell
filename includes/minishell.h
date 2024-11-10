@@ -183,7 +183,6 @@ void	init_struct(t_cmd *cmd);
 bool check_for_empty_cmd(t_shell *shell);
 int	count_cmd(t_token *tokens_list);
 int	get_type(char **str);
-int	print_syntax_error(char *str, int i);
 
 /*----------------  cmd_array_builder.c  ---------------*/
 bool cmd_array_builder(t_shell *shell);
@@ -234,7 +233,7 @@ bool	check_cmd_line_structure(t_shell *shell);
 /*----------------  expander.c  ---------------*/
 bool	free_all_segments(char **segments);
 bool	assemble_all_segments(char **segments, char **str);
-bool	expander(char **env, char **content);
+bool	expander(char **env, char **content, t_shell *shell);
 
 /*----------------  special_variables.c  ---------------*/
 bool	replace_double_dollar(char **str, int *i);

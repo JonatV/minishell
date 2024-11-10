@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 14:58:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:56:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void waiting_for_children(t_shell *shell)
 	{
 		if (waitpid(shell->pid_array[i], &status, 0) == -1)
 			panic("waitpid failed", shell);
-		printf("\e[31mWaiting for children\e[0m\n");
 		if (i == shell->cmd_number - 1)
 		{
 			if (WIFEXITED(status))
@@ -117,7 +116,6 @@ static void	forks_process(t_shell *shell, int i, int built_in_index)
 	pid = fork();
 	if (pid == 0)
 	{
-		printf("\e[32mShell file out [%s]\e[0m\n", shell->cmd_array[i].file_name_out);
 		fd_error(shell, i);
 		if (is_here_doc_available(shell, i))
 			here_doc_exploit(shell, i);
@@ -142,7 +140,6 @@ void	shell_executor(t_shell *shell)
 	int	i;
 	int	built_in_index;
 	
-	print_all_cmd(shell);
 	signal(SIGINT, SIG_IGN);
 	g_exit_status = 0;
 	i = 0;

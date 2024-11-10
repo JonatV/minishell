@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 12:49:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:57:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool cmd_array_builder(t_shell *shell)
 	int		ret;
 
 	shell->cmd_number = count_cmd(shell->tokens_list);
-	printf("cmd_number: %d\n", shell->cmd_number); // dev
 	shell->cmd_array = malloc(sizeof(t_cmd) * shell->cmd_number);
 	if (!shell->cmd_array)
 		panic(ERR_MALLOC, shell);

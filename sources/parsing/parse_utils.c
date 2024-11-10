@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 11:22:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:20:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,4 @@ int	get_type(char **str)
 		return (7);
 	else
 		return (0);
-}
-
-int	print_syntax_error(char *str, int i)
-{
-	if (ft_strncmp(str, "\n", 1) == 0)
-		printf("minishell: syntax error near unexpected token `newline'\n");
-	else
-		printf("minishell: syntax error near unexpected token `%c'\n", str[i]);
-	return (0);
 }

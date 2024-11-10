@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/09 20:15:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:16:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	builtin_exit(t_shell *shell, int i)
 	}
 	ret_value = non_numeric_found(shell, i);
 	if (ret_value)
-		return (ret_value);
+		exit(ret_value);
 	if (shell->cmd_array[i].data[CMD_FLAG])
 		ret_value = ft_atoi(shell->cmd_array[i].data[CMD_FLAG]);
-	else
+	else if (shell->cmd_array[i].data[CMD_ARG])
 		ret_value = ft_atoi(shell->cmd_array[i].data[CMD_ARG]);
 	ret_value = ret_value % 256;
-	return (ret_value);
+	exit(ret_value);
 }

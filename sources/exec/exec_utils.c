@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 14:54:28 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:20:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 
 bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index)
 {
-	if (built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[*i].data[CMD_ARG] != NULL))
-	{
+	if (built_in_index == BUILTIN_EXIT || built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[*i].data[CMD_ARG] != NULL))
 		shell->cmd_array[*i].builtin_return = select_builtin(shell, *i, built_in_index, SKIP_EXIT);
-	}
 	return (false);
 }
 
@@ -78,7 +76,7 @@ void execute_builtin(t_shell *shell, int i, int built_in_index)
 {
 	if (built_in_index == -1)
 		return ;
-	if (built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[i].data[CMD_ARG] != NULL))
+	if (built_in_index == BUILTIN_EXIT || built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[i].data[CMD_ARG] != NULL))
 		exit(shell->cmd_array[i].builtin_return);
 	select_builtin(shell, i, built_in_index, NOSKIP_EXIT);
 }

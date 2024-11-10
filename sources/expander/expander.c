@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:27:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:05:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static bool	replace_var_manager(int *i, char **content, char **env)
 *	with its corresponding value from the array."
 *	@return : nothing, it changes the str directly, that's why it's send with a double pointer.
 */
-bool	expander(char **env, char **content)
+bool	expander(char **env, char **content, t_shell *shell)
 {
 	int	i;
 
@@ -128,7 +128,7 @@ bool	expander(char **env, char **content)
 			if (!block_special_variables(*content, i))
 				return (false);
 			if (!replace_var_manager(&i, content, env))
-				return (printf("Error while replacing the variable\n"), false); // todo refactor panic error
+				panic(ERR_MALLOC, shell);
 			else
 				continue ;
 		}
