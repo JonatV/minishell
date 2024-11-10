@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 18:54:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:40:15 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static bool	here_doc_found(t_shell *shell, int i)
 	delimiter = shell->cmd_array[i].here_doc_delimiter;
 	while (delimiter && delimiter[j])
 	{
-		printf("CURRENT DELIMITER [%s]\n", delimiter[j]);//debug
 		if (shell->cmd_array[i].here_doc_input)
 			free(shell->cmd_array[i].here_doc_input);
 		shell->cmd_array[i].here_doc_input = NULL;
@@ -40,7 +39,7 @@ static bool	here_doc_found(t_shell *shell, int i)
 			clean(NULL, shell, false);
 			exit(130);
 		}
-		if (!shell->cmd_array[i].here_doc_delimiter[j + 1])
+		if (!shell->cmd_array[i].here_doc_delimiter[j + 1]) // ? is this useful?
 			break ;
 		j++;
 	}

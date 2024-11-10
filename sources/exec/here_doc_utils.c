@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 19:07:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:45:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_here_doc_available(t_shell *shell, int i)
 {
-	if (!shell->cmd_array[i].here_doc_input)
+	if (shell->cmd_array[i].fd_in != USE_HEREDOC)
 		return (0);
 	return (1);
 }
@@ -86,5 +86,6 @@ char	*to_the_delimiter(char *to_find, t_shell *shell)
 		if (!text_stored)
 			panic(ERR_MALLOC, shell);
 	}
+	
 	return (text_stored);
 }

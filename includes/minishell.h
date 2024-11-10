@@ -31,6 +31,7 @@ extern int g_exit_status;
 */
 
 # define DEFAULT_FD -2
+# define USE_HEREDOC -3
 # define PROMPT_MSG_START "[\033[1;31m"
 # define PROMPT_MSG_END "\033[0m] \033[1;36mMinishell \033[32m$\033[0m "
 
@@ -67,6 +68,7 @@ extern int g_exit_status;
 #define GREEN "\e[32m"
 #define YELLOW "\033[0;33m"
 #define N "\e[0m"
+
 
 /*----------------					ERR_MSG					---------------*/
 # define ERR_MALLOC "malloc failed"

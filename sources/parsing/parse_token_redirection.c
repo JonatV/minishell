@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:22:04 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 12:53:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:41:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
 		if (!cmd->here_doc_delimiter)
 			return (1);
 		*tokens_list = (*tokens_list)->next->next;
+		cmd->fd_in = USE_HEREDOC;
 	}
 	return (0);
 }
