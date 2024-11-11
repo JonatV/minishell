@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/11 22:30:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:47:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static bool	check_echo_flags(char **data, bool *flag)
 		j = 0;
 		while (data[CMD_FLAG][i + j] && !ft_isspace(data[CMD_FLAG][i + j]))
 			j++;
-		// printf("check letter -[%c]\n", data[CMD_FLAG][(i + j) - 1]);
 		if (j == 2 && data[CMD_FLAG][(i + j) - 1] != 'n')
 			return (false);
 		else if (j == 2 && data[CMD_FLAG][(i + j) - 1] == 'n')
@@ -40,7 +39,7 @@ static bool	check_echo_flags(char **data, bool *flag)
 	return (true);
 }
 
-static void print_flags(t_shell *shell, char *str)
+static void print_flags(t_shell *shell, char *str, char *data_arg)
 {
 	int		i;
 
@@ -65,6 +64,8 @@ static void print_flags(t_shell *shell, char *str)
 				break ;
 		}
 	}
+	if (data_arg)
+		ft_putchar_fd(' ', shell->current_fd_out);
 }
 
 int	builtin_echo(t_shell *shell, char **data)
@@ -76,7 +77,7 @@ int	builtin_echo(t_shell *shell, char **data)
 		ft_putstr_fd("minishell: echo: no options (but -n) allowed\n", STDERR_FILENO);
 		return (2);
 	}
-	print_flags(shell, data[CMD_FLAG]);
+	print_flags(shell, data[CMD_FLAG], data[CMD_ARG]);
 	if (!data[CMD_ARG])
 	{
 		if (!flag)
