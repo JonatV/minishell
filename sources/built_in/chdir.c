@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 11:17:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:51:06 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static char	*get_path_name(t_shell *shell, char **data)
 	{
 		i = ft_arrayfind(shell->env, "HOME");
 		if (i == -1)
-			panic("Env var not found", shell);
+		{
+			error_msg("cd: HOME not set");
+			return (NULL);
+		}
 		path_name = ft_strchr(shell->env[i], '=');
 		return (path_name + 1);
 	}
@@ -101,9 +104,11 @@ static void	update_pwd(t_shell *shell, char *pwd, char *oldpwd)
 
 int	builtin_chdir(t_shell *shell, char **data)
 {
-	char	pwd[1024]; //wip: check the limits
-	char	oldpwd[1024]; //wip: check the limits
+	char	pwd[1024];
+	char	oldpwd[1024];
+	char	*path_name;
 
+	path_name = NULL;
 	if (!check_data_validity(data, BUILTIN_CD))
 	{
 		error_msg("cd: no options allowed");
@@ -116,7 +121,10 @@ int	builtin_chdir(t_shell *shell, char **data)
 	}
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
 		panic("getcwd failed", shell);
-	if (0 != chdir(get_path_name(shell, data)))
+	path_name = get_path_name(shell, data);
+	if (!path_name)
+		return (1);
+	if (0 != chdir(path_name))
 	{
 		mini_printf("minishell: cd: ", data[CMD_ARG], ": No such file or directory\n", STDERR_FILENO);
 		return (1);
