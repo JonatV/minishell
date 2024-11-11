@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 15:00:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:40:35 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ bool	check_data_validity(char **data, t_builtin builtin_index)
 			return (false);
 	}
 	else if (BUILTIN_EXPORT == builtin_index)
-	{
-		if (data[CMD_FLAG])
-			return (false);
-	}
-	else if (BUILTIN_ECHO == builtin_index)
 	{
 		if (data[CMD_FLAG])
 			return (false);
