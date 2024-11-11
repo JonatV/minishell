@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 17:19:06 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:36:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	execution(int i, t_shell *shell)
 {
 	char	*valid_path;
 
+	valid_path = NULL;
 	if (!shell->cmd_array[i].data[CMD_NAME])
 		exit(0);
 	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], shell->env, shell);
@@ -79,11 +80,14 @@ void	execution(int i, t_shell *shell)
 	if (!prepare_execve_data(&shell->cmd_array[i]))
 	{
 		free(valid_path);
+		valid_path = NULL;
 		panic(ERR_MALLOC, shell);
 	}
 	execve(valid_path, shell->cmd_array[i].final_cmd_line, shell->env);
-	free(valid_path);
-	panic("execve failed", shell);
+	if (valid_path)
+		free(valid_path);
+	error_msg("execve failed");
+	exit(1);
 }
 
 void waiting_for_children(t_shell *shell)
@@ -149,11 +153,6 @@ void	shell_executor(t_shell *shell)
 	while (i < shell->cmd_number)
 	{
 		built_in_index = is_builtin(shell->cmd_array[i].data[CMD_NAME]);
-		// if(shell->cmd_array[i].data[CMD_NAME] == NULL)
-		// {
-		// 	i++;
-		// 	continue ;
-		// }
 		use_builtin_env_changer(shell, &i, built_in_index);
 		forks_process(shell, i, built_in_index);
 		i++;

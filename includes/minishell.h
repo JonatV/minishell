@@ -16,6 +16,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+#include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
