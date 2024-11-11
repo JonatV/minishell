@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:20:24 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:08:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,56 @@
 
 static char	*find_in_env(char *cmd, char **env, t_shell *shell);
 
+static void	is_directory(char *cmd, t_shell *shell)
+{
+	struct stat	path_cmd;
+	int end;
+
+	end = ft_strlen(cmd) - 1;
+	if (cmd[end] == '/')
+	{
+		if (stat(cmd, &path_cmd) == 0)
+		{
+			if (S_ISDIR(path_cmd.st_mode))
+			{
+				mini_printf("minishell: ", cmd, ": is a directory\n", STDERR_FILENO);
+				clean(NULL, shell, false);
+				exit(126);
+			}
+		}
+		else
+		{
+			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			clean(NULL, shell, false);
+			exit(127);
+		}
+	}
+}
+
 // todo check what happens when no file for ./cmd
 char	*find_valid_path(char *cmd, char **env, t_shell *shell)
 {
-	if (0 == access(cmd, F_OK | X_OK))
+	is_directory(cmd, shell);
+	if (cmd[0] == '.' && cmd[1] == '/')
 	{
-		if (cmd[0] == '.' && cmd[1] == '/')
-			return (cmd);
+		is_directory(cmd, shell);
+		if (0 == access(cmd, F_OK))
+		{
+			if (0 == access(cmd, X_OK))
+				return (cmd);
+			else
+			{
+				mini_printf("minishell: ", cmd, ": Permission denied\n", STDERR_FILENO);
+				clean(NULL, shell, false);
+				exit(126);
+			}
+		}
+		else
+		{
+			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			clean(NULL, shell, false);
+			exit(127);
+		}
 	}
 	return (find_in_env(cmd, env, shell));
 }
