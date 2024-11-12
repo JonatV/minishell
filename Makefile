@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/12 02:13:09 by jveirman          #+#    #+#              #
+#    Updated: 2024/11/12 02:13:12 by jveirman         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
@@ -14,8 +26,6 @@ endif
 
 BUILT_IN	=	chdir echo env exit export_utils export pwd unset utils
 
-DEV_TOOL	=	fake_array_from_parsing print_array_all_cmd
-
 EXEC		=	error exec_utils exec here_doc_utils here_doc pipes redirection
 
 EXPANDER	=	expander special_variables
@@ -29,7 +39,6 @@ SIGNAL		=	listener
 TOKEN		=	token_utils tokenizer handle_all_token_types
 
 SRCS		=	$(addsuffix .c, $(addprefix sources/built_in/, $(BUILT_IN))) \
-				$(addsuffix .c, $(addprefix sources/dev_tool/, $(DEV_TOOL))) \
 				$(addsuffix .c, $(addprefix sources/exec/, $(EXEC))) \
 				$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) \
 				$(addsuffix .c, $(addprefix sources/parsing/, $(PARSING))) \
@@ -98,17 +107,17 @@ loading:
 	@ current_index=0; \
 	main_index=0; \
 	echo; \
-    for current_line in $(FULL_LINE); do \
-        for line in $(FULL_LINE); do \
-                printf "$$line"; \
-                sleep 0.01; \
-                current_index=$$((current_index + 1)); \
-                if [ $$current_index -eq 10 ]; then \
-                    break; \
-                fi; \
-        done; \
-        current_index=0; \
-        printf "$$current_line"; \
+	for current_line in $(FULL_LINE); do \
+		for line in $(FULL_LINE); do \
+				printf "$$line"; \
+				sleep 0.01; \
+				current_index=$$((current_index + 1)); \
+				if [ $$current_index -eq 10 ]; then \
+					break; \
+				fi; \
+		done; \
+		current_index=0; \
+		printf "$$current_line"; \
 		main_index=$$((main_index + 1)); \
 		if [ $$main_index != 27 ]; then \
 			printf "\n"; \

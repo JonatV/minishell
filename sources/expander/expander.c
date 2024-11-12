@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:05:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:06:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,31 +136,3 @@ bool	expander(char **env, char **content, t_shell *shell)
 	}
 	return (true);
 }
-
-// int	main(void)
-// {
-// 	int		i;
-// 	char	**array;
-// 	char	*content;
-// 	char	*str;
-
-// 	array = malloc((4 + 1) * sizeof(char *));
-// 	array[0] = ft_strdup("ST=First Element");
-// 	array[1] = ft_strdup("USER=JVEIRMAN");
-// 	array[2] = ft_strdup("END=XOXO");
-// 	array[3] = ft_strdup("TUTUTUTU=Je suis un magicien");
-// 	array[4] = NULL;
-// 	// content = "THX bye $END mais la dinguerie_$TUTUTUTU$ST";
-// 	content = "Hey There $$ $$$USER";
-// 	str = ft_strdup(content);
-// 	if (expander(array, &str) == 0)
-// 		printf("The expander failed.\n");
-// 	else
-// 		printf("END RESULT -> \e[1:33m[%s]\e[0m\n", str);
-// 	i = 0;
-// 	while (array[i])
-// 		free(array[i++]);
-// 	free(array);
-// 	free(str);
-// 	return (0);
-// }

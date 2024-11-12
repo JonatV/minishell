@@ -6,12 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:10:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static int	str_is_in_debut(char *str, char *to_find)
 {
@@ -64,7 +63,7 @@ static int	get_shlvl(t_shell *shell)
 
 	pos = ft_arrayfind(shell->env, "SHLVL");
 	if (pos == -1)
-		panic("No shlvl has been found", shell); //wip : is it the right behaviour?
+		panic("No shlvl has been found", shell);
 	shlvl_str = ft_extract(shell->env[pos], '=', 1);
 	shlvl = ft_atoi(shlvl_str);
 	free(shlvl_str);

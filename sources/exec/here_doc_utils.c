@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 20:52:54 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:05:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	is_here_doc_available(t_shell *shell, int i)
 	return (1);
 }
 
-// todo thouroughly check this function for the g_exit_status condition
-// todo same for the other function
 static char *ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 {
 	char	*buf;

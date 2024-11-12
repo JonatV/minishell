@@ -6,34 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 12:31:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:05:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	free_after_execution(t_shell *shell, bool with_pipefds)
-{
-	(void)with_pipefds; // todo check if its ok to remove it
-	
-	if (shell->cmd_array)
-	{
-		free_cmd_array_struct(shell);
-		if (with_pipefds && g_exit_status == 0) // todo might not be needed
-		{
-			free(shell->pipefds);
-			shell->pipefds = NULL;
-		}
-		if (shell->pipefds)
-		{
-			free(shell->pipefds);
-			shell->pipefds = NULL;
-		}
-		if (shell->buf)
-			free(shell->buf);
-		shell->buf = NULL;
-	}
-}
 
 void free_shell_struct(t_shell *shell, bool free_env)
 {

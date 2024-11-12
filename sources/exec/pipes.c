@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:24:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 15:57:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:06:18 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,7 @@ void	pipes_free(t_shell *shell)
 		return ;
 	i = 0;
 	while (i < shell->cmd_number - 1)
-	{
-		// if (close(shell->pipefds[i][PIPE_READ_END]) == -1)
-		// 	panic("Pipe closing", shell);
-		// if (close(shell->pipefds[i][PIPE_WRITE_END]) == -1)
-		// 	panic("Pipe closing", shell);
-		free(shell->pipefds[i]);
-		i++;
-	}
+		free(shell->pipefds[i++]);
 	free(shell->pipefds);
 	shell->pipefds = NULL;
 }

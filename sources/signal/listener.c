@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 18:57:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:07:30 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	signal_ctlc_on_fork(int sig)
 	{
 		g_exit_status = 130;
 		write(STDERR_FILENO, "\n", 1);
-		// close(STDIN_FILENO);
-		// exit(130);
 	}
 }
 void	signal_ctlc_on_subprocess(int sig)
@@ -55,16 +53,14 @@ void signals_handler(void)
 {
 	struct sigaction sa_int;
 
-	//SIGINT -> ctrl+c -> new line 
-	memset(&sa_int, 0, sizeof(sa_int));
+	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = &sigint_handler;
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
 	if (sigaction(SIGINT, &sa_int, NULL) == -1)
 	{
-		perror("sigaction SIGINT");
+		error_msg("sigaction SIGINT");
 		exit(EXIT_FAILURE);
 	}
-	//SIGQUIT -> ctrl+\ -> ignore it
 	signal(SIGQUIT, SIG_IGN);
 }

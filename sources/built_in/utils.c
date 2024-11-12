@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/11 15:40:35 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:05:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ int	is_builtin(char *to_find)
 	return (i);
 }
 
-/*
-* TODO:
-*	- ✅pwd
-*	- ✅chdir
-*	- ✅unset
-*	- ✅export
-*	- ✅env
-*	- echo
-*	- ✅exit
-*/
 int	select_builtin(t_shell *shell, int i, int built_in_index, bool skip_exit)
 {
 	char	**data;

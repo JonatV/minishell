@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 02:30:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:48:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:06:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ bool	replace_dollar_question_mark(char **str, int *i)
 	return (assemble_all_segments(segments, str));
 }
 
-// block special variables : $_ $@ $0 $# $* $! $_ $-
 bool	block_special_variables(char *str, int i)
 {
 	char char_found[2];

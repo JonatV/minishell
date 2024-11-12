@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:56:41 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 13:46:10 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:04:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,65 +84,3 @@ bool	tokenizer(t_shell *shell)
 	}
 	return (true);
 }
-
-// int	main(void)
-// {
-// 	t_shell shell;
-	
-// 	ft_memset(&shell, '\0', sizeof(t_shell));
-
-// 	while (1)
-// 	{
-// 		shell.buf = readline("Tokenizer test $ ");
-// 		if (!shell.buf)
-// 			break ;
-// 		if (!*shell.buf)
-// 		{
-// 			free(shell.buf);
-// 			continue ;
-// 		}
-// 		tokenizer(&shell);
-// 		if (!shell.tokens_list)
-// 		{
-// 			free(shell.buf);
-// 			return (printf("Error with tokens list\n"), 1);
-// 		}
-// 		add_history(shell.buf);
-// 		free(shell.buf);
-// 		display_tokens(shell.tokens_list);
-// 		free_tokens_list(&shell.tokens_list);
-// 	}
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	char *buf;
-// 	t_token *tokens_list;
-
-// 	tokens_list = NULL;
-// 	while (1)
-// 	{
-// 		buf = readline("Tokenizer test $ ");
-// 		if (!buf)
-// 			break ;
-// 		if (!*buf)
-// 		{
-// 			free(buf);
-// 			continue ;
-// 		}
-// 		tokens_list = tokenizer(buf);
-// 		if (!tokens_list)
-// 		{
-// 			free(buf);
-// 			return (printf("Error with tokens list\n"), 1);
-// 		}
-// 		add_history(buf);
-// 		free(buf);
-// 		display_tokens(tokens_list);
-
-// 		// printf("tokens_list: %s\n", tokens_list->content);
-// 		free_tokens_list(tokens_list);
-// 	}
-// 	return (0);
-// }

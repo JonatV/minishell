@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 01:01:07 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:03:41 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 		tmp = ft_strjoin(shell->buf, additional_buffer);
 		free(additional_buffer);
 		if (!tmp)
-			panic("Error while joining strings", shell);// wip
+			panic(ERR_MALLOC, shell);
 		free(shell->buf);
 		shell->buf = tmp;
 		if (!incomplete_cmd_line(shell->buf))

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 00:51:06 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 02:04:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	pwd_management(t_shell *shell, char *pwd)
 	temp = ft_strjoin("PWD=", pwd);
 	if (!temp)
 		panic(ERR_MALLOC, shell);
-	if (pwd_pos != -1) // info: if the element exist then enter the changement process otherwise jump the process
+	if (pwd_pos != -1)
 	{
 		free(shell->env[pwd_pos]);
 		shell->env[pwd_pos] = temp;
