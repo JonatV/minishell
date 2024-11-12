@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:06:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:37:06 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	replace_dollar(char **array, char **str, int *i, int *start_end)
 		segments[1] = ft_strdup("");
 	else
 		segments[1] = ft_substr(array[pos], var_len, ft_strlen(array[pos]));
-	segments[2] = ft_substr(*str, start_end[0] + start_end[1] , ft_strlen(*str));
+	segments[2] = ft_substr(*str, start_end[0] + start_end[1], ft_strlen(*str));
 	free(var_name);
 	if (!segments[0] || !segments[1] || !segments[2])
 		return (free_all_segments(segments));
@@ -78,7 +78,8 @@ static bool	replace_dollar(char **array, char **str, int *i, int *start_end)
 *		- first check if there's a dollar sign after the first one -> $$
 *		- then check if the dollar sign is followed by a space
 *		- finally check if the dollar sign is followed by a variable name
-*			if all the conditions are met, we replace the variable name with its value
+*			if all the conditions are met,
+*			we replace the variable name with its value
 *	@return : true if the variable was replaced, false otherwise
 */
 static bool	replace_var_manager(int *i, char **content, char **env)
@@ -96,7 +97,8 @@ static bool	replace_var_manager(int *i, char **content, char **env)
 	start_end[0] = *i;
 	while ((*content)[*i + j])
 	{
-		if ((*content)[*i + j + 1] == '\0' || (*content)[*i + j + 1] == '$' || ft_isspace((*content)[*i + j]))
+		if ((*content)[*i + j + 1] == '\0' || (*content)[*i + j + 1] == '$' \
+			|| ft_isspace((*content)[*i + j]))
 		{
 			if (!ft_isspace((*content)[*i + j]))
 				j++;
@@ -114,7 +116,8 @@ static bool	replace_var_manager(int *i, char **content, char **env)
 *	and a string containing one or more variable names ($var_name). 
 *	It replaces each variable name in the string 
 *	with its corresponding value from the array."
-*	@return : nothing, it changes the str directly, that's why it's send with a double pointer.
+*	@return :	nothing, it changes the str directly,
+*				that's why it's send with a double pointer.
 */
 bool	expander(char **env, char **content, t_shell *shell)
 {
