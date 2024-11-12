@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 01:03:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:19:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static char	*find_in_env(char *cmd, char **env, t_shell *shell);
 
-static void	is_directory(char *cmd, t_shell *shell)
+static void	is_directory(char *cmd, t_shell *shell, bool skip_slash)
 {
 	struct stat	path_cmd;
 	int end;
 
 	end = ft_strlen(cmd) - 1;
-	if (cmd[end] == '/')
+	if (cmd[end] == '/' || skip_slash)
 	{
 		if (stat(cmd, &path_cmd) == 0)
 		{
@@ -42,10 +42,10 @@ static void	is_directory(char *cmd, t_shell *shell)
 
 char	*find_valid_path(char *cmd, char **env, t_shell *shell)
 {
-	is_directory(cmd, shell);
+	is_directory(cmd, shell, false);
 	if (cmd[0] == '.' && cmd[1] == '/')
 	{
-		is_directory(cmd, shell);
+		is_directory(cmd, shell, false);
 		if (0 == access(cmd, F_OK))
 		{
 			if (0 == access(cmd, X_OK))
@@ -76,7 +76,26 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 
 	i = ft_arrayfind(env, "PATH");
 	if (i == -1)
-		panic("PATH not found in env", shell);
+	{
+		is_directory(cmd, shell, true);
+		if (0 == access(cmd, F_OK))
+		{
+			if (0 == access(cmd, X_OK))
+				return (cmd);
+			else
+			{
+				mini_printf("minishell: ", cmd, ": Permission denied\n", STDERR_FILENO);
+				clean(NULL, shell, false);
+				exit(126);
+			}
+		}
+		else
+		{
+			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			clean(NULL, shell, false);
+			exit(127);
+		}
+	}
 	all_paths = ft_split(env[i] + 5, ':');
 	if (!all_paths)
 		panic(ERR_MALLOC, shell);
