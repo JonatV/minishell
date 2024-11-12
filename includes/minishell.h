@@ -34,6 +34,7 @@ extern int g_exit_status;
 # define USE_HEREDOC -3
 # define PROMPT_MSG_START "[\033[1;31m"
 # define PROMPT_MSG_END "\033[0m] \033[1;36mMinishell \033[32m$\033[0m "
+# define PROMPT_DEFAULT_NAME "19"
 
 /*----------------					BUILT-IN				---------------*/
 # define B_SIZE 8

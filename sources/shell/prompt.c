@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:00:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 16:09:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:29:18 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	prompt_msg(t_shell *shell)
 	int		pos_prompt;
 
 	pos_prompt = 0;
+	if (ft_arrayfind(shell->env, "USER") == -1)
+	{
+		i = 0;
+		while (PROMPT_DEFAULT_NAME[i])
+			shell->prompt_msg[pos_prompt++] = PROMPT_DEFAULT_NAME[i++];
+	}
 	user = shell->env[ft_arrayfind(shell->env, "USER")];
 	i = 0;
 	while (PROMPT_MSG_START[i])
