@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:55:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/07 17:16:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:59:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	get_arraysize(char **array)
 
  * @param	array a triple pointer to the array
  * @param	to_add the string to add
- * @return	Nothing, it changes the pointer from the given array to the new array.
+ * @return	Nothing, it changes the pointer 
+ * 			from the given array to the new array.
 */
 bool	ft_arraypush(char ***array, char *to_add)
 {

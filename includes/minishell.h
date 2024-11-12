@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:55:09 by jveirman          #+#    #+#             */
+/*   Updated: 2024/11/12 19:11:19 by jveirman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -23,7 +35,9 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <signal.h>
-extern int g_exit_status;
+
+extern int	g_exit_status;
+
 /*
 #####################################################################
 #								DEFINE								#
@@ -221,7 +235,8 @@ void	free_shell_struct(t_shell *shell, bool free_env);
 void	free_cmd_array_struct(t_shell *shell);
 
 /*----------------  global_utils.c  ---------------*/
-void	mini_printf(char *first_part, char *dynamic_info, char *last_part, int fd);
+void	mini_printf(char *first_part, char *dynamic_info, \
+	char *last_part, int fd);
 bool	error_msg(char *msg);
 
 /*----------------  init_shell.c  ---------------*/
@@ -279,7 +294,8 @@ int		print_export(char **array, int fd_out);
 /*----------------  utils.c  ---------------*/
 bool	check_data_validity(char **data, t_builtin builtin_index);
 int		is_builtin(char *to_find);
-int		select_builtin(t_shell *shell, int i, int built_in_index, bool skip_exit);
+int		select_builtin(t_shell *shell, int i, \
+	int built_in_index, bool skip_exit);
 
 // ========== exec ==========
 /*----------------  error.c  ---------------*/
@@ -294,8 +310,10 @@ void	waiting_for_children(t_shell *shell);
 char	*find_valid_path(char *cmd, char **env, t_shell *shell);
 
 /*----------------  exec_utils2.c  ---------------*/
-bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index);
-void	execute_builtin(t_shell *shell, int i, int built_in_index);
+bool	use_builtin_env_changer(t_shell *shell, \
+	int *i, int built_in_index);
+void	execute_builtin(t_shell *shell, int i, \
+	int built_in_index);
 bool	prepare_execve_data(t_cmd *cmd);
 
 /*----------------  here_doc.c  ---------------*/
@@ -303,7 +321,7 @@ bool	here_doc_management(t_shell *shell);
 void	here_doc_exploit(t_shell *shell, int i);
 
 /*----------------  here_doc_utils.c  ---------------*/
-int	is_here_doc_available(t_shell *shell, int i);
+int		is_here_doc_available(t_shell *shell, int i);
 char	*to_the_delimiter(char *to_find, t_shell *shell);
 
 /*----------------  pipes.c  ---------------*/
