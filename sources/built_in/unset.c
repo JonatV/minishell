@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 11:16:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:00:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	str_is_in_debut(char *str, char *to_find)
 		return (1);
 	return (0);
 }
+
 int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 {
 	char	**new_env;
@@ -69,5 +70,6 @@ int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 		ft_arrayfree(shell->env);
 		shell->env = new_env;
 	}
+	ft_arrayfree(data_cmd_arg);
 	return (0);
 }
