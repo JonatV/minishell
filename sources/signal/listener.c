@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:07:30 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:50:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	sigint_handler(int signal)
 void	sigeof_handler(t_shell *shell)
 {
 	clean("exit\n", shell, true);
+	system("leaks minishell");
 	exit(g_exit_status);
 }
 

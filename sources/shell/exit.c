@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:08 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 20:52:14 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:50:49 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	panic(char *str, t_shell *shell)
 		error_msg(str);
 	clean(NULL, shell, true);
 	g_exit_status = 1;
+	system("leaks minishell");
 	exit(g_exit_status);
 }
 

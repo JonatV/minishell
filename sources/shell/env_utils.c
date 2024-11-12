@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 12:01:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:04:49 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ void	env_unset(t_shell *shell, char *to_remove)
 	int		j;
 
 	if (ft_arrayfind(shell->env, to_remove) == -1)
-	{
 		mini_printf("minishell: ", to_remove, ": env var doesn't exit\n", STDERR_FILENO);
-	}
 	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 	if (!new_env)
-		panic("Malloc in unset", shell);
+		panic(ERR_MALLOC, shell);
 	i = 0;
 	j = 0;
 	while (shell->env[i])
@@ -101,7 +99,7 @@ void	init_env(t_shell *shell, char **envp)
 
 	shell->env = ft_arrayndup(envp, ft_arraysize(envp));
 	if (!shell->env)
-		panic("Malloc dup env", shell);
+		panic(ERR_MALLOC, shell);
 	update_shlvl(shell);
 	pos = ft_arrayfind(shell->env, "_");
 	last_arg = ft_strdup("_=/usr/bin/env");
