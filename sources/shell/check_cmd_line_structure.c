@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:48:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:15:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	check_additional_buffer(t_shell *shell, \
 {
 	if (!*additional_buffer || g_exit_status == SUBPROCESS_SIG)
 	{
-		restore_stdin(stdin_backup, shell);
+		restore_stdin(stdin_backup, shell, true);
 		if (g_exit_status == SUBPROCESS_SIG)
 		{
 			free(additional_buffer);
@@ -69,7 +69,7 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 		if (!is_incomplete_cmd_line(shell->buf))
 			break ;
 	}
-	return (restore_stdin(stdin_backup, shell));
+	return (restore_stdin(stdin_backup, shell, true));
 }
 
 bool	check_cmd_line_structure(t_shell *shell)

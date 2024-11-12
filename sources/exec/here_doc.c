@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:33:39 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:10:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ bool	here_doc_management(t_shell *shell)
 	return (true);
 }
 
+static void handle_parent_process(int pipe_fd[2], pid_t pid, t_shell *shell)
+{
+	if (close(pipe_fd[1]) == -1)
+		panic("close failed", shell);
+	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+		panic("dup2 failed", shell);
+	if (waitpid(pid, NULL, 0) == -1)
+		panic("waitpid failed", shell);
+	if (close(pipe_fd[0]) == -1)
+		panic("close failed", shell);
+}
+
 void	here_doc_exploit(t_shell *shell, int i)
 {
 	int		pipe_fd[2];
@@ -83,16 +95,7 @@ void	here_doc_exploit(t_shell *shell, int i)
 	if (-1 == pid)
 		panic("fork failed", shell);
 	if (pid)
-	{
-		if (close(pipe_fd[1]) == -1)
-			panic("close failed", shell);
-		if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
-			panic("dup2 failed", shell);
-		if (waitpid(pid, NULL, 0) == -1)
-			panic("waitpid failed", shell);
-		if (close(pipe_fd[0]) == -1)
-			panic("close failed", shell);
-	}
+		handle_parent_process(pipe_fd, pid, shell);
 	if (0 == pid)
 	{
 		if (close(pipe_fd[0]) == -1)

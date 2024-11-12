@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:23:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:49:48 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:14:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ bool	is_incomplete_cmd_line(char *buffer)
 	return (buffer[i] == '|');
 }
 
-bool	restore_stdin(int stdin_backup, t_shell *shell)
+bool	restore_stdin(int stdin_backup, t_shell *shell, bool add_to_history)
 {
 	if (dup2(stdin_backup, STDIN_FILENO) == -1)
 		panic("dup2 failed", shell);
 	if (close(stdin_backup) == -1)
 		panic("close failed", shell);
-	add_history(shell->buf);
+	if (add_to_history)
+		add_history(shell->buf);
 	return (true);
 }

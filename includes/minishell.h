@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 19:11:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:15:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ bool	check_cmd_line_structure(t_shell *shell);
 /*----------------  check_cmd_line_utils.c  ---------------*/
 bool	only_isspace_string(char *buffer);
 bool	is_incomplete_cmd_line(char *buffer);
-bool	restore_stdin(int stdin_backup, t_shell *shell);
+bool	restore_stdin(int stdin_backup, t_shell *shell, bool add_to_history);
 
 /*----------------  env_utils.c  ---------------*/
 void	env_unset(t_shell *shell, char *to_remove);
@@ -315,6 +315,8 @@ bool	use_builtin_env_changer(t_shell *shell, \
 void	execute_builtin(t_shell *shell, int i, \
 	int built_in_index);
 bool	prepare_execve_data(t_cmd *cmd);
+char	*ft_strjoin_free(char *s1, char *s2, \
+	t_shell *shell);
 
 /*----------------  here_doc.c  ---------------*/
 bool	here_doc_management(t_shell *shell);

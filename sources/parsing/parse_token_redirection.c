@@ -6,23 +6,30 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:22:04 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:44:38 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:51:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
+static bool	check_next_token(t_token **tokens_list)
 {
 	if ((*tokens_list)->next && (*tokens_list)->next->type == TOKEN_SPACE)
 		(*tokens_list) = (*tokens_list)->next;
 	if (!(*tokens_list)->next)
-		return (error_msg(ERR_TKNNL), 2);
+		return (error_msg(ERR_TKNNL), false);
 	else if ((*tokens_list)->next->type != TOKEN_WORD \
 		&& (*tokens_list)->next->type != TOKEN_DOUBLE_QUOTE \
 		&& (*tokens_list)->next->type != TOKEN_SINGLE_QUOTE)
 		return (mini_printf(ERR_TKNSNTX, (*tokens_list)->next->content, \
-			"'\n", STDERR_FILENO), 2);
+			"'\n", STDERR_FILENO), false);
+	return (true);
+}
+
+int	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
+{
+	if (!check_next_token(tokens_list))
+		return (2);
 	else
 	{
 		ft_arraypush(&cmd->here_doc_delimiter, (*tokens_list)->next->content);
@@ -36,17 +43,10 @@ int	handle_token_redir_heredoc(t_cmd *cmd, t_token **tokens_list)
 
 int	handle_token_redir_append(t_cmd *cmd, t_token **tokens_list)
 {
-	int		fd;
+	int	fd;
 
-	if ((*tokens_list)->next && (*tokens_list)->next->type == TOKEN_SPACE)
-		(*tokens_list) = (*tokens_list)->next;
-	if (!(*tokens_list)->next)
-		return (error_msg(ERR_TKNNL), 2);
-	else if ((*tokens_list)->next->type != TOKEN_WORD \
-		&& (*tokens_list)->next->type != TOKEN_DOUBLE_QUOTE \
-		&& (*tokens_list)->next->type != TOKEN_SINGLE_QUOTE)
-		return (mini_printf(ERR_TKNSNTX, (*tokens_list)->next->content, \
-			"'\n", STDERR_FILENO), 2);
+	if (!check_next_token(tokens_list))
+		return (2);
 	else
 	{
 		if (cmd->fd_out == -1)
@@ -69,17 +69,10 @@ int	handle_token_redir_append(t_cmd *cmd, t_token **tokens_list)
 
 int	handle_token_redir_out(t_cmd *cmd, t_token **tokens_list)
 {
-	int		fd;
+	int	fd;
 
-	if ((*tokens_list)->next && (*tokens_list)->next->type == TOKEN_SPACE)
-		(*tokens_list) = (*tokens_list)->next;
-	if (!(*tokens_list)->next)
-		return (error_msg(ERR_TKNNL), 2);
-	else if ((*tokens_list)->next->type != TOKEN_WORD \
-		&& (*tokens_list)->next->type != TOKEN_DOUBLE_QUOTE \
-		&& (*tokens_list)->next->type != TOKEN_SINGLE_QUOTE)
-		return (mini_printf(ERR_TKNSNTX, (*tokens_list)->next->content, \
-			"'\n", STDERR_FILENO), 2);
+	if (!check_next_token(tokens_list))
+		return (2);
 	else
 	{
 		if (cmd->fd_out == -1)
@@ -102,17 +95,10 @@ int	handle_token_redir_out(t_cmd *cmd, t_token **tokens_list)
 
 int	handle_token_redir_in(t_cmd *cmd, t_token **tokens_list)
 {
-	int		fd;
+	int	fd;
 
-	if ((*tokens_list)->next && (*tokens_list)->next->type == TOKEN_SPACE)
-		(*tokens_list) = (*tokens_list)->next;
-	if (!(*tokens_list)->next)
-		return (error_msg(ERR_TKNNL), 2);
-	else if ((*tokens_list)->next->type != TOKEN_WORD \
-		&& (*tokens_list)->next->type != TOKEN_DOUBLE_QUOTE \
-		&& (*tokens_list)->next->type != TOKEN_SINGLE_QUOTE)
-		return (mini_printf(ERR_TKNSNTX, (*tokens_list)->next->content, \
-			"'\n", STDERR_FILENO), 2);
+	if (!check_next_token(tokens_list))
+		return (2);
 	else
 	{
 		if (cmd->fd_in == -1)

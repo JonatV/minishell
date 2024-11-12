@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:34:34 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:22:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,36 @@ int	is_here_doc_available(t_shell *shell, int i)
 	if (shell->cmd_array[i].fd_in != USE_HEREDOC)
 		return (0);
 	return (1);
+}
+
+static char *free_n_restore(char *buf, char *ret, int stdin_backup, t_shell *shell)
+{
+	if (buf)
+		free(buf);
+	if (ret)
+		free(ret);
+	restore_stdin(stdin_backup, shell, false);
+	return (NULL);
+}
+
+static void	join_to_buffer(t_shell *shell, char *buf, char *ret)
+{
+	char	*temp;
+
+	temp = ret;
+	ret = ft_strjoin(ret, buf);
+	free(temp);
+	if (!ret)
+	{
+		free(buf);
+		panic(ERR_MALLOC, shell);
+	}
+	temp = ret;
+	ret = ft_strjoin(ret, "\n");
+	free(temp);
+	free(buf);
+	if (!ret)
+		panic(ERR_MALLOC, shell);
 }
 
 static char	*ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
@@ -33,41 +63,15 @@ static char	*ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 	{
 		buf = readline("> ");
 		if (!buf || g_exit_status == SUBPROCESS_SIG)
-		{
-			if (buf)
-				free(buf);
-			if (ret)
-				free(ret);
-			if (dup2(stdin_backup, STDIN_FILENO) == -1)
-				panic("dup2 failed", shell);
-			if (close(stdin_backup) == -1)
-				panic("close failed", shell);
-			return (NULL);
-		}
+			return (free_n_restore(buf, ret, stdin_backup, shell));
 		if (ft_strcmp(buf, to_find) == 0)
 		{
 			free(buf);
 			break ;
 		}
-		temp = ret;
-		ret = ft_strjoin(ret, buf);
-		free(temp);
-		if (!ret)
-		{
-			free(buf);
-			panic(ERR_MALLOC, shell);
-		}
-		temp = ret;
-		ret = ft_strjoin(ret, "\n");
-		free(temp);
-		free(buf);
-		if (!ret)
-			panic(ERR_MALLOC, shell);
+		join_to_buffer(shell, buf, ret);
 	}
-	if (dup2(stdin_backup, STDIN_FILENO) == -1)
-		panic("dup2 failed", shell);
-	if (close(stdin_backup) == -1)
-		panic("close failed", shell);
+	restore_stdin(stdin_backup, shell, false);
 	return (ret);
 }
 

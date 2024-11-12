@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:45:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:52:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ static int	handle_cmd_name(t_cmd *cmd, char *content)
 	if (!cmd->data[CMD_NAME])
 		return (1);
 	return (0);
+}
+
+static void	increment_num_arg_n_flag(t_cmd *cmd, int data_slot)
+{
+	if (data_slot == CMD_ARG)
+		cmd->num_arg++;
+	else
+		cmd->num_flag++;
 }
 
 static int	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
@@ -44,10 +52,7 @@ static int	handle_cmd_arg_n_flag(t_cmd *cmd, char *content, int data_slot)
 		return (1);
 	free(cmd->data[data_slot]);
 	cmd->data[data_slot] = temp;
-	if (data_slot == CMD_ARG)
-		cmd->num_arg++;
-	else
-		cmd->num_flag++;
+	increment_num_arg_n_flag(cmd, data_slot);
 	free(content);
 	return (0);
 }
