@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:10:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:01:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	get_shlvl(t_shell *shell)
 
 	pos = ft_arrayfind(shell->env, "SHLVL");
 	if (pos == -1)
-		panic("No shlvl has been found", shell);
+		return (1);
 	shlvl_str = ft_extract(shell->env[pos], '=', 1);
 	shlvl = ft_atoi(shlvl_str);
 	free(shlvl_str);
@@ -77,14 +77,20 @@ static void	update_shlvl(t_shell *shell)
 	char	*str_to_add;
 
 	shlvl = get_shlvl(shell);
+	if (shlvl == -1)
+	{
+		if (!ft_arraypush(&shell->env, "SHLVL=1"))
+			panic(ERR_MALLOC, shell);
+	}
 	shlvl++;
 	env_unset(shell, "SHLVL");
 	str_shlvl = ft_itoa(shlvl);
 	str_to_add = ft_strjoin("SHLVL=", str_shlvl);
 	free(str_shlvl);
 	if (!str_to_add)
-		panic("Malloc update shell level", shell);
-	ft_arraypush(&shell->env, str_to_add);
+		panic(ERR_MALLOC, shell);
+	if (!ft_arraypush(&shell->env, str_to_add))
+		panic(ERR_MALLOC, shell);
 	free(str_to_add);
 }
 
@@ -100,7 +106,17 @@ void	init_env(t_shell *shell, char **envp)
 	pos = ft_arrayfind(shell->env, "_");
 	last_arg = ft_strdup("_=/usr/bin/env");
 	if (!last_arg)
-		panic("Malloc init env", shell);
+		panic(ERR_MALLOC, shell);
+	if (pos != -1)
+	{
+		if (!ft_arraypush(&shell->env, last_arg))
+		{
+			free(last_arg);
+			panic(ERR_MALLOC, shell);
+		}
+		free(last_arg);
+		return ;
+	}
 	free(shell->env[pos]);
 	shell->env[pos] = last_arg;
 }
