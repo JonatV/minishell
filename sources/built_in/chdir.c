@@ -6,47 +6,27 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:48:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:04:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:58:21 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	count_word(char *str)
+static bool	check_chdir_data(char **data, int *error_num)
 {
-	int	i;
-	int word_count;
-
-	if (!str)
-		return (0);
-	word_count = 1;
-	i = 0;
-	while (str[i])
+	if (!check_data_validity(data, BUILTIN_CD))
 	{
-		if (ft_isspace(str[i]) && str[i + 1])
-			word_count++;
-		i++;
+		error_msg("cd: no options allowed");
+		*error_num = 2;
+		return (false);
 	}
-	return (word_count);
-}
-
-static char	*get_path_name(t_shell *shell, char **data)
-{
-	int		i;
-	char	*path_name;
-
-	if (!data[CMD_ARG])
+	if (count_word(data[CMD_ARG]) > 1)
 	{
-		i = ft_arrayfind(shell->env, "HOME");
-		if (i == -1)
-		{
-			error_msg("cd: HOME not set");
-			return (NULL);
-		}
-		path_name = ft_strchr(shell->env[i], '=');
-		return (path_name + 1);
+		error_msg("cd: too many arguments");
+		*error_num = 1;
+		return (false);
 	}
-	return (data[CMD_ARG]);
+	return (true);
 }
 
 void	pwd_management(t_shell *shell, char *pwd)
@@ -82,7 +62,7 @@ static void	oldpwd_management(t_shell *shell, char *oldpwd)
 	oldpwd_pos = ft_arrayfind(shell->env, "OLDPWD");
 	temp = ft_strjoin("OLDPWD=", oldpwd);
 	if (!temp)
-		panic("Malloc for oldpwd", shell);
+		panic(ERR_MALLOC, shell);
 	if (oldpwd_pos != -1)
 	{
 		free(shell->env[oldpwd_pos]);
@@ -107,18 +87,11 @@ int	builtin_chdir(t_shell *shell, char **data)
 	char	pwd[1024];
 	char	oldpwd[1024];
 	char	*path_name;
+	int		error_ret_number;
 
 	path_name = NULL;
-	if (!check_data_validity(data, BUILTIN_CD))
-	{
-		error_msg("cd: no options allowed");
-		return (2);
-	}
-	if (count_word(data[CMD_ARG]) > 1)
-	{
-		error_msg("cd: too many arguments");
-		return (1);
-	}
+	if (!check_chdir_data(data, &error_ret_number))
+		return (error_ret_number);
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
 		panic("getcwd failed", shell);
 	path_name = get_path_name(shell, data);
@@ -126,7 +99,7 @@ int	builtin_chdir(t_shell *shell, char **data)
 		return (1);
 	if (0 != chdir(path_name))
 	{
-		mini_printf("minishell: cd: ", data[CMD_ARG], ": No such file or directory\n", STDERR_FILENO);
+		mini_printf("minishell: cd: ", data[CMD_ARG], ERR_FIDIR, STDERR_FILENO);
 		return (1);
 	}
 	if (getcwd(pwd, sizeof(pwd)) == NULL)

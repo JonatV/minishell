@@ -6,18 +6,19 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:48:28 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 11:17:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:25:07 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	add_var_full(t_shell *shell, char *var_name, char *str, int var_exist)
+static bool	add_var_full(t_shell *shell, char *var_name, \
+	char *str, int var_exist)
 {
 	int		i;
 	char	*var_name_equal;
 	bool	success;
-	
+
 	if (var_exist != -1)
 		env_unset(shell, var_name);
 	var_name_equal = ft_strjoin(var_name, "=");
@@ -44,14 +45,14 @@ static bool	add_var_name_only(t_shell *shell, char *var_name, int var_exist)
 	return (true);
 }
 
-static int check_var_name(char *str)
+static int	check_var_name(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 	{
-		mini_printf("minishell: export: ", str, ": not a valid identifier\n", STDERR_FILENO);
+		mini_printf(ERR_EXP, str, ERR_IDNTFIR, STDERR_FILENO);
 		return (1);
 	}
 	i++;
@@ -59,7 +60,7 @@ static int check_var_name(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			mini_printf("minishell: export: ", str, ": not a valid identifier\n", STDERR_FILENO);
+			mini_printf(ERR_EXP, str, ERR_IDNTFIR, STDERR_FILENO);
 			return (1);
 		}
 		i++;
@@ -96,8 +97,8 @@ int	builtin_export(t_shell *shell, int cmd_num)
 {
 	int		j;
 	char	**data_cmd_arg;
-	int	success;
-	
+	int		success;
+
 	if (!check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_EXPORT))
 	{
 		error_msg("export: no options allowed");

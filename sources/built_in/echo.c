@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/11 22:47:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:44:28 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	check_echo_flags(char **data, bool *flag)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (!data[CMD_FLAG])
 		return (true);
@@ -33,15 +33,15 @@ static bool	check_echo_flags(char **data, bool *flag)
 			break ;
 		if (j == 0)
 			i++;
-		else	
+		else
 			i += j;
 	}
 	return (true);
 }
 
-static void print_flags(t_shell *shell, char *str, char *data_arg)
+static void	print_flags(t_shell *shell, char *str, char *data_arg)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
@@ -49,11 +49,11 @@ static void print_flags(t_shell *shell, char *str, char *data_arg)
 		if (str[i] && str[i] == '-' && str[i + 1] && str[i + 1] == 'n')
 		{
 			if (!str[i + 2])
-				break;
+				break ;
 			if (ft_isspace(str[i + 2]))
 			{
 				i += 3;
-				continue;
+				continue ;
 			}
 		}
 		while (str[i])
@@ -74,7 +74,7 @@ int	builtin_echo(t_shell *shell, char **data)
 
 	if (!check_echo_flags(data, &flag))
 	{
-		ft_putstr_fd("minishell: echo: no options (but -n) allowed\n", STDERR_FILENO);
+		ft_putendl_fd(ERR_ECHO, STDERR_FILENO);
 		return (2);
 	}
 	print_flags(shell, data[CMD_FLAG], data[CMD_ARG]);

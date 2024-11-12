@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 02:13:09 by jveirman          #+#    #+#              #
-#    Updated: 2024/11/12 02:13:12 by jveirman         ###   ########.fr        #
+#    Updated: 2024/11/12 17:48:38 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
 OUT			=	-o $(NAME)
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address 
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 
@@ -24,7 +25,7 @@ else
 	LDFLAGS	=	-L ~/.brew/opt/readline/lib
 endif
 
-BUILT_IN	=	chdir echo env exit export_utils export pwd unset utils
+BUILT_IN	=	chdir chdir_utils echo env exit export_utils export pwd unset utils
 
 EXEC		=	error exec_utils exec here_doc_utils here_doc pipes redirection
 

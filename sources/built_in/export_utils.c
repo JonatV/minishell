@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:53:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 11:31:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:27:07 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	print_process(char *str, int fd_out)
 int	print_export(char **array, int fd_out)
 {
 	int	i;
-	
+
 	i = 0;
 	while (array[i])
 	{

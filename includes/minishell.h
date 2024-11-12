@@ -30,6 +30,7 @@ extern int g_exit_status;
 #####################################################################
 */
 
+# define NAME "minishell: "
 # define DEFAULT_FD -2
 # define USE_HEREDOC -3
 # define PROMPT_MSG_START "[\033[1;31m"
@@ -38,6 +39,11 @@ extern int g_exit_status;
 
 /*----------------					BUILT-IN				---------------*/
 # define B_SIZE 8
+# define ERR_ECHO "minishell: echo: no options (but -n) allowed"
+# define ERR_ENV "minishell: env: no options nor arguments allowed"
+# define ERR_EXIT "minishell: exit: "
+# define ERR_EXP "minishell: export: "
+# define ERR_UNSET "minishell: unset: no options allowed\n"
 
 /*----------------					EXEC					---------------*/
 # define PIPE_WRITE_END 1
@@ -59,6 +65,9 @@ extern int g_exit_status;
 
 /*----------------					ERR_MSG					---------------*/
 # define ERR_MALLOC "malloc failed"
+# define ERR_FIDIR ": No such file or directory\n"
+# define ERR_NMRC ": numeric argument required\n"
+# define ERR_IDNTFIR ": not a valid identifier\n"
 
 /*
 #####################################################################
@@ -232,6 +241,10 @@ bool	block_special_variables(char *str, int i);
 /*----------------  chdir.c  ---------------*/
 void	pwd_management(t_shell *shell, char *pwd);
 int		builtin_chdir(t_shell *shell, char **data);
+
+/*----------------  chdir_utils.c  ---------------*/
+int		count_word(char *str);
+char	*get_path_name(t_shell *shell, char **data);
 
 /*----------------  echo.c  ---------------*/
 int		builtin_echo(t_shell *shell, char **data);

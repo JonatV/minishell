@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:47:07 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 00:00:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:45:32 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,43 @@ static int	str_is_in_debut(char *str, char *to_find)
 	i = 0;
 	while (str[i] == to_find[i] && str[i] != '\0' && to_find[i] != '\0')
 		i++;
-	if (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='))
-		return (1);
-	return (0);
+	return (to_find[i] == '\0' && (str[i] == '\0' || str[i] == '='));
 }
 
-int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
+static void	remove_env_var(t_shell *shell, char *current_var, char ***array)
 {
 	char	**new_env;
 	int		i;
 	int		j;
+
+	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
+	if (!new_env)
+	{
+		ft_arrayfree(*array);
+		panic(ERR_MALLOC, shell);
+	}
+	i = 0;
+	j = 0;
+	while (shell->env[i])
+	{
+		if (!str_is_in_debut(shell->env[i], current_var))
+			new_env[j++] = ft_strdup(shell->env[i]);
+		i++;
+	}
+	new_env[j] = NULL;
+	ft_arrayfree(shell->env);
+	shell->env = new_env;
+}
+
+int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
+{
 	int		k;
 	char	**data_cmd_arg;
 
-	if (secu && !check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_UNSET))
+	if (secu && \
+		!check_data_validity(shell->cmd_array[cmd_num].data, BUILTIN_UNSET))
 	{
-		ft_putstr_fd("minishell: unset: no options allowed\n", STDERR_FILENO);
+		ft_putendl_fd(ERR_UNSET, STDERR_FILENO);
 		return (2);
 	}
 	if (!shell->cmd_array[cmd_num].data[CMD_ARG])
@@ -45,30 +66,9 @@ int	builtin_unset(t_shell *shell, int cmd_num, bool secu)
 	k = -1;
 	while (data_cmd_arg[++k])
 	{
-		if (ft_strchr(data_cmd_arg[k], '='))
-			continue ;
-		if (ft_arrayfind(shell->env, data_cmd_arg[k]) == -1)
-			continue ;
-		new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
-		if (!new_env)
-		{
-			ft_arrayfree(data_cmd_arg);
-			panic(ERR_MALLOC, shell);
-		}
-		i = 0;
-		j = 0;
-		while (shell->env[i])
-		{
-			if (str_is_in_debut(shell->env[i], data_cmd_arg[k]))
-			{
-				i++;
-				continue ;
-			}
-			new_env[j++] = ft_strdup(shell->env[i++]);
-		}
-		new_env[j] = NULL;
-		ft_arrayfree(shell->env);
-		shell->env = new_env;
+		if (!ft_strchr(data_cmd_arg[k], '=') && \
+			ft_arrayfind(shell->env, data_cmd_arg[k]) != -1)
+			remove_env_var(shell, data_cmd_arg[k], &data_cmd_arg);
 	}
 	ft_arrayfree(data_cmd_arg);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 13:39:02 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:00:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,22 @@
 
 bool	check_data_validity(char **data, t_builtin builtin_index)
 {
-	if (BUILTIN_PWD == builtin_index)
-	{
-		if (data[CMD_FLAG])
-			return (false);
-	}
-	else if (BUILTIN_ENV == builtin_index)
-	{
-		if (data[CMD_FLAG] || data[CMD_ARG])
-			return (false);
-	}
-	else if (BUILTIN_UNSET == builtin_index)
-	{
-		if (data[CMD_FLAG])
-			return (false);
-	}
-	else if (BUILTIN_EXPORT == builtin_index)
-	{
-		if (data[CMD_FLAG])
-			return (false);
-	}
-	else if (BUILTIN_CD == builtin_index)
-	{
-		if (data[CMD_FLAG])
-			return (false);
-	}
+	if (BUILTIN_PWD == builtin_index && data[CMD_FLAG])
+		return (false);
+	else if (BUILTIN_ENV == builtin_index && (data[CMD_FLAG] || data[CMD_ARG]))
+		return (false);
+	else if (BUILTIN_UNSET == builtin_index && data[CMD_FLAG])
+		return (false);
+	else if (BUILTIN_EXPORT == builtin_index && data[CMD_FLAG])
+		return (false);
+	else if (BUILTIN_CD == builtin_index && data[CMD_FLAG])
+		return (false);
 	return (true);
 }
 
 int	is_builtin(char *to_find)
 {
-	int					i;
+	int			i;
 	const char	*built_in[B_SIZE];
 
 	if (!to_find)

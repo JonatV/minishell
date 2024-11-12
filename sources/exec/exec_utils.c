@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 12:19:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:39:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static void	is_directory(char *cmd, t_shell *shell, bool skip_slash)
 		{
 			if (S_ISDIR(path_cmd.st_mode))
 			{
-				mini_printf("minishell: ", cmd, ": is a directory\n", STDERR_FILENO);
+				mini_printf(NAME, cmd, ": is a directory\n", STDERR_FILENO);
 				clean(NULL, shell, false);
 				exit(126);
 			}
 		}
 		else
 		{
-			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			mini_printf(NAME, cmd, ERR_FIDIR, STDERR_FILENO);
 			clean(NULL, shell, false);
 			exit(127);
 		}
@@ -52,14 +52,14 @@ char	*find_valid_path(char *cmd, char **env, t_shell *shell)
 				return (cmd);
 			else
 			{
-				mini_printf("minishell: ", cmd, ": Permission denied\n", STDERR_FILENO);
+				mini_printf(NAME, cmd, ": Permission denied\n", STDERR_FILENO);
 				clean(NULL, shell, false);
 				exit(126);
 			}
 		}
 		else
 		{
-			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			mini_printf(NAME, cmd, ERR_FIDIR, STDERR_FILENO);
 			clean(NULL, shell, false);
 			exit(127);
 		}
@@ -84,14 +84,14 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 				return (cmd);
 			else
 			{
-				mini_printf("minishell: ", cmd, ": Permission denied\n", STDERR_FILENO);
+				mini_printf(NAME, cmd, ": Permission denied\n", STDERR_FILENO);
 				clean(NULL, shell, false);
 				exit(126);
 			}
 		}
 		else
 		{
-			mini_printf("minishell: ", cmd, ": No such file or directory\n", STDERR_FILENO);
+			mini_printf(NAME, cmd, ERR_FIDIR, STDERR_FILENO);
 			clean(NULL, shell, false);
 			exit(127);
 		}

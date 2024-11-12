@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 12:34:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:30:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	get_shlvl(t_shell *shell)
 	if (pos == -1)
 		return (1);
 	shlvl_str = ft_extract(shell->env[pos], '=', 1);
+	if (!shlvl_str)
+		panic(ERR_MALLOC, shell);
 	shlvl = ft_atoi(shlvl_str);
 	free(shlvl_str);
 	return (shlvl);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:49 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 18:56:28 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:40:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	fd_error(t_shell *shell, int i)
 {
 	if (shell->cmd_array[i].fd_in == -1)
 	{
-		mini_printf("minishell: ", shell->cmd_array[i].file_name_in, ": No such file or directory\n", STDERR_FILENO);
+		mini_printf(NAME, shell->cmd_array[i].file_name_in, ERR_FIDIR, STDERR_FILENO);
 		clean(NULL, shell, false);
 		exit(1);
 	}
 	if (shell->cmd_array[i].fd_out == -1)
 	{
-		mini_printf("minishell: ", shell->cmd_array[i].file_name_out, ": No such file or directory\n", STDERR_FILENO);
+		mini_printf(NAME, shell->cmd_array[i].file_name_out, ERR_FIDIR, STDERR_FILENO);
 		clean(NULL, shell, false);
 		exit(1);
 	}
