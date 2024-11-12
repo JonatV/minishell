@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:09:42 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 13:41:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:52:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static t_token	*token_redirection_out(char *buf, int *i)
 {
-	t_token *new_token;
-	char *content;
-	t_token_type type;
+	t_token			*new_token;
+	char			*content;
+	t_token_type	type;
 
 	content = NULL;
 	if (buf[*i + 1] && buf[*i + 1] == '>')
@@ -41,9 +41,9 @@ static t_token	*token_redirection_out(char *buf, int *i)
 
 static t_token	*token_redirection_in(char *buf, int *i)
 {
-	t_token *new_token;
-	char *content;
-	t_token_type type;
+	t_token			*new_token;
+	char			*content;
+	t_token_type	type;
 
 	content = NULL;
 	if (buf[*i + 1] && buf[*i + 1] == '<')
@@ -66,20 +66,20 @@ static t_token	*token_redirection_in(char *buf, int *i)
 	return (new_token);
 }
 
-void handle_redirections(t_shell *shell, int *i, t_token **tokens_list)
+void	handle_redirections(t_shell *shell, int *i, t_token **tokens_list)
 {
-	t_token *pending_token;
-	
+	t_token	*pending_token;
+
 	if (shell->buf[*i] == '>')
 	{
 		pending_token = token_redirection_out(shell->buf, i);
-		if(!add_token(tokens_list, pending_token))
+		if (!add_token(tokens_list, pending_token))
 			panic(ERR_MALLOC, shell);
 	}
 	else if (shell->buf[*i] == '<')
 	{
 		pending_token = token_redirection_in(shell->buf, i);
-		if(!add_token(tokens_list, pending_token))
+		if (!add_token(tokens_list, pending_token))
 			panic(ERR_MALLOC, shell);
 	}
 }
@@ -100,7 +100,7 @@ bool	handle_pipe(t_shell *shell, int *i, t_token **tokens_list)
 		panic(ERR_MALLOC, shell);
 	new_token = create_token(TOKEN_PIPE, &content);
 	if (!add_token(tokens_list, new_token))
-			panic(ERR_MALLOC, shell);
+		panic(ERR_MALLOC, shell);
 	*i += 1;
 	return (true);
 }
@@ -109,7 +109,7 @@ void	handle_space(t_shell *shell, int *i, t_token **tokens_list)
 {
 	char		*tmp;
 	t_token		*pending_token;
-	int start;
+	int			start;
 
 	start = *i;
 	while (shell->buf[*i] && ft_isspace(shell->buf[*i]))

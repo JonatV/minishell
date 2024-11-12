@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:06:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 01:57:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:53:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_tokens_list(t_token **tokens)
 {
-	t_token *current;
-	t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = *tokens;
 	while (current)
@@ -51,7 +51,9 @@ static char	*extract_word(char *buf, int *i, int *type)
 	int	start;
 
 	start = *i;
-	while (buf[*i] && !ft_isspace(buf[*i]) && buf[*i] != '>' && buf[*i] != '<' && buf[*i] != '|' && buf[*i] != '"' && buf[*i] != 39)
+	while (buf[*i] && !ft_isspace(buf[*i]) && buf[*i] != '>' \
+		&& buf[*i] != '<' && buf[*i] != '|' \
+		&& buf[*i] != '"' && buf[*i] != 39)
 		*i += 1;
 	*type = TOKEN_WORD;
 	return (ft_substr(buf, start, *i - start));
@@ -59,9 +61,9 @@ static char	*extract_word(char *buf, int *i, int *type)
 
 void	handle_word(t_shell *shell, int *i, t_token **tokens_list)
 {
-	char		*tmp;
+	char	*tmp;
 	int		type;
-	t_token		*pending_token;
+	t_token	*pending_token;
 
 	if (shell->buf[*i] == '"' || shell->buf[*i] == 39)
 		tmp = extract_quoted(shell->buf, i, shell->buf[*i], &type);

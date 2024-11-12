@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:56:41 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:04:55 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:53:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	start_with_pipe(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->buf[i] && ft_isspace(shell->buf[i]))
@@ -36,7 +36,7 @@ bool	add_token(t_token **tokens_list, t_token *new_token)
 		return (true);
 	}
 	current = *tokens_list;
-	while (current->next) 
+	while (current->next)
 		current = current->next;
 	current->next = new_token;
 	return (true);
