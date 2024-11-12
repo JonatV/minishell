@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 11:50:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:44:44 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	signal_ctlc_on_subprocess(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = SUBPROCESS_SIG;
 		write(STDERR_FILENO, "\n", 1);
 		close(STDIN_FILENO);
 	}
@@ -35,7 +35,7 @@ void	sigint_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = 1;
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

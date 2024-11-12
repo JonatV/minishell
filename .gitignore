@@ -16,3 +16,4 @@ output
 sources/token/old_tokenizer.c
 sources/token/old_tokenizer_utils.c
 brouillon
+sources/shell/check_cmd_line2.c

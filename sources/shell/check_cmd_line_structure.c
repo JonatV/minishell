@@ -6,130 +6,90 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:03:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:24:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool only_isspace_string(char *buffer)
+static void join_to_buffer(t_shell *shell, char *additional_buffer)
 {
-	int	i;
-	int	j;
+	char	*tmp;
 
-	j = 0;
-	i = ft_strlen(buffer);
-	while (ft_isspace(buffer[j]))
-		j++;
-	if (j >= i)
-		return (true);
-	return (false);
+	tmp = NULL;
+	tmp = ft_strjoin(shell->buf, " ");
+	if (!tmp)
+		panic(ERR_MALLOC, shell);
+	free(shell->buf);
+	shell->buf = tmp;
+	tmp = ft_strjoin(shell->buf, additional_buffer);
+	free(shell->buf);
+	shell->buf = tmp;
+	free(additional_buffer);
+	if (!shell->buf)
+		panic(ERR_MALLOC, shell);
 }
 
-static bool	is_quote_incomplete(char *buffer)
+static bool check_additional_buffer(t_shell *shell, char **additional_buffer, int stdin_backup)
 {
-	int		i;
-	bool	in_quote;
-	int		quote_type;
-
-	in_quote = false;
-	i = 0;
-	while (buffer[i])
+	if (!*additional_buffer || g_exit_status == SUBPROCESS_SIG)
 	{
-		if (buffer[i] == 39 || buffer[i] == 34)
+		restore_stdin(stdin_backup, shell);
+		if (g_exit_status == SUBPROCESS_SIG)
 		{
-			if (!in_quote)
-			{
-				in_quote = true;
-				quote_type = buffer[i];
-			}
-			else if (quote_type == buffer[i])
-				in_quote = false;
+			free(additional_buffer);
+			g_exit_status = 1;
 		}
-		i++;
+		else
+			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", shell->current_fd_out);
+		free(shell->buf);
+		shell->buf = NULL;
+		return (false);
 	}
-	return (in_quote);
-}
-
-static bool	incomplete_cmd_line(char *buffer)
-{
-	int	i;
-	
-	if (is_quote_incomplete(buffer))
-		return (true);
-	i = ft_strlen(buffer) - 1;
-	while (i >= 0 && ft_isspace(buffer[i]))
-		i--;
-	if (buffer[i] == '|')
-		return (true);
-	return (false);
+	return (true);
 }
 
 static bool	get_additionnal_cmd_line(t_shell *shell)
 {
-	char	*tmp;
 	char	*additional_buffer;
 	int		stdin_backup;
 
+	additional_buffer = NULL;
 	stdin_backup = dup(STDIN_FILENO);
 	if (stdin_backup == -1)
-		return (false);
+		panic("dup failed", shell);
 	signal(SIGINT, signal_ctlc_on_subprocess);
 	while (1)
 	{
 		additional_buffer = readline("> ");
-		if (g_exit_status == 130)
-		{
-			free(additional_buffer);
-			free(shell->buf);
-			dup2(stdin_backup, STDIN_FILENO);
-			close(stdin_backup);
+		if (!check_additional_buffer(shell, &additional_buffer, stdin_backup))
 			return (false);
-		}
-		if (!additional_buffer)
-		{
-			free(additional_buffer);
-			dup2(stdin_backup, STDIN_FILENO);
-			close(stdin_backup);
-			ft_putstr_fd("minishell: unexpected EOF while looking for matching\n", shell->current_fd_out);
-			sigeof_handler(shell);
-		}
-		tmp = ft_strjoin(shell->buf, additional_buffer);
-		free(additional_buffer);
-		if (!tmp)
-			panic(ERR_MALLOC, shell);
-		free(shell->buf);
-		shell->buf = tmp;
-		if (!incomplete_cmd_line(shell->buf))
-			break ;
+		join_to_buffer(shell, additional_buffer);
+		if (!is_incomplete_cmd_line(shell->buf))
+			break;
 	}
-	dup2(stdin_backup, STDIN_FILENO);
-	close(stdin_backup);
-	return (true);
+	return (restore_stdin(stdin_backup, shell));
 }
 
 bool	check_cmd_line_structure(t_shell *shell)
 {
 	char	*buffer;
-	
+
 	buffer = readline(shell->prompt_msg);
 	if (!buffer)
-	{
-		free(buffer);
 		sigeof_handler(shell);
-	}
 	else if (buffer[0] == '\0' || only_isspace_string(buffer))
 	{
 		free(buffer);
 		g_exit_status = 0;
 		return (false);
 	}
-	else if (incomplete_cmd_line(buffer))
-	{
-		shell->buf = ft_strdup(buffer);
-		free(buffer);
+	shell->buf = ft_strdup(buffer);	
+	free(buffer);
+	if (!shell->buf)
+		panic(ERR_MALLOC, shell);
+	if (is_incomplete_cmd_line(shell->buf))
 		return (get_additionnal_cmd_line(shell));
-	}
-	shell->buf = buffer;
+	add_history(shell->buf);
 	return (true);
 }

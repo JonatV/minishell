@@ -45,6 +45,9 @@ extern int g_exit_status;
 # define SKIP_EXIT true
 # define NOSKIP_EXIT false
 
+/*----------------					SIGNAL					---------------*/
+# define SUBPROCESS_SIG -1919
+
 /*----------------					PARSING					---------------*/
 # define CMD_NAME 0
 # define CMD_FLAG 1
@@ -179,13 +182,26 @@ void	sigeof_handler(t_shell *shell);
 void	signal_ctlc_on_fork(int sig);
 void	signals_handler(void);
 
-// ========== signal ==========
-/*----------------  main.c  ---------------*/
-void	shell_init(t_shell *shell, char **envp);
-int		main(int ac, char **av, char **envp);
+// ========== shell ==========
+/*----------------  check_cmd_line_structure.c  ---------------*/
+bool	check_cmd_line_structure(t_shell *shell);
 
-/*----------------  prompt.c  ---------------*/
-void	prompt_msg(t_shell *shell);
+/*----------------  check_cmd_line_utils.c  ---------------*/
+bool	only_isspace_string(char *buffer);
+bool	is_incomplete_cmd_line(char *buffer);
+bool	restore_stdin(int stdin_backup, t_shell *shell);
+
+/*----------------  env_utils.c  ---------------*/
+void	env_unset(t_shell *shell, char *to_remove);
+void	init_env(t_shell *shell, char **envp);
+
+/*----------------  exit.c  ---------------*/
+void	clean(char *str, t_shell *shell, bool free_env);
+void	panic(char *str, t_shell *shell);
+
+/*----------------  free_helper.c  ---------------*/
+void	free_shell_struct(t_shell *shell, bool free_env);
+void	free_cmd_array_struct(t_shell *shell);
 
 /*----------------  global_utils.c  ---------------*/
 void	mini_printf(char *first_part, char *dynamic_info, char *last_part, int fd);
@@ -194,20 +210,12 @@ bool	error_msg(char *msg);
 /*----------------  init_shell.c  ---------------*/
 void	set_default_current_fds(t_shell *shell);
 
-/*----------------  free_helper.c  ---------------*/
-void	free_shell_struct(t_shell *shell, bool free_env);
-void	free_cmd_array_struct(t_shell *shell);
+/*----------------  main.c  ---------------*/
+void	shell_init(t_shell *shell, char **envp);
+int		main(int ac, char **av, char **envp);
 
-/*----------------  exit.c  ---------------*/
-void	clean(char *str, t_shell *shell, bool free_env);
-void	panic(char *str, t_shell *shell);
-
-/*----------------  env_utils.c  ---------------*/
-void	env_unset(t_shell *shell, char *to_remove);
-void	init_env(t_shell *shell, char **envp);
-
-/*----------------  check_cmd_line_structure.c  ---------------*/
-bool	check_cmd_line_structure(t_shell *shell);
+/*----------------  prompt.c  ---------------*/
+void	prompt_msg(t_shell *shell);
 
 // ========== expander ==========
 /*----------------  expander.c  ---------------*/

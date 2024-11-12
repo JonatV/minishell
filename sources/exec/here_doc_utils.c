@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:05:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:19:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char *ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 	while (1)
 	{
 		buf = readline("> ");
-		if (!buf || g_exit_status == 130)
+		if (!buf || g_exit_status == SUBPROCESS_SIG)
 		{
 			if (buf)
 				free(buf);
@@ -79,7 +79,7 @@ char	*to_the_delimiter(char *to_find, t_shell *shell)
 	if (!to_find || !to_find[0])
 		return (NULL);
 	text_stored = ft_delimiter_hunter(text_stored, to_find, shell);
-	if (g_exit_status == 130)
+	if (g_exit_status == SUBPROCESS_SIG)
 	{
 		if (text_stored)
 			free(text_stored);

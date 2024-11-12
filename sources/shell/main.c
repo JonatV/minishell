@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:33:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 01:51:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:50:10 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int ac, char **av, char **envp)
 		signals_handler();
 		if (!check_cmd_line_structure(&shell))
 			continue ;
-		add_history(shell.buf);
 		if (!tokenizer(&shell))
 			continue ;
 		if (!shell.tokens_list)

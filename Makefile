@@ -32,7 +32,7 @@ EXPANDER	=	expander special_variables
 
 PARSING		=	cmd_array_builder parsing parse_utils parse_token_redirection parse_token_word
 
-MINISHELL	=	env_utils exit main prompt check_cmd_line_structure init_shell free_helper global_utils
+MINISHELL	=	env_utils exit main prompt check_cmd_line_structure check_cmd_line_utils init_shell free_helper global_utils
 
 SIGNAL		=	listener
 
