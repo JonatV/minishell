@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:04:14 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 12:04:49 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:34:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	env_unset(t_shell *shell, char *to_remove)
 	int		j;
 
 	if (ft_arrayfind(shell->env, to_remove) == -1)
-		mini_printf("minishell: ", to_remove, ": env var doesn't exit\n", STDERR_FILENO);
+		return ;
 	new_env = malloc(sizeof(char *) * ft_arraysize(shell->env));
 	if (!new_env)
 		panic(ERR_MALLOC, shell);
@@ -79,6 +79,7 @@ static void	update_shlvl(t_shell *shell)
 	{
 		if (!ft_arraypush(&shell->env, "SHLVL=1"))
 			panic(ERR_MALLOC, shell);
+		return ;
 	}
 	shlvl++;
 	env_unset(shell, "SHLVL");
@@ -88,7 +89,11 @@ static void	update_shlvl(t_shell *shell)
 	if (!str_to_add)
 		panic(ERR_MALLOC, shell);
 	if (!ft_arraypush(&shell->env, str_to_add))
+	{
+		if (str_to_add)
+			free(str_to_add);
 		panic(ERR_MALLOC, shell);
+	}
 	free(str_to_add);
 }
 
