@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 16:24:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:48:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void join_to_buffer(t_shell *shell, char *additional_buffer)
+static void	join_to_buffer(t_shell *shell, char *additional_buffer)
 {
 	char	*tmp;
 
@@ -30,7 +30,8 @@ static void join_to_buffer(t_shell *shell, char *additional_buffer)
 		panic(ERR_MALLOC, shell);
 }
 
-static bool check_additional_buffer(t_shell *shell, char **additional_buffer, int stdin_backup)
+static bool	check_additional_buffer(t_shell *shell, \
+	char **additional_buffer, int stdin_backup)
 {
 	if (!*additional_buffer || g_exit_status == SUBPROCESS_SIG)
 	{
@@ -41,7 +42,7 @@ static bool check_additional_buffer(t_shell *shell, char **additional_buffer, in
 			g_exit_status = 1;
 		}
 		else
-			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", shell->current_fd_out);
+			ft_putendl_fd(ERR_EOF, shell->current_fd_out);
 		free(shell->buf);
 		shell->buf = NULL;
 		return (false);
@@ -66,7 +67,7 @@ static bool	get_additionnal_cmd_line(t_shell *shell)
 			return (false);
 		join_to_buffer(shell, additional_buffer);
 		if (!is_incomplete_cmd_line(shell->buf))
-			break;
+			break ;
 	}
 	return (restore_stdin(stdin_backup, shell));
 }
@@ -84,7 +85,7 @@ bool	check_cmd_line_structure(t_shell *shell)
 		g_exit_status = 0;
 		return (false);
 	}
-	shell->buf = ft_strdup(buffer);	
+	shell->buf = ft_strdup(buffer);
 	free(buffer);
 	if (!shell->buf)
 		panic(ERR_MALLOC, shell);

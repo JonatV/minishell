@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:05:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:50:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void free_shell_struct(t_shell *shell, bool free_env)
+void	free_shell_struct(t_shell *shell, bool free_env)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ void free_shell_struct(t_shell *shell, bool free_env)
 	}
 }
 
-void free_cmd_array_struct(t_shell *shell)
+void	free_cmd_array_struct(t_shell *shell)
 {
 	int	i;
 

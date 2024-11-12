@@ -72,7 +72,7 @@ extern int g_exit_status;
 # define ERR_IDNTFIR ": not a valid identifier\n"
 # define ERR_NOCMD ": command not found\n"
 # define ERR_SPCLVAR ": special variable not allowed\n"
-
+# define ERR_EOF "minishell: syntax error: unexpected end of file"
 
 /*
 #####################################################################

@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:23:34 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 16:24:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:49:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool only_isspace_string(char *buffer)
+bool	only_isspace_string(char *buffer)
 {
 	int	i;
 	int	j;
@@ -54,19 +54,16 @@ static bool	is_quote_incomplete(char *buffer)
 bool	is_incomplete_cmd_line(char *buffer)
 {
 	int	i;
-	
+
 	if (is_quote_incomplete(buffer))
 		return (true);
 	i = ft_strlen(buffer) - 1;
 	while (i >= 0 && ft_isspace(buffer[i]))
 		i--;
-	if (buffer[i] == '|')
-		return (true);
-	return (false);
-	// return (buffer[i] == '|'); //todo check if norminette ok
+	return (buffer[i] == '|');
 }
 
-bool restore_stdin(int stdin_backup, t_shell *shell)
+bool	restore_stdin(int stdin_backup, t_shell *shell)
 {
 	if (dup2(stdin_backup, STDIN_FILENO) == -1)
 		panic("dup2 failed", shell);
