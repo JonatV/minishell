@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:29:56 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:05:08 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:39:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	select_builtin(t_shell *shell, int i, int built_in_index, bool skip_exit)
 	char	**data;
 	int		ret_value;
 
+	ret_value = 0;
 	data = shell->cmd_array[i].data;
 	if (built_in_index == BUILTIN_PWD)
 		ret_value = builtin_pwd(shell, data);
