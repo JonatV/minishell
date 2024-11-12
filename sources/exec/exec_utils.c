@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 00:08:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 01:03:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	is_directory(char *cmd, t_shell *shell)
 	}
 }
 
-// todo check what happens when no file for ./cmd
 char	*find_valid_path(char *cmd, char **env, t_shell *shell)
 {
 	is_directory(cmd, shell);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/06 23:34:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 01:01:07 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ bool	check_cmd_line_structure(t_shell *shell)
 	else if (buffer[0] == '\0' || only_isspace_string(buffer))
 	{
 		free(buffer);
+		g_exit_status = 0;
 		return (false);
 	}
 	else if (incomplete_cmd_line(buffer))
