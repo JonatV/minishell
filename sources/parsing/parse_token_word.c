@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:38:24 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/08 12:42:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:45:21 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	handle_token_word(t_cmd *cmd, t_token **tokens_list)
 	content = ft_strdup("");
 	if (!content)
 		return (1);
-	while (*tokens_list && ((*tokens_list)->type == TOKEN_WORD || (*tokens_list)->type == TOKEN_SINGLE_QUOTE || (*tokens_list)->type == TOKEN_DOUBLE_QUOTE))
+	while (*tokens_list && ((*tokens_list)->type == TOKEN_WORD \
+		|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
+		|| (*tokens_list)->type == TOKEN_DOUBLE_QUOTE))
 	{
 		temp = ft_strjoin(content, (*tokens_list)->content);
 		free(content);

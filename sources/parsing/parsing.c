@@ -6,13 +6,13 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:03:03 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:46:52 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool concatenate_tokens(t_token *parent, t_token *tmp)
+static bool	concatenate_tokens(t_token *parent, t_token *tmp)
 {
 	char	*content;
 	char	*str_temp;
@@ -21,7 +21,9 @@ static bool concatenate_tokens(t_token *parent, t_token *tmp)
 	content = ft_strdup(parent->content);
 	if (!content)
 		return (false);
-	while (tmp->next && (tmp->next->type == TOKEN_WORD || tmp->next->type == TOKEN_DOUBLE_QUOTE || tmp->next->type == TOKEN_SINGLE_QUOTE))
+	while (tmp->next && (tmp->next->type == TOKEN_WORD \
+		|| tmp->next->type == TOKEN_DOUBLE_QUOTE \
+		|| tmp->next->type == TOKEN_SINGLE_QUOTE))
 	{
 		str_temp = ft_strjoin(content, tmp->next->content);
 		free(content);
@@ -45,7 +47,9 @@ static bool	regroup_litteral_tokens(t_shell *shell)
 	parent = shell->tokens_list;
 	while (parent)
 	{
-		if (parent->type == TOKEN_WORD || parent->type == TOKEN_DOUBLE_QUOTE || parent->type == TOKEN_SINGLE_QUOTE)
+		if (parent->type == TOKEN_WORD \
+			|| parent->type == TOKEN_DOUBLE_QUOTE \
+			|| parent->type == TOKEN_SINGLE_QUOTE)
 		{
 			if (!concatenate_tokens(parent, parent))
 				return (false);
@@ -55,7 +59,7 @@ static bool	regroup_litteral_tokens(t_shell *shell)
 	return (true);
 }
 
-static bool handling_expander(t_shell *shell)
+static bool	handling_expander(t_shell *shell)
 {
 	t_token	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:23:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 16:20:47 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:45:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ void	init_struct(t_cmd *cmd)
 	cmd->final_cmd_line = NULL;
 }
 
-bool check_for_empty_cmd(t_shell *shell)
+bool	check_for_empty_cmd(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < shell->cmd_number)
 	{
-		if (shell->cmd_array[i].data[CMD_NAME] && shell->cmd_array[i].data[CMD_NAME][0] == '\0')
-		{	
+		if (shell->cmd_array[i].data[CMD_NAME] \
+			&& shell->cmd_array[i].data[CMD_NAME][0] == '\0')
+		{
 			clean(NULL, shell, false);
 			ft_putstr_fd("minishell: '': command not found\n", STDERR_FILENO);
 			return (false);

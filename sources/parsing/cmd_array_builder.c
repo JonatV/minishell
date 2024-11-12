@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/10 15:57:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:40:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static int	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 {
 	int	success;
-	
+
 	init_struct(cmd);
 	while (*tokens_list)
-	{	
-		if ((*tokens_list)->content[0] != '\0' || (*tokens_list)->type != TOKEN_SKIP)
+	{
+		if ((*tokens_list)->content[0] != '\0' \
+		|| (*tokens_list)->type != TOKEN_SKIP)
 		{
 			if ((*tokens_list)->type == TOKEN_WORD \
 				|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
@@ -54,7 +55,7 @@ static int	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 	return (0);
 }
 
-bool cmd_array_builder(t_shell *shell)
+bool	cmd_array_builder(t_shell *shell)
 {
 	int		i;
 	t_token	*tmp;
@@ -69,7 +70,7 @@ bool cmd_array_builder(t_shell *shell)
 	while (i < shell->cmd_number)
 	{
 		ret = parse_cmds(&tmp, &shell->cmd_array[i]);
-		if(ret == 1)
+		if (ret == 1)
 			panic(ERR_MALLOC, shell);
 		else if (ret == 2)
 			return (false);

@@ -61,7 +61,9 @@ extern int g_exit_status;
 # define CMD_END 3
 
 /*----------------					TOKEN					---------------*/
-#define N "\e[0m"
+# define N "\e[0m"
+# define ERR_TKNSNTX "minishell: syntax error near unexpected token `"
+# define ERR_TKNNL "syntax error near unexpected token `newline'"
 
 /*----------------					ERR_MSG					---------------*/
 # define ERR_MALLOC "malloc failed"
