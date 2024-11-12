@@ -6,62 +6,12 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 00:36:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:25:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define _GNU_SOURCE
 #include "../../includes/minishell.h"
-
-/*
-*	@note:	Function that concatenate the two array, CMD_FLAG and CMD ARG,
-*			into one null terminated array -> final_cmd_line.
-*	@param:	Current command structure
-*/
-static bool	prepare_execve_data(t_cmd *cmd)
-{
-	char	**data_flag;
-	char	**data_arg;
-	int		i;
-	
-	if (!ft_arraypush(&cmd->final_cmd_line, cmd->data[CMD_NAME]))
-		return (false);
-	if (cmd->data[CMD_FLAG] != NULL)
-	{
-		data_flag = ft_split(cmd->data[CMD_FLAG], ' ');
-		if (!data_flag)
-			return (false);
-		i = -1;
-		while (data_flag[++i])
-		{
-			if (!ft_arraypush(&cmd->final_cmd_line, data_flag[i]))
-			{
-				ft_arrayfree(data_flag);
-				return (false);
-			}
-		}
-	}
-	if (cmd->data[CMD_ARG] != NULL)
-	{
-		data_arg = ft_split(cmd->data[CMD_ARG], ' ');
-		if (!data_arg)
-		{
-			ft_arrayfree(data_flag);
-			return (false);
-		}
-		i = -1;
-		while (data_arg[++i])
-		{
-			if (!ft_arraypush(&cmd->final_cmd_line, data_arg[i]))
-			{
-				ft_arrayfree(data_flag);
-				ft_arrayfree(data_arg);
-				return (false);
-			}
-		}
-	}
-	return (true);
-}
 
 void	execution(int i, t_shell *shell)
 {
@@ -70,10 +20,12 @@ void	execution(int i, t_shell *shell)
 	valid_path = NULL;
 	if (!shell->cmd_array[i].data[CMD_NAME])
 		exit(0);
-	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], shell->env, shell);
+	valid_path = find_valid_path(shell->cmd_array[i].data[CMD_NAME], \
+		shell->env, shell);
 	if (0 == valid_path)
 	{
-		mini_printf("", shell->cmd_array[i].data[CMD_NAME], ": command not found\n", STDERR_FILENO);
+		mini_printf("", shell->cmd_array[i].data[CMD_NAME], \
+			ERR_NOCMD, STDERR_FILENO);
 		free_cmd_array_struct(shell);
 		exit(127);
 	}
@@ -88,27 +40,6 @@ void	execution(int i, t_shell *shell)
 		free(valid_path);
 	error_msg("execve failed");
 	exit(1);
-}
-
-void waiting_for_children(t_shell *shell)
-{
-	int status;
-	int i;
-	
-	i = 0;
-	while (i < shell->cmd_number)
-	{
-		if (waitpid(shell->pid_array[i], &status, 0) == -1)
-			panic("waitpid failed", shell);
-		if (i == shell->cmd_number - 1)
-		{
-			if (WIFEXITED(status))
-				g_exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				g_exit_status = 128 + WTERMSIG(status);
-		}
-		i++;
-	}
 }
 
 static void	forks_process(t_shell *shell, int i, int built_in_index)
@@ -143,7 +74,7 @@ void	shell_executor(t_shell *shell)
 {
 	int	i;
 	int	built_in_index;
-	
+
 	signal(SIGINT, SIG_IGN);
 	g_exit_status = 0;
 	i = 0;
@@ -160,4 +91,25 @@ void	shell_executor(t_shell *shell)
 	set_default_current_fds(shell);
 	pipes_free(shell);
 	waiting_for_children(shell);
+}
+
+void	waiting_for_children(t_shell *shell)
+{
+	int	status;
+	int	i;
+
+	i = 0;
+	while (i < shell->cmd_number)
+	{
+		if (waitpid(shell->pid_array[i], &status, 0) == -1)
+			panic("waitpid failed", shell);
+		if (i == shell->cmd_number - 1)
+		{
+			if (WIFEXITED(status))
+				g_exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_exit_status = 128 + WTERMSIG(status);
+		}
+		i++;
+	}
 }

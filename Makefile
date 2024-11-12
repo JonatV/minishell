@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 02:13:09 by jveirman          #+#    #+#              #
-#    Updated: 2024/11/12 17:48:38 by jveirman         ###   ########.fr        #
+#    Updated: 2024/11/12 18:09:11 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ endif
 
 BUILT_IN	=	chdir chdir_utils echo env exit export_utils export pwd unset utils
 
-EXEC		=	error exec_utils exec here_doc_utils here_doc pipes redirection
+EXEC		=	error exec_utils exec_utils2 exec here_doc_utils here_doc pipes redirection
 
 EXPANDER	=	expander special_variables
 

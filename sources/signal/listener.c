@@ -6,11 +6,11 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 15:44:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:31:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define _GNU_SOURCE
+#define _GNU_SOURCE
 #include "../../includes/minishell.h"
 
 void	signal_ctlc_on_fork(int sig)
@@ -21,6 +21,7 @@ void	signal_ctlc_on_fork(int sig)
 		write(STDERR_FILENO, "\n", 1);
 	}
 }
+
 void	signal_ctlc_on_subprocess(int sig)
 {
 	if (sig == SIGINT)
@@ -50,9 +51,9 @@ void	sigeof_handler(t_shell *shell)
 	exit(g_exit_status);
 }
 
-void signals_handler(void)
+void	signals_handler(void)
 {
-	struct sigaction sa_int;
+	SigAction	sa_int;
 
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = &sigint_handler;

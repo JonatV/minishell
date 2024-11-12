@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 16:39:51 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:32:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell);
 
 static void	is_directory(char *cmd, t_shell *shell, bool skip_slash)
 {
-	struct stat	path_cmd;
-	int end;
+	Stat	path_cmd;
+	int		end;
 
 	end = ft_strlen(cmd) - 1;
 	if (cmd[end] == '/' || skip_slash)
@@ -124,20 +124,4 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 	}
 	ft_arrayfree(all_paths);
 	return (0);
-}
-
-bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index)
-{
-	if (built_in_index == BUILTIN_EXIT || built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[*i].data[CMD_ARG] != NULL))
-		shell->cmd_array[*i].builtin_return = select_builtin(shell, *i, built_in_index, SKIP_EXIT);
-	return (false);
-}
-
-void execute_builtin(t_shell *shell, int i, int built_in_index)
-{
-	if (built_in_index == -1)
-		return ;
-	if (built_in_index == BUILTIN_EXIT || built_in_index == BUILTIN_CD || built_in_index == BUILTIN_UNSET || (built_in_index == BUILTIN_EXPORT && shell->cmd_array[i].data[CMD_ARG] != NULL))
-		exit(shell->cmd_array[i].builtin_return);
-	select_builtin(shell, i, built_in_index, NOSKIP_EXIT);
 }

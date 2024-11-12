@@ -68,12 +68,15 @@ extern int g_exit_status;
 # define ERR_FIDIR ": No such file or directory\n"
 # define ERR_NMRC ": numeric argument required\n"
 # define ERR_IDNTFIR ": not a valid identifier\n"
-
+# define ERR_NOCMD ": command not found\n"
 /*
 #####################################################################
 #							STRUCTURE								#
 #####################################################################
 */
+
+typedef struct sigaction SigAction;
+typedef struct stat Stat;
 
 typedef enum e_builtin
 {
@@ -274,21 +277,29 @@ int		is_builtin(char *to_find);
 int		select_builtin(t_shell *shell, int i, int built_in_index, bool skip_exit);
 
 // ========== exec ==========
-/*----------------  here_doc_utils.c  ---------------*/
-int		is_here_doc_available(t_shell *shell, int i);
-char	*to_the_delimiter(char *to_find, t_shell *shell);
-
 /*----------------  error.c  ---------------*/
 void	fd_error(t_shell *shell, int i);
 
-/*----------------  redirection.c  ---------------*/
-void	fd_in_management(t_shell *shell, int i);
-void	fd_out_management(t_shell *shell, int i);
-
 /*----------------  exec.c  ---------------*/
 void	execution(int i, t_shell *shell);
-void	waiting_for_children(t_shell *shell);
 void	shell_executor(t_shell *shell);
+void	waiting_for_children(t_shell *shell);
+
+/*----------------  exec_utils.c  ---------------*/
+char	*find_valid_path(char *cmd, char **env, t_shell *shell);
+
+/*----------------  exec_utils2.c  ---------------*/
+bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index);
+void	execute_builtin(t_shell *shell, int i, int built_in_index);
+bool	prepare_execve_data(t_cmd *cmd);
+
+/*----------------  here_doc.c  ---------------*/
+bool	here_doc_management(t_shell *shell);
+void	here_doc_exploit(t_shell *shell, int i);
+
+/*----------------  here_doc_utils.c  ---------------*/
+int	is_here_doc_available(t_shell *shell, int i);
+char	*to_the_delimiter(char *to_find, t_shell *shell);
 
 /*----------------  pipes.c  ---------------*/
 void	pipes_init(t_shell *shell);
@@ -297,13 +308,8 @@ void	pipes_closing(t_shell *shell, int i);
 void	pipes_free(t_shell *shell);
 void	parent_process_close_fds(t_shell *shell, int i);
 
-/*----------------  exec_utils.c  ---------------*/
-char	*find_valid_path(char *cmd, char **env, t_shell *shell);
-bool	use_builtin_env_changer(t_shell *shell, int *i, int built_in_index);
-void	execute_builtin(t_shell *shell, int i, int built_in_index);
-
-/*----------------  here_doc.c  ---------------*/
-bool	here_doc_management(t_shell *shell);
-void	here_doc_exploit(t_shell *shell, int i);
+/*----------------  redirection.c  ---------------*/
+void	fd_in_management(t_shell *shell, int i);
+void	fd_out_management(t_shell *shell, int i);
 
 #endif

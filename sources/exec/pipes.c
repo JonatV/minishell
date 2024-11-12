@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:24:36 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 02:06:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:27:16 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	pipes_free(t_shell *shell)
 	shell->pipefds = NULL;
 }
 
-void parent_process_close_fds(t_shell *shell, int i)
+void	parent_process_close_fds(t_shell *shell, int i)
 {
 	if (i == 0)
 		return ;

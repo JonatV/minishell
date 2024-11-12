@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 15:19:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:34:34 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	is_here_doc_available(t_shell *shell, int i)
 	return (1);
 }
 
-static char *ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
+static char	*ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 {
 	char	*buf;
 	char	*temp;
-	int  stdin_backup;
+	int		stdin_backup;
 
 	stdin_backup = dup(STDIN_FILENO);
 	if (stdin_backup == -1)
@@ -47,7 +47,7 @@ static char *ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 		if (ft_strcmp(buf, to_find) == 0)
 		{
 			free(buf);
-			break;
+			break ;
 		}
 		temp = ret;
 		ret = ft_strjoin(ret, buf);

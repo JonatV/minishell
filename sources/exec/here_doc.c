@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 15:19:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:33:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static bool	here_doc_found(t_shell *shell, int i)
 		if (shell->cmd_array[i].here_doc_input)
 			free(shell->cmd_array[i].here_doc_input);
 		shell->cmd_array[i].here_doc_input = NULL;
-		shell->cmd_array[i].here_doc_input = to_the_delimiter(delimiter[j], shell);
+		shell->cmd_array[i].here_doc_input = \
+			to_the_delimiter(delimiter[j], shell);
 		if (g_exit_status == SUBPROCESS_SIG)
 		{
 			g_exit_status = 1;
