@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:22:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:20:27 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,29 @@ static char *free_n_restore(char *buf, char *ret, int stdin_backup, t_shell *she
 	return (NULL);
 }
 
-static void	join_to_buffer(t_shell *shell, char *buf, char *ret)
+static void	join_to_buffer(t_shell *shell, char *buf, char **ret)
 {
 	char	*temp;
 
-	temp = ret;
-	ret = ft_strjoin(ret, buf);
+	temp = *ret;
+	*ret = ft_strjoin(*ret, buf);
 	free(temp);
-	if (!ret)
+	if (!*ret)
 	{
 		free(buf);
 		panic(ERR_MALLOC, shell);
 	}
-	temp = ret;
-	ret = ft_strjoin(ret, "\n");
+	temp = *ret;
+	*ret = ft_strjoin(*ret, "\n");
 	free(temp);
 	free(buf);
-	if (!ret)
+	if (!*ret)
 		panic(ERR_MALLOC, shell);
 }
 
 static char	*ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 {
 	char	*buf;
-	char	*temp;
 	int		stdin_backup;
 
 	stdin_backup = dup(STDIN_FILENO);
@@ -69,7 +68,7 @@ static char	*ft_delimiter_hunter(char *ret, char *to_find, t_shell *shell)
 			free(buf);
 			break ;
 		}
-		join_to_buffer(shell, buf, ret);
+		join_to_buffer(shell, buf, &ret);
 	}
 	restore_stdin(stdin_backup, shell, false);
 	return (ret);
