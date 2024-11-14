@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 15:31:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:55:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ char	*to_the_delimiter(char *to_find, t_shell *shell);
 /*----------------  pipes.c  ---------------*/
 void	pipes_init(t_shell *shell);
 void	pipes_opening(t_shell *shell);
-void	pipes_closing(t_shell *shell, int i);
+void	pipes_closing(t_shell *shell);
 void	pipes_free(t_shell *shell);
 void	parent_process_close_fds(t_shell *shell, int i);
 
