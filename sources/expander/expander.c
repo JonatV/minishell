@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:11:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:37:06 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:26:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,16 @@ static bool	replace_var_manager(int *i, char **content, char **env)
 */
 bool	expander(char **env, char **content, t_shell *shell)
 {
-	int	i;
+	int		i;
+	bool	inside_single_quote;
 
+	inside_single_quote = false;
 	i = 0;
 	while ((*content)[i])
 	{
-		if ((*content)[i] == '$')
+		if ((*content)[i] == 39)
+			inside_single_quote = !inside_single_quote;
+		if (!inside_single_quote && (*content)[i] == '$')
 		{
 			if (!block_special_variables(*content, i))
 				return (false);
