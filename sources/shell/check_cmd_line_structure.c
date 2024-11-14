@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:44:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:15:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:34:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ static bool	check_additional_buffer(t_shell *shell, \
 	{
 		restore_stdin(stdin_backup, shell, true);
 		if (g_exit_status == SUBPROCESS_SIG)
-		{
-			free(additional_buffer);
 			g_exit_status = 1;
-		}
 		else
 			ft_putendl_fd(ERR_EOF, shell->current_fd_out);
 		free(shell->buf);
