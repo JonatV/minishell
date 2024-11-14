@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 19:57:51 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:57:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	forks_process(t_shell *shell, int i, int built_in_index)
 		else
 			fd_in_management(shell, i);
 		fd_out_management(shell, i);
-		pipes_closing(shell, i);
+		pipes_closing(shell);
 		execute_builtin(shell, i, built_in_index);
 		execution(i, shell);
 	}
