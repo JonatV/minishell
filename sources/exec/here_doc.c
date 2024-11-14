@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:33:13 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:10:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:22:15 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	here_doc_management(t_shell *shell)
 	return (true);
 }
 
-static void handle_parent_process(int pipe_fd[2], pid_t pid, t_shell *shell)
+static void	handle_parent_process(int pipe_fd[2], pid_t pid, t_shell *shell)
 {
 	if (close(pipe_fd[1]) == -1)
 		panic("close failed", shell);

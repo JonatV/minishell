@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:28:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 12:20:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:22:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	is_here_doc_available(t_shell *shell, int i)
 	return (1);
 }
 
-static char *free_n_restore(char *buf, char *ret, int stdin_backup, t_shell *shell)
+static char	*free_n_restore(char *buf, char *ret, \
+	int stdin_backup, t_shell *shell)
 {
 	if (buf)
 		free(buf);
