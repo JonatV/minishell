@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 14:26:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:32:03 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 	all_paths = ft_split(env[i] + 5, ':');
 	if (!all_paths)
 		panic(ERR_MALLOC, shell);
+	if (check_if_absolute(cmd, shell))
+		return (cmd);
 	i = -1;
 	full_path = try_paths(all_paths, cmd, shell, i);
 	if (!full_path)
