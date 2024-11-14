@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:25:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:57:51 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execution(int i, t_shell *shell)
 		valid_path = NULL;
 		panic(ERR_MALLOC, shell);
 	}
+	signal(SIGQUIT, SIG_DFL);
 	execve(valid_path, shell->cmd_array[i].final_cmd_line, shell->env);
 	if (valid_path)
 		free(valid_path);
@@ -47,7 +48,6 @@ static void	forks_process(t_shell *shell, int i, int built_in_index)
 	pid_t	pid;
 
 	signal(SIGINT, signal_ctlc_on_fork);
-	signal(SIGQUIT, SIG_DFL);
 	pid = fork();
 	if (pid == 0)
 	{
