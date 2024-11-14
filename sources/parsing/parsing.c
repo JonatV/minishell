@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:21:39 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:46:52 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:34:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,7 @@ static bool	handling_expander(t_shell *shell)
 		if (tmp->type == TOKEN_WORD || tmp->type == TOKEN_DOUBLE_QUOTE)
 		{
 			if (!expander(shell->env, &tmp->content, shell))
-			{
-				if (shell->buf)
-					free(shell->buf);
 				return (false);
-			}
 		}
 		tmp = tmp->next;
 	}
