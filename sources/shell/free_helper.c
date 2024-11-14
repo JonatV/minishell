@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:26:29 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:56:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:30:40 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,12 @@ void	free_shell_struct(t_shell *shell, bool free_env)
 
 static void	free_data(t_shell *shell, int i)
 {
-	if (shell->cmd_array[i].data)
-	{
-		if (shell->cmd_array[i].data[CMD_NAME])
-			free(shell->cmd_array[i].data[CMD_NAME]);
-		if (shell->cmd_array[i].data[CMD_FLAG])
-			free(shell->cmd_array[i].data[CMD_FLAG]);
-		if (shell->cmd_array[i].data[CMD_ARG])
-			free(shell->cmd_array[i].data[CMD_ARG]);
-	}
+	if (shell->cmd_array[i].data[CMD_NAME])
+		free(shell->cmd_array[i].data[CMD_NAME]);
+	if (shell->cmd_array[i].data[CMD_FLAG])
+		free(shell->cmd_array[i].data[CMD_FLAG]);
+	if (shell->cmd_array[i].data[CMD_ARG])
+		free(shell->cmd_array[i].data[CMD_ARG]);
 }
 
 void	free_cmd_array_struct(t_shell *shell)
