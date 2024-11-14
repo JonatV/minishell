@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:07:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:05:00 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ char	*find_valid_path(char *cmd, char **env, t_shell *shell)
 	return (find_in_env(cmd, env, shell));
 }
 
-static void	handle_no_path_var(char *cmd, char **env, t_shell *shell)
+static void	handle_no_path_var(char *cmd, t_shell *shell)
 {
 	is_directory(cmd, shell, true);
 	if (0 == access(cmd, F_OK))
 	{
 		if (0 == access(cmd, X_OK))
-			return (cmd);
+			return ;
 		else
 		{
 			mini_printf(NAME, cmd, ": Permission denied\n", STDERR_FILENO);
@@ -102,7 +102,7 @@ static char	*try_paths(char **all_paths, char *cmd, t_shell *shell, int i)
 			ft_arrayfree(all_paths);
 			panic(ERR_MALLOC, shell);
 		}
-		full_path = ft_strjoin_free(temp_path, cmd, shell);
+		full_path = ft_strjoin_free(temp_path, cmd);
 		if (!full_path)
 		{
 			ft_arrayfree(all_paths);
@@ -126,12 +126,16 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell)
 
 	i = ft_arrayfind(env, "PATH");
 	if (i == -1)
-		handle_no_path_var(cmd, env, shell);
+	{
+		handle_no_path_var(cmd, shell);
+		return (cmd);
+	}
 	all_paths = ft_split(env[i] + 5, ':');
 	if (!all_paths)
 		panic(ERR_MALLOC, shell);
 	i = -1;
 	full_path = try_paths(all_paths, cmd, shell, i);
-	ft_arrayfree(all_paths);
+	if (!full_path)
+		ft_arrayfree(all_paths);
 	return (full_path);
 }

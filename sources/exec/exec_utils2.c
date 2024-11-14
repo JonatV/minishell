@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:09:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:05:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:25:55 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	prepare_execve_data(t_cmd *cmd)
 	return (true);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2, t_shell *shell)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*new_str;
 
