@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 11:26:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:27:54 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <readline/readline.h>
@@ -94,8 +93,10 @@ extern int	g_exit_status;
 #####################################################################
 */
 
-typedef struct sigaction SigAction;
-typedef struct stat Stat;
+typedef typeof(struct sigaction) \
+			t_sigaction;
+typedef typeof(struct stat) \
+			t_stat;
 
 typedef enum e_builtin
 {
