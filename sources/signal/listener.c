@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:29:01 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 18:31:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:25:31 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	sigeof_handler(t_shell *shell)
 
 void	signals_handler(void)
 {
-	SigAction	sa_int;
+	t_sigaction	sa_int;
 
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = &sigint_handler;

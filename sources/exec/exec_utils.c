@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:51:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 12:05:00 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:26:18 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*find_in_env(char *cmd, char **env, t_shell *shell);
 
 static void	is_directory(char *cmd, t_shell *shell, bool skip_slash)
 {
-	Stat	path_cmd;
+	t_stat	path_cmd;
 	int		end;
 
 	end = ft_strlen(cmd) - 1;
