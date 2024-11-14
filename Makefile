@@ -6,7 +6,7 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 02:13:09 by jveirman          #+#    #+#              #
-#    Updated: 2024/11/12 18:09:11 by jveirman         ###   ########.fr        #
+#    Updated: 2024/11/14 12:32:28 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	minishell
 CC			=	gcc
 RM			=	rm -rf
 OUT			=	-o $(NAME)
-CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address 
+# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address 
 LIBFT		=	./libft/libft.a
 HEADER		=	./includes/minishell.h
 

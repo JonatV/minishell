@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:09 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:15:27 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:26:22 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,8 +315,7 @@ bool	use_builtin_env_changer(t_shell *shell, \
 void	execute_builtin(t_shell *shell, int i, \
 	int built_in_index);
 bool	prepare_execve_data(t_cmd *cmd);
-char	*ft_strjoin_free(char *s1, char *s2, \
-	t_shell *shell);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 /*----------------  here_doc.c  ---------------*/
 bool	here_doc_management(t_shell *shell);

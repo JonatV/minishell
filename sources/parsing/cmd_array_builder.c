@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:51:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/12 23:44:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:03:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static int	find_correct_handling(t_token **tokens_list, t_cmd *cmd)
 	int success;
 
 	success = 0;
-	if ((*tokens_list)->type == TOKEN_WORD \
-		|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
-		|| (*tokens_list)->type == TOKEN_DOUBLE_QUOTE)
+	if ((*tokens_list)->type == TOKEN_WORD || (*tokens_list)->type == TOKEN_SINGLE_QUOTE || (*tokens_list)->type == TOKEN_DOUBLE_QUOTE)
 		success = handle_token_word(cmd, tokens_list);
 	else if ((*tokens_list)->type == TOKEN_REDIR_IN)
 		success = handle_token_redir_in(cmd, tokens_list);
@@ -30,7 +28,10 @@ static int	find_correct_handling(t_token **tokens_list, t_cmd *cmd)
 	else if ((*tokens_list)->type == TOKEN_REDIR_HEREDOC)
 		success = handle_token_redir_heredoc(cmd, tokens_list);
 	else if ((*tokens_list)->type == TOKEN_PIPE)
+	{
 		*tokens_list = (*tokens_list)->next;
+		return (-2);
+	}
 	else if ((*tokens_list)->type == TOKEN_SPACE)
 		*tokens_list = (*tokens_list)->next;
 	return (success);
@@ -42,12 +43,10 @@ static int	handle_single_token(t_token **tokens_list, t_cmd *cmd)
 	t_token *current;
 
 	current = *tokens_list;
-	success = 0;
-	if (current->content[0] != '\0' \
-		|| current->type != TOKEN_SKIP)
+	if (current->content[0] != '\0' || current->type != TOKEN_SKIP)
 	{
 		success = find_correct_handling(tokens_list, cmd);
-		if (success != 0 || current->type == TOKEN_PIPE)
+		if (success != 0)
 			return (success);
 	}
 	else
@@ -63,6 +62,8 @@ static int	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 	while (*tokens_list)
 	{
 		success = handle_single_token(tokens_list, cmd);
+		if (success == -2)
+			break ;
 		if (success != 0)
 			return (success);
 		if (*tokens_list == NULL)
@@ -78,12 +79,9 @@ static int	parse_cmds(t_token **tokens_list, t_cmd *cmd)
 // 	init_struct(cmd);
 // 	while (*tokens_list)
 // 	{
-// 		if ((*tokens_list)->content[0] != '\0' \
-// 		|| (*tokens_list)->type != TOKEN_SKIP)
+// 		if ((*tokens_list)->content[0] != '\0' || (*tokens_list)->type != TOKEN_SKIP)
 // 		{
-// 			if ((*tokens_list)->type == TOKEN_WORD \
-// 				|| (*tokens_list)->type == TOKEN_SINGLE_QUOTE \
-// 				|| (*tokens_list)->type == TOKEN_DOUBLE_QUOTE)
+// 			if ((*tokens_list)->type == TOKEN_WORD || (*tokens_list)->type == TOKEN_SINGLE_QUOTE || (*tokens_list)->type == TOKEN_DOUBLE_QUOTE)
 // 				success = handle_token_word(cmd, tokens_list);
 // 			else if ((*tokens_list)->type == TOKEN_REDIR_IN)
 // 				success = handle_token_redir_in(cmd, tokens_list);
