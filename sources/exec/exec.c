@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:04:30 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 21:57:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:14:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	execution(int i, t_shell *shell)
 		shell->env, shell);
 	if (0 == valid_path)
 	{
-		mini_printf("", shell->cmd_array[i].data[CMD_NAME], \
-			ERR_NOCMD, STDERR_FILENO);
+		mini_printf("", shell->cmd_array[i].data[0], ERR_NOCMD, STDERR_FILENO);
 		free_cmd_array_struct(shell);
 		exit(127);
 	}

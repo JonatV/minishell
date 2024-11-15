@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:45:17 by jveirman          #+#    #+#             */
-/*   Updated: 2024/11/14 22:24:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:13:26 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,32 @@ static bool	check_echo_flags(char **data, bool *flag)
 	return (true);
 }
 
-static void	print_flags(t_shell *shell, char *data_flag, char *data_arg)
+static void	print_flags(t_shell *shell, char *flag, char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (data_flag && data_flag[i])
+	while (flag && flag[i])
 	{
-		if (data_flag[i] && data_flag[i] == '-' && data_flag[i + 1] && data_flag[i + 1] == 'n')
+		if (flag[i] && flag[i] == '-' && flag[i + 1] && flag[i + 1] == 'n')
 		{
-			if (!data_flag[i + 2])
+			if (!flag[i + 2])
 				break ;
-			if (ft_isspace(data_flag[i + 2]))
+			if (ft_isspace(flag[i + 2]))
 			{
 				i += 3;
 				continue ;
 			}
 		}
-		while (data_flag[i])
+		while (flag[i])
 		{
-			ft_putchar_fd(data_flag[i], shell->current_fd_out);
+			ft_putchar_fd(flag[i], shell->current_fd_out);
 			i++;
-			if (ft_isspace(data_flag[i - 1]))
+			if (ft_isspace(flag[i - 1]))
 				break ;
 		}
 	}
-	if (data_arg && data_flag)
+	if (arg && flag)
 		ft_putchar_fd(' ', shell->current_fd_out);
 }
 
